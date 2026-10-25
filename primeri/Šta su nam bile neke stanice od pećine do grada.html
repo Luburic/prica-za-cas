@@ -1,0 +1,1134 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Od pećine do grada</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Caveat:wght@600;700&display=swap">
+<style>
+/* Layout: muzejska diorama. Naslikana scena u tamnom ramu je pozornica, pored nje tabla za čitanje; iznad, vremenska traka u razmeri. */
+:root{
+  --bg:#e5e2da;
+  --surface:#f5f3ee;
+  --well:#ebe6dc;
+  --ink:#221f1b;
+  --muted:#645c52;
+  --line:#d1cabe;
+  --ochre:#9e451a;
+  --glow:#f2b430;
+  --frame:#2a2521;
+  --board:#2d3a32;
+  --chalk:#f0eee4;
+  --era1:#6c8cab;
+  --era2:#3a817c;
+  --era3:#7b9034;
+  --era4:#c08236;
+  --font-display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+  --font-body:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif;
+  --font-hand:"Caveat","Segoe Print","Comic Sans MS",cursive;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14120f;--surface:#1f1c18;--well:#2a2621;--ink:#ede6da;--muted:#a69d8f;--line:#39332c;
+    --ochre:#e38c55;--glow:#f5c04a;--frame:#0a0907;--board:#25312a;--chalk:#f0eee4;
+    --era1:#8aa9c6;--era2:#58a39c;--era3:#9db454;--era4:#dca45b;color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14120f;--surface:#1f1c18;--well:#2a2621;--ink:#ede6da;--muted:#a69d8f;--line:#39332c;
+  --ochre:#e38c55;--glow:#f5c04a;--frame:#0a0907;--board:#25312a;--chalk:#f0eee4;
+  --era1:#8aa9c6;--era2:#58a39c;--era3:#9db454;--era4:#dca45b;color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.5;margin:0}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--glow);outline-offset:2px}
+
+.app{max-width:1680px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:14px 22px;display:flex;flex-direction:column;gap:12px}
+.app:fullscreen{max-width:none;background:var(--bg);overflow:auto}
+
+/* header */
+.top{display:flex;align-items:end;justify-content:space-between;gap:12px 20px;flex-wrap:wrap}
+.brand h1{font-family:var(--font-display);font-weight:800;font-size:clamp(1.6rem,2.6vw,2.35rem);line-height:1;letter-spacing:-.02em;margin:0;text-wrap:balance}
+.brand h1 span{color:var(--ochre)}
+.brand p{margin:.3rem 0 0;color:var(--muted);font-size:.95rem}
+.tools{display:flex;gap:8px;flex-wrap:wrap}
+.tbtn{display:inline-flex;align-items:center;gap:7px;border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;font-size:.88rem;font-weight:700;cursor:pointer}
+.tbtn:hover{border-color:var(--ink)}
+.tbtn svg{width:16px;height:16px}
+
+/* timeline */
+.timeline{display:grid;gap:8px}
+.ruler{position:relative;height:44px}
+.track{position:absolute;left:0;right:0;top:9px;height:6px;border-radius:3px;background:var(--line)}
+.seg{position:absolute;top:4px;height:16px;border-radius:3px;border:0;padding:0;cursor:pointer;background:var(--c);opacity:.5;min-width:8px;transition:opacity .2s}
+.seg.on{opacity:1;box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--c)}
+.tick{position:absolute;top:24px;transform:translateX(-50%);font-size:.72rem;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+.tick::before{content:"";position:absolute;left:50%;top:-10px;height:6px;border-left:1px solid var(--muted)}
+.tick.first{transform:none}.tick.first::before{left:0}
+.tick.last{transform:translateX(-100%)}.tick.last::before{left:auto;right:0}
+.ruler-note{font-size:.78rem;color:var(--muted);margin:0}
+.eras{display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) minmax(110px,.55fr);gap:8px}
+.era-btn{width:100%;display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:10px;align-items:center;text-align:left;border:1.5px solid var(--line);background:var(--surface);border-radius:8px;padding:8px 12px;cursor:pointer;min-width:0}
+.era-btn .n{grid-row:span 2;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--c);color:#fff;font:800 .95rem/1 var(--font-display)}
+.era-btn b{font-family:var(--font-display);font-weight:700;font-size:1rem;line-height:1.15;min-width:0}
+.era-btn small{color:var(--muted);font-size:.78rem;line-height:1.2}
+.era-btn:hover{border-color:var(--c)}
+.era-btn.on{border-color:var(--c);background:var(--well);box-shadow:inset 0 0 0 1.5px var(--c)}
+.era-btn.cmp .n{background:var(--ink);color:var(--bg)}
+
+/* stage + panel */
+.main{display:grid;grid-template-columns:minmax(0,1fr) clamp(330px,31vw,460px);gap:18px;align-items:stretch}
+.stagecol{display:flex;flex-direction:column;gap:10px;min-width:0}
+.stage{position:relative;aspect-ratio:16/9;max-width:100%;border-radius:4px;overflow:hidden;background:var(--frame);box-shadow:0 0 0 7px var(--frame),0 14px 32px rgba(0,0,0,.28);margin:7px}
+.scene,.scene>svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.scene{transition:opacity .45s ease}
+.scene.fading{opacity:.15}
+.grain{position:absolute;inset:0;pointer-events:none;mix-blend-mode:multiply;opacity:.32;background-size:300px 300px}
+.vign{position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 95% at 50% 45%,transparent 60%,rgba(20,12,6,.38) 100%)}
+.cap{position:absolute;left:14px;top:12px;display:flex;flex-direction:column;gap:2px;padding:8px 14px 9px;border-radius:6px;background:rgba(22,17,12,.72);color:#f7efe2;max-width:min(70%,460px)}
+.cap b{font:800 clamp(1rem,1.8vw,1.45rem)/1.05 var(--font-display);letter-spacing:-.01em}
+.cap span{font-size:clamp(.72rem,1.1vw,.86rem);opacity:.9}
+.hotspots{position:absolute;inset:0}
+.hs{--s:clamp(30px,3.1vw,48px);position:absolute;display:flex;align-items:center;gap:8px;transform:translate(calc(var(--s) / -2),-50%);border:0;background:none;padding:0;cursor:pointer}
+.hs.left{flex-direction:row-reverse;transform:translate(calc(-100% + var(--s) / 2),-50%)}
+.hs .num{position:relative;width:var(--s);height:var(--s);flex:none;border-radius:50%;display:grid;place-items:center;background:var(--glow);color:#2b1a06;font:800 calc(var(--s) * .5)/1 var(--font-display);box-shadow:0 0 0 3px rgba(255,250,240,.92),0 4px 14px rgba(0,0,0,.45);transition:transform .15s}
+.hs .num::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:3px solid #ffd76a;animation:pulse 2.2s ease-out infinite}
+.hs .lbl{background:rgba(22,17,12,.86);color:#fff;font-weight:700;font-size:clamp(.72rem,1.05vw,.92rem);padding:5px 11px;border-radius:999px;white-space:nowrap;opacity:0;transform:translateX(-4px);transition:opacity .18s,transform .18s;pointer-events:none}
+.hs.left .lbl{transform:translateX(4px)}
+.hs:hover .num,.hs:focus-visible .num{transform:scale(1.08)}
+.hs:hover .lbl,.hs:focus-visible .lbl,.hs.on .lbl{opacity:1;transform:none}
+.hs.on .num{background:#fffaf0}
+.hs.on .num::after{animation:none;border-color:#fffaf0}
+.hs:focus-visible{outline:none}
+.hs:focus-visible .num{outline:3px solid #fff;outline-offset:3px}
+.music{--s:clamp(28px,2.6vw,42px);position:absolute;display:flex;align-items:center;gap:8px;transform:translate(calc(var(--s) / -2),-50%);border:0;background:none;padding:0;cursor:pointer}
+.music.left{flex-direction:row-reverse;transform:translate(calc(-100% + var(--s) / 2),-50%)}
+.music.left .lbl{transform:translateX(4px)}
+.music .ic{width:var(--s);height:var(--s);flex:none;border-radius:50%;display:grid;place-items:center;background:rgba(22,17,12,.8);color:#ffe2a0;box-shadow:0 0 0 2px rgba(255,214,120,.9),0 4px 12px rgba(0,0,0,.45);transition:transform .15s,background .2s}
+.music .ic svg{width:56%;height:56%}
+.music .lbl{background:rgba(22,17,12,.86);color:#fff;font-weight:700;font-size:clamp(.72rem,1.05vw,.92rem);padding:5px 11px;border-radius:999px;white-space:nowrap;opacity:0;transform:translateX(-4px);transition:opacity .18s,transform .18s;pointer-events:none}
+.music:hover .ic{transform:scale(1.08)}
+.music:hover .lbl,.music:focus-visible .lbl,.music.playing .lbl{opacity:1;transform:none}
+.music.playing .ic{background:#ffd76a;color:#2b1a06}
+.music:focus-visible{outline:none}
+.music:focus-visible .ic{outline:3px solid #fff;outline-offset:3px}
+.notes{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.notes span{position:absolute;font-size:clamp(22px,2.8vw,42px);font-weight:700;line-height:1;color:#fffaf0;text-shadow:0 0 6px rgba(255,190,90,.9),0 2px 6px rgba(40,20,0,.8);opacity:0;animation:floatnote 2.8s ease-out infinite}
+@keyframes floatnote{0%{transform:translate(0,0) rotate(-10deg);opacity:0}15%{opacity:1}100%{transform:translate(-70px,-120px) rotate(12deg);opacity:0}}
+@keyframes pulse{0%{transform:scale(1);opacity:.9}100%{transform:scale(1.7);opacity:0}}
+
+.stagenav{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding-inline:7px}
+.navbtn{display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--line);background:var(--surface);border-radius:8px;padding:8px 14px;font-weight:700;cursor:pointer}
+.navbtn:hover:not(:disabled){border-color:var(--ink)}
+.navbtn:disabled{opacity:.4;cursor:default}
+.keys{font-size:.8rem;color:var(--muted);text-align:center;flex:1;min-width:0}
+kbd{font-family:var(--font-body);font-size:.75rem;border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 5px;background:var(--surface);color:var(--ink)}
+
+.panel{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:10px;min-width:0;margin-block:7px}
+.panel-in{position:absolute;inset:0;overflow:auto;padding:20px 22px 24px;display:flex;flex-direction:column;gap:14px;scrollbar-width:thin}
+.panel-in>*{flex-shrink:0}
+.eyebrow{font-size:.74rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin:0}
+.panel h2{font-family:var(--font-display);font-weight:800;font-size:clamp(1.5rem,2.2vw,2rem);line-height:1.05;letter-spacing:-.015em;margin:0;text-wrap:balance}
+.panel .sub{font-family:var(--font-display);font-weight:600;font-size:1.05rem;color:var(--ochre);margin:2px 0 0}
+.when{display:flex;flex-direction:column;gap:1px;padding:8px 12px;border-radius:6px;background:var(--well);font-variant-numeric:tabular-nums}
+.when b{font-size:.95rem}
+.when span{font-size:.82rem;color:var(--muted)}
+.panel p{margin:0;max-width:62ch}
+.life{display:grid;gap:0;margin:0;border-top:1px solid var(--line)}
+.life>div{display:grid;grid-template-columns:7.2em 1fr;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
+.life dt{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding-top:2px}
+.life dd{margin:0;font-size:.95rem}
+.h3{font-family:var(--font-display);font-weight:700;font-size:1.05rem;margin:4px 0 -4px}
+.spotlist{display:grid;gap:8px;list-style:none;margin:0;padding:0}
+.spotbtn{width:100%;display:grid;grid-template-columns:auto 1fr;gap:3px 12px;align-items:center;text-align:left;border:1.5px solid var(--line);background:var(--bg);border-radius:8px;padding:9px 12px;cursor:pointer}
+.spotbtn:hover{border-color:var(--ochre)}
+.spotbtn .num{grid-row:span 2;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--glow);color:#2b1a06;font:800 1rem/1 var(--font-display)}
+.spotbtn b{font-size:.98rem;line-height:1.2}
+.chip{display:inline-block;justify-self:start;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ochre)}
+.note{font-size:.88rem;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px}
+.note b{color:var(--ink)}
+
+.back{align-self:flex-start;border:0;background:none;padding:2px 0;color:var(--ochre);font-weight:700;cursor:pointer;font-size:.92rem}
+.back:hover{text-decoration:underline}
+.cardhead{display:flex;align-items:center;gap:12px}
+.cardhead .num{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--glow);color:#2b1a06;font:800 1.25rem/1 var(--font-display)}
+.cardhead .chip{display:block;margin-bottom:2px}
+.art{margin:0;border-radius:8px;overflow:hidden;background:var(--well);border:1px solid var(--line)}
+.art svg{display:block;width:100%;height:auto}
+.art figcaption{font-size:.78rem;color:var(--muted);padding:6px 10px 8px}
+.fact{background:var(--well);border-radius:8px;padding:12px 14px;display:grid;gap:4px}
+.fact b{font-family:var(--font-display);font-size:.95rem;color:var(--ochre)}
+.fact p{font-size:.96rem}
+.board{background:var(--board);color:var(--chalk);border-radius:6px;padding:12px 16px 14px;border:6px solid #7a5a3a;box-shadow:inset 0 0 30px rgba(0,0,0,.35)}
+.board small{display:block;font-family:var(--font-body);font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.75;margin-bottom:4px}
+.board p{font-family:var(--font-hand);font-weight:600;font-size:1.5rem;line-height:1.15;max-width:none}
+.cardnav{display:flex;justify-content:flex-end}
+.playbtn{display:inline-flex;align-items:center;gap:10px;align-self:flex-start;border:0;border-radius:999px;padding:8px 18px 8px 8px;background:var(--ink);color:var(--bg);font-weight:700;cursor:pointer}
+.playbtn .pi{width:32px;height:32px;flex:none;border-radius:50%;display:grid;place-items:center;background:var(--glow);color:#2b1a06}
+.playbtn .pi svg{width:16px;height:16px}
+.playbtn:hover{opacity:.9}
+.soundnote{font-size:.82rem;color:var(--muted);margin-top:-6px!important}
+.nextspot{border:1.5px solid var(--ochre);color:var(--ochre);background:none;border-radius:8px;padding:8px 14px;font-weight:700;cursor:pointer}
+.nextspot:hover{background:var(--ochre);color:var(--surface)}
+
+/* compare */
+.compare{display:flex;flex-direction:column;gap:14px;min-width:0}
+.compare h2{font-family:var(--font-display);font-weight:800;font-size:clamp(1.4rem,2.2vw,2rem);margin:0;letter-spacing:-.015em}
+.compare>p{margin:0;color:var(--muted);max-width:70ch}
+.cmpwrap{min-width:0;overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.cmptable{border-collapse:collapse;width:100%;min-width:860px}
+.cmptable th,.cmptable td{padding:10px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+.cmptable thead th{border-bottom:2px solid var(--line)}
+.cmptable tbody th{font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);width:150px}
+.cmptable td{font-size:.95rem;width:22%}
+.thumb{position:relative;aspect-ratio:16/9;border-radius:6px;overflow:hidden;background:var(--frame);margin-bottom:8px;border:0;padding:0;width:100%;display:block;cursor:pointer}
+.thumb svg{position:absolute;inset:0;width:100%;height:100%}
+.thname{display:flex;align-items:center;gap:8px;font-family:var(--font-display);font-weight:700;font-size:1.02rem}
+.thname i{width:12px;height:12px;border-radius:50%;background:var(--c);flex:none}
+.thwhen{display:block;font-size:.78rem;color:var(--muted);font-weight:400;font-family:var(--font-body)}
+.cmpq{max-width:720px}
+
+@media (max-width: 960px){
+  .main{grid-template-columns:minmax(0,1fr)}
+  .panel-in{position:static}
+  .eras{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .era-btn.cmp{grid-column:1 / -1}
+}
+@media (max-width: 560px){
+  body{font-size:16px}
+  .stage{margin:5px;box-shadow:0 0 0 5px var(--frame),0 10px 24px rgba(0,0,0,.25)}
+  .cap{left:8px;top:8px;padding:5px 9px}
+  .hs .lbl,.music .lbl{display:none}
+  .keys{display:none}
+  .tick.mid{display:none}
+  .era-btn{padding:7px 9px}
+  .era-btn small{display:none}
+}
+@media (prefers-reduced-motion: reduce){
+  .hs .num::after{animation:none;opacity:.6}
+  .notes span{animation:none;opacity:.9}
+  .scene{transition:none}
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="rough" x="-3%" y="-3%" width="106%" height="106%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.032" numOctaves="2" seed="4" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="8" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="rough2" x="-6%" y="-6%" width="112%" height="112%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.07" numOctaves="2" seed="9" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="7"/></filter>
+    <filter id="soft2" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="20"/></filter>
+  </defs>
+</svg>
+
+<div class="app" id="app">
+  <header class="top">
+    <div class="brand">
+      <h1>Od pećine <span>do grada</span></h1>
+      <p>Kako su ljudi živeli od ledenog doba do prvih gradova</p>
+    </div>
+    <div class="tools">
+      <button class="tbtn" id="marks" type="button" aria-pressed="true">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="8" cy="8" r="2.4" fill="currentColor"/></svg>
+        <span>Sakrij oznake</span>
+      </button>
+      <button class="tbtn" id="fs" type="button">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+        <span>Ceo ekran</span>
+      </button>
+    </div>
+  </header>
+
+  <nav class="timeline" aria-label="Doba">
+    <div class="ruler" id="ruler"><div class="track"></div></div>
+    <p class="ruler-note">Traka je u razmeri: svaki obojeni deo dug je onoliko koliko je to doba zaista trajalo. Ledeno doba je bilo daleko najduže.</p>
+    <div class="eras" id="eras"></div>
+  </nav>
+
+  <main class="main" id="explore">
+    <div class="stagecol">
+      <section class="stage" id="stage" aria-label="Ilustracija doba">
+        <div class="scene" id="scene"></div>
+        <div class="grain" id="grain"></div>
+        <div class="vign"></div>
+        <div class="cap" id="cap"></div>
+        <div class="notes" id="notes" aria-hidden="true"></div>
+        <div class="hotspots" id="hotspots"></div>
+      </section>
+      <div class="stagenav">
+        <button class="navbtn" id="prev" type="button">&#8592; Prethodno doba</button>
+        <div class="keys"><kbd>&#8592;</kbd> <kbd>&#8594;</kbd> menja doba &nbsp;&middot;&nbsp; <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> otvara tačke &nbsp;&middot;&nbsp; <kbd>Esc</kbd> nazad na opis</div>
+        <button class="navbtn" id="next" type="button">Sledeće doba &#8594;</button>
+      </div>
+    </div>
+    <aside class="panel" aria-live="polite"><div class="panel-in" id="panel"></div></aside>
+  </main>
+
+  <section class="compare" id="compare" hidden>
+    <h2>Kako se život menjao</h2>
+    <p>Četiri doba jedno pored drugog. Klikni na sliku da se vratiš u to doba.</p>
+    <div class="cmpwrap"><table class="cmptable" id="cmp"></table></div>
+    <div class="board cmpq"><small>Pitanje za razred</small><p>Koja promena ti se čini najvažnija za ljude? Bez koje od njih danas ne bismo mogli da živimo kako živimo?</p></div>
+  </section>
+</div>
+
+<script>
+(function(){
+"use strict";
+const W=1600,H=900;
+
+/* ---------- helpers ---------- */
+function rng(seed){let a=seed>>>0;return function(){a=(a+0x6D2B79F5)|0;let t=Math.imul(a^(a>>>15),1|a);t=(t+Math.imul(t^(t>>>7),61|t))^t;return((t^(t>>>14))>>>0)/4294967296;};}
+const n1=v=>Math.round(v*10)/10;
+const rr=(r,a,b)=>a+(b-a)*r();
+const pick=(r,a)=>a[Math.floor(r()*a.length)];
+const bump=(x,c,w)=>Math.exp(-(((x-c)/w)**2));
+const lerp=(a,b,t)=>[a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t];
+const P=pts=>'M'+pts.map(p=>n1(p[0])+' '+n1(p[1])).join(' L')+'Z';
+function hex2rgb(h){h=h.replace('#','');return[parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)];}
+function rgb2hex(r,g,b){return'#'+[r,g,b].map(v=>Math.max(0,Math.min(255,Math.round(v))).toString(16).padStart(2,'0')).join('');}
+function mix(a,b,t){const A=hex2rgb(a),B=hex2rgb(b);return rgb2hex(A[0]+(B[0]-A[0])*t,A[1]+(B[1]-A[1])*t,A[2]+(B[2]-A[2])*t);}
+function jit(c,r,amt){const t=(r()*2-1)*(amt||.1);return t>0?mix(c,'#ffffff',t):mix(c,'#000000',-t);}
+
+function ridge(r,fn,o){
+  o=o||{};const step=o.step||40,amp=o.amp||10,bottom=o.bottom||H+10,x0=o.x0??-30,x1=o.x1??W+30;
+  const pts=[];for(let x=x0;x<=x1+step;x+=step){pts.push([x,fn(x)+(r()*2-1)*amp]);}
+  let d=`M${x0} ${bottom} L${n1(pts[0][0])} ${n1(pts[0][1])}`;
+  for(let i=1;i<pts.length-1;i++){const[x,y]=pts[i],[nx,ny]=pts[i+1];d+=` Q${n1(x)} ${n1(y)} ${n1((x+nx)/2)} ${n1((y+ny)/2)}`;}
+  const l=pts[pts.length-1];return d+` L${n1(l[0])} ${n1(l[1])} L${x1} ${bottom}Z`;
+}
+function strokes(r,o){
+  const len=o.len||[10,30],w=o.w||[2,5],ang=o.ang||[-.2,.2],op=o.op||[.5,.9],curve=o.curve??.35;
+  let s='';
+  for(let i=0;i<o.n;i++){
+    const pt=o.area(r);if(!pt)continue;const[x,y]=pt;
+    let k=1;if(o.persp){k=Math.max(.3,Math.min(1.3,(y-o.persp[0])/(o.persp[1]-o.persp[0])));}
+    const L=rr(r,len[0],len[1])*k,a=rr(r,ang[0],ang[1]),dx=Math.cos(a)*L,dy=Math.sin(a)*L;
+    const cx=x+dx/2+(r()-.5)*L*curve,cy=y+dy/2+(r()-.5)*L*curve;
+    s+=`<path d="M${n1(x)} ${n1(y)}Q${n1(cx)} ${n1(cy)} ${n1(x+dx)} ${n1(y+dy)}" stroke="${jit(pick(r,o.colors),r,.07)}" stroke-width="${n1(rr(r,w[0],w[1])*k)}" stroke-opacity="${rr(r,op[0],op[1]).toFixed(2)}"/>`;
+  }
+  return `<g fill="none" stroke-linecap="round"${o.filter?` filter="url(#${o.filter})"`:''}>${s}</g>`;
+}
+const inRect=(x0,y0,x1,y1)=>r=>[rr(r,x0,x1),rr(r,y0,y1)];
+function under(fn,x0,x1,y1,pad,bias){pad=pad||4;return r=>{for(let t=0;t<40;t++){const x=rr(r,x0,x1),top=fn(x)+pad;if(top>=y1)continue;const u=bias?Math.pow(r(),bias):r();return[x,top+(y1-top)*u];}return null;};}
+function blob(r,cx,cy,rx,ry,k,v){k=k||9;v=v??.22;const pts=[];for(let i=0;i<k;i++){const a=i/k*Math.PI*2,f=1+(r()*2-1)*v;pts.push([cx+Math.cos(a)*rx*f,cy+Math.sin(a)*ry*f]);}
+  let d='';for(let i=0;i<k;i++){const p=pts[i],q=pts[(i+1)%k];if(i===0){const pm=pts[k-1];d+=`M${n1((pm[0]+p[0])/2)} ${n1((pm[1]+p[1])/2)}`;}d+=`Q${n1(p[0])} ${n1(p[1])} ${n1((p[0]+q[0])/2)} ${n1((p[1]+q[1])/2)}`;}return d+'Z';}
+function hatch(a1,a2,b1,b2,n,col,w,op,r,jt){let s='';for(let i=0;i<=n;i++){const t=i/n,p=lerp(a1,a2,t),q=lerp(b1,b2,t);s+=`<path d="M${n1(p[0])} ${n1(p[1])}L${n1(q[0])} ${n1(q[1])}" stroke="${r?jit(col,r,jt||.08):col}"/>`;}return `<g stroke-width="${w}" stroke-opacity="${op}" stroke-linecap="round" fill="none">${s}</g>`;}
+const sc=(x,y,s,flip)=>`translate(${n1(x)} ${n1(y)}) scale(${((flip?-1:1)*s).toFixed(3)} ${s.toFixed(3)})`;
+
+/* ---------- figures ---------- */
+function person(o){
+  const body=o.body||'stand',s=(o.h||80)/100;
+  const skin=o.skin||'#b98257',cloth=o.cloth||'#7a5a3a',hair=o.hair||'#2a1c13';
+  const sd=mix(skin,'#3b2417',.3),cd=mix(cloth,'#16100b',.32);
+  let B;
+  if(body==='stand'||body==='walk'){
+    const sp=body==='walk'?12:4,hem=o.dress?-10:-38,hw=o.dress?17:14;
+    B={sh:[1,-76],head:[2,-89],
+      legs:`<path d="M-3 -42 L${-sp} -1 M3 -42 L${sp+1} -1" stroke="${sd}" stroke-width="7" stroke-linecap="round" fill="none"/>`,
+      torso:`<path d="M-8 -80 Q-13 -62 ${-hw} ${hem} L${hw} ${hem} Q13 -62 9 -80 Q0 -84 -8 -80Z" fill="${cloth}"/><path d="M4 -80 Q11 -62 ${hw-2} ${hem} L${hw} ${hem} Q13 -62 9 -80Z" fill="${cd}" opacity=".45"/>`};
+  }else if(body==='sit'){
+    B={sh:[1,-40],head:[2,-53],
+      legs:`<path d="M-14 -1 Q0 -17 28 -6 Q30 0 20 1 Q0 3 -14 -1Z" fill="${cd}"/>`,
+      torso:`<path d="M-8 -44 Q-13 -26 -14 -4 L12 -4 Q12 -26 9 -44 Q0 -48 -8 -44Z" fill="${cloth}"/>`};
+  }else{
+    B={sh:[11,-50],head:[18,-61],
+      legs:`<path d="M-4 -22 L15 -4 M-4 -22 L-16 -2 L4 -1" stroke="${cd}" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" fill="none"/>`,
+      torso:`<path d="M4 -56 Q15 -53 17 -46 L4 -16 L-12 -18 Q-9 -42 4 -56Z" fill="${cloth}"/>`};
+  }
+  const[sx,sy]=B.sh,hands=o.hands||[[sx+4,sy+34],[sx-4,sy+34]];
+  const arm=(p,back)=>{const ex=(sx+p[0])/2+(back?-4:3),ey=(sy+p[1])/2+6;return `<path d="M${sx} ${sy+3} Q${n1(ex)} ${n1(ey)} ${p[0]} ${p[1]}" stroke="${back?sd:skin}" stroke-width="5.5" stroke-linecap="round" fill="none"/>`;};
+  const[hx,hy]=B.head;let hs='';
+  if(o.hood)hs=`<path d="M${hx-12} ${hy+9} Q${hx-15} ${hy-15} ${hx+1} ${hy-15} Q${hx+14} ${hy-13} ${hx+12} ${hy+2} L${hx+7} ${hy+1} Q${hx+6} ${hy-8} ${hx} ${hy-8} Q${hx-7} ${hy-6} ${hx-6} ${hy+9}Z" fill="${o.hood}"/>`;
+  else if(o.hairStyle==='long')hs=`<path d="M${hx-9} ${hy+1} Q${hx-10} ${hy-11} ${hx+1} ${hy-10} Q${hx+9} ${hy-9} ${hx+9} ${hy-3} Q${hx+2} ${hy-6} ${hx-2} ${hy-1} Q${hx-3} ${hy+10} ${hx-8} ${hy+17} Q${hx-12} ${hy+8} ${hx-9} ${hy+1}Z" fill="${hair}"/>`;
+  else if(o.hairStyle==='bun')hs=`<circle cx="${hx-8}" cy="${hy-6}" r="5" fill="${hair}"/><path d="M${hx-9} ${hy+2} Q${hx-10} ${hy-11} ${hx+1} ${hy-10} Q${hx+9} ${hy-9} ${hx+9} ${hy-3} Q${hx+2} ${hy-5} ${hx-3} ${hy+3}Z" fill="${hair}"/>`;
+  else if(o.hairStyle!=='none')hs=`<path d="M${hx-9} ${hy+2} Q${hx-10} ${hy-11} ${hx+1} ${hy-10} Q${hx+9} ${hy-9} ${hx+9} ${hy-3} Q${hx+2} ${hy-5} ${hx-3} ${hy+3}Z" fill="${hair}"/>`;
+  if(o.beard)hs+=`<path d="M${hx+1} ${hy+3} Q${hx+10} ${hy+5} ${hx+7} ${hy+12} Q${hx} ${hy+13} ${hx-3} ${hy+5}Z" fill="${hair}"/>`;
+  const shadow=`<ellipse cx="2" cy="0" rx="${body==='sit'?24:body==='kneel'?20:14}" ry="3.5" fill="#000" opacity=".2"/>`;
+  return `<g transform="${sc(o.x,o.y,s,o.flip)}">${shadow}${o.behind||''}${arm(hands[1],true)}${B.legs}${B.torso}${o.pattern||''}${arm(hands[0],false)}${o.hold||''}<circle cx="${hx}" cy="${hy}" r="8.5" fill="${skin}"/>${hs}</g>`;
+}
+function quad(x,y,s,o){
+  const col=o.col||'#7d6a55',dk=mix(col,'#000000',.32),lt=mix(col,'#ffffff',.2);
+  const L=o.len||30,B=o.body||12,lg=o.leg||22,by=-lg-B*.55;let g='';
+  const leg=(a,b,c,w)=>`<path d="M${n1(a)} ${n1(-lg-2)} L${n1(b)} 0" stroke="${c}" stroke-width="${n1(w)}" stroke-linecap="round"/>`;
+  g+=`<ellipse cx="0" cy="1" rx="${L*1.1}" ry="${B*.3}" fill="#000" opacity=".16"/>`;
+  if(o.tail==='up')g+=`<path d="M${-L*.9} ${by-B*.3} Q${-L*1.3} ${by-B*1.1} ${-L*1.12} ${by-B*2}" stroke="${col}" stroke-width="${B*.5}" stroke-linecap="round"/>`;
+  else g+=`<path d="M${-L*.95} ${by-B*.2} Q${-L*1.15} ${by+B*.5} ${-L*1.07} ${by+B*1.6}" stroke="${dk}" stroke-width="${B*.28}" stroke-linecap="round"/>`;
+  g+=leg(-L*.55,-L*.62,dk,B*.42)+leg(L*.5,L*.56,dk,B*.42);
+  g+=`<ellipse cx="0" cy="${n1(by)}" rx="${L}" ry="${B}" fill="${col}"/>`;
+  g+=`<ellipse cx="${n1(-L*.1)}" cy="${n1(by-B*.45)}" rx="${n1(L*.78)}" ry="${n1(B*.38)}" fill="${lt}" opacity=".45"/>`;
+  g+=leg(-L*.72,-L*.8,col,B*.46)+leg(L*.66,L*.74,col,B*.46);
+  const hx=L*1.1,hy=by-B*(o.headUp??1.4),hl=o.headL||B*1.3;
+  g+=`<path d="M${n1(L*.55)} ${n1(by-B*.1)} Q${n1(L*.95)} ${n1(by-B*.5)} ${n1(hx)} ${n1(hy)}" stroke="${col}" stroke-width="${n1(B*1.15)}" stroke-linecap="round"/>`;
+  g+=`<ellipse cx="${n1(hx+hl*.38)}" cy="${n1(hy+B*.12)}" rx="${n1(hl*.78)}" ry="${n1(B*.5)}" fill="${col}" transform="rotate(${o.headRot??18} ${n1(hx)} ${n1(hy)})"/>`;
+  if(o.ears==='point')g+=`<path d="M${n1(hx-B*.3)} ${n1(hy-B*.2)} L${n1(hx-B*.05)} ${n1(hy-B*1.2)} L${n1(hx+B*.35)} ${n1(hy-B*.3)}Z" fill="${dk}"/>`;
+  if(o.ears==='long')g+=`<path d="M${n1(hx-B*.25)} ${n1(hy-B*.2)} Q${n1(hx-B*.6)} ${n1(hy-B*1.6)} ${n1(hx-B*.15)} ${n1(hy-B*1.9)} Q${n1(hx+B*.2)} ${n1(hy-B*1.2)} ${n1(hx+B*.2)} ${n1(hy-B*.2)}Z" fill="${dk}"/>`;
+  if(o.horns)g+=`<path d="M${n1(hx-B*.1)} ${n1(hy-B*.35)} Q${n1(hx-B*.7)} ${n1(hy-B*1.3)} ${n1(hx+B*.25)} ${n1(hy-B*1.5)}" stroke="#e8dcc0" stroke-width="${n1(B*.2)}" stroke-linecap="round"/>`;
+  if(o.antlers){const a=`M${n1(hx)} ${n1(hy-B*.4)} Q${n1(hx-B*.4)} ${n1(hy-B*1.8)} ${n1(hx-B*1.4)} ${n1(hy-B*2.6)} M${n1(hx-B*.25)} ${n1(hy-B*1.3)} L${n1(hx+B*.4)} ${n1(hy-B*2)} M${n1(hx-B*.8)} ${n1(hy-B*2.1)} L${n1(hx-B*.5)} ${n1(hy-B*2.9)}`;g+=`<path d="${a}" stroke="#d9c9a8" stroke-width="${n1(B*.16)}" stroke-linecap="round"/>`;}
+  g+=`<circle cx="${n1(hx+B*.28)}" cy="${n1(hy-B*.05)}" r="${n1(B*.1)}" fill="#1a1410"/>`;
+  return `<g transform="${sc(x,y,s,o.flip)}" fill="none">${g}</g>`;
+}
+function mammoth(x,y,s,flip,col){
+  col=col||'#5e4130';const dk=mix(col,'#120a06',.38),lt=mix(col,'#caa07a',.38);let g='';
+  g+=`<ellipse cx="6" cy="1" rx="84" ry="7" fill="#000" opacity=".16"/>`;
+  g+=`<path d="M-42 -40 L-44 0 M38 -40 L40 0" stroke="${dk}" stroke-width="17" stroke-linecap="round"/>`;
+  g+=`<path d="M-72 -38 Q-84 -88 -36 -100 Q4 -118 42 -104 Q74 -94 76 -60 Q76 -34 54 -30 L-52 -28 Q-70 -28 -72 -38Z" fill="${col}"/>`;
+  g+=`<path d="M-62 -72 Q-40 -98 0 -104 Q30 -108 52 -98" stroke="${lt}" stroke-width="11" stroke-linecap="round" opacity=".5"/>`;
+  g+=`<path d="M-56 -40 L-58 -1 M24 -40 L26 -1" stroke="${col}" stroke-width="19" stroke-linecap="round"/>`;
+  let fr='';for(let k=0;k<15;k++){const fx=-64+k*9;fr+=`M${fx} -34 q2 11 -1 17 `;}
+  g+=`<path d="${fr}" stroke="${dk}" stroke-width="3.2" stroke-linecap="round"/>`;
+  g+=`<path d="M48 -96 Q62 -128 86 -113 Q101 -100 97 -78 Q93 -64 80 -62 Q62 -62 52 -70Z" fill="${col}"/>`;
+  g+=`<path d="M58 -97 Q49 -84 56 -71 Q67 -76 67 -91Z" fill="${dk}"/>`;
+  g+=`<path d="M93 -78 Q105 -50 97 -24 Q94 -12 101 -6" stroke="${col}" stroke-width="12" stroke-linecap="round"/>`;
+  g+=`<path d="M85 -68 Q122 -60 117 -96" stroke="#efe5cf" stroke-width="6" stroke-linecap="round"/>`;
+  g+=`<circle cx="81" cy="-92" r="2.3" fill="#1a110b"/>`;
+  return `<g transform="${sc(x,y,s,flip)}" fill="none">${g}</g>`;
+}
+function sheep(r,x,y,s,flip){
+  return `<g transform="${sc(x,y,s,flip)}"><ellipse cx="0" cy="1" rx="22" ry="4" fill="#000" opacity=".15"/><path d="M-12 -12 L-13 0 M-4 -12 L-4 0 M8 -12 L8 0 M14 -12 L15 0" stroke="#3b332c" stroke-width="3" stroke-linecap="round"/><path d="${blob(r,0,-20,20,11,10,.12)}" fill="#ebe5d6"/><path d="M-14 -24 Q0 -32 14 -25" stroke="#fffaf0" stroke-width="4" stroke-linecap="round" fill="none" opacity=".6"/><ellipse cx="22" cy="-22" rx="7" ry="5" fill="#3b332c" transform="rotate(25 22 -22)"/></g>`;
+}
+function pine(x,y,h,col){const w=h*.38;return `<path d="M${n1(x)} ${n1(y-h)} L${n1(x+w*.42)} ${n1(y-h*.52)} L${n1(x+w*.24)} ${n1(y-h*.52)} L${n1(x+w*.56)} ${n1(y-h*.06)} L${n1(x-w*.56)} ${n1(y-h*.06)} L${n1(x-w*.24)} ${n1(y-h*.52)} L${n1(x-w*.42)} ${n1(y-h*.52)}Z" fill="${col}"/><path d="M${x} ${y} L${x} ${n1(y-h*.08)}" stroke="#3a2a1d" stroke-width="${n1(h*.05)}"/>`;}
+function leafy(r,x,y,h,cols){
+  let g=`<path d="M${n1(x)} ${n1(y)} Q${n1(x-h*.03)} ${n1(y-h*.3)} ${n1(x+h*.02)} ${n1(y-h*.55)}" stroke="#4a3626" stroke-width="${n1(h*.06)}" stroke-linecap="round" fill="none"/>`;
+  const cx=x,cy=y-h*.66,R=h*.3;
+  for(let i=0;i<cols.length;i++){for(let k=0;k<3;k++){const a=rr(r,0,Math.PI*2),d=rr(r,0,R*.55)*(1-i*.15);g+=`<path d="${blob(r,cx+Math.cos(a)*d,cy+Math.sin(a)*d*.7-i*R*.08,R*rr(r,.5,.8)*(1-i*.12),R*rr(r,.45,.7)*(1-i*.12),8,.25)}" fill="${cols[i]}"/>`;}}
+  return `<g filter="url(#rough2)">${g}</g>`;
+}
+function palm(r,x,y,h,lean,col){
+  const tx=x+lean*h,ty=y-h;let g=`<path d="M${n1(x)} ${n1(y)} Q${n1(x+lean*h*.2)} ${n1(y-h*.55)} ${n1(tx)} ${n1(ty)}" stroke="#7d6243" stroke-width="${n1(h*.045)}" stroke-linecap="round" fill="none"/>`;
+  let rings='';for(let i=1;i<12;i++){const t=i/12;const bx=(1-t)*(1-t)*x+2*(1-t)*t*(x+lean*h*.2)+t*t*tx,by=(1-t)*(1-t)*y+2*(1-t)*t*(y-h*.55)+t*t*ty;rings+=`M${n1(bx-h*.022)} ${n1(by)} l${n1(h*.044)} ${n1(-h*.008)} `;}
+  g+=`<path d="${rings}" stroke="#5b452f" stroke-width="${n1(h*.01)}" fill="none"/>`;
+  const L=h*.42;
+  for(let k=0;k<9;k++){const a=-Math.PI/2+(k-4)*.42+rr(r,-.08,.08),ex=tx+Math.cos(a)*L,ey=ty+Math.sin(a)*L*.55+Math.abs(Math.cos(a))*L*.55,cx=tx+Math.cos(a)*L*.55,cy=ty+Math.sin(a)*L*.6-L*.12;
+    g+=`<path d="M${n1(tx)} ${n1(ty)} Q${n1(cx)} ${n1(cy)} ${n1(ex)} ${n1(ey)}" stroke="${jit(col,r,.12)}" stroke-width="${n1(h*.034)}" stroke-linecap="round" fill="none"/>`;
+    g+=`<path d="M${n1(tx)} ${n1(ty)} Q${n1(cx)} ${n1(cy+h*.01)} ${n1(ex)} ${n1(ey)}" stroke="${mix(col,'#e8e3a0',.25)}" stroke-width="${n1(h*.008)}" fill="none" opacity=".6"/>`;}
+  g+=`<circle cx="${n1(tx)}" cy="${n1(ty+h*.02)}" r="${n1(h*.025)}" fill="#8a5a2a"/>`;
+  return g;
+}
+function fire(x,y,s,p){
+  return `<g transform="${sc(x,y,s)}"><path d="M-26 4 L24 -6 M-22 -6 L26 4" stroke="#3a2416" stroke-width="7" stroke-linecap="round"/>
+  <path d="M-16 0 Q-26 -14 -12 -34 Q-6 -46 -2 -64 Q10 -42 16 -28 Q22 -10 10 0Z" fill="#ef7f2a"/>
+  <path d="M-10 0 Q-16 -12 -6 -26 Q-1 -34 2 -46 Q10 -30 12 -20 Q14 -6 6 0Z" fill="#ffc24a"/>
+  <path d="M-4 0 Q-7 -8 -1 -16 Q2 -22 3 -28 Q8 -18 7 -10 Q7 -3 3 0Z" fill="#fff0b8"/>
+  <circle cx="14" cy="-70" r="1.6" fill="#ffd27a"/><circle cx="-8" cy="-82" r="1.3" fill="#ffd27a"/><circle cx="4" cy="-95" r="1.1" fill="#ffe2a0"/></g>`;
+}
+function bison(x,y,s,fill,line){
+  return `<g transform="${sc(x,y,s)}" filter="url(#rough2)"><path d="M-55 -10 Q-62 -30 -48 -42 Q-40 -62 -10 -60 Q20 -62 45 -46 Q63 -35 60 -10 Q58 5 45 8 L-40 8 Q-55 6 -55 -10Z" fill="${fill}"/>
+  <path d="M-48 -40 Q-70 -38 -74 -18 Q-75 -4 -62 -2 Q-52 -6 -50 -20Z" fill="${line}"/>
+  <path d="M-62 -36 Q-68 -50 -57 -55" stroke="${line}" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M-40 6 L-43 30 M-25 8 L-22 30 M30 8 L28 30 M45 6 L50 28 M60 -22 Q72 -12 66 10" stroke="${line}" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <path d="M-48 -42 Q-40 -62 -10 -60 Q20 -62 45 -46 Q63 -35 60 -10" stroke="${line}" stroke-width="3" fill="none" opacity=".8"/></g>`;
+}
+function horse(x,y,s,fill){
+  return `<g transform="${sc(x,y,s)}" filter="url(#rough2)"><path d="M-45 -5 Q-50 -25 -30 -30 Q0 -36 30 -28 Q45 -24 45 -8 Q42 4 30 4 L-35 4 Q-46 3 -45 -5Z" fill="${fill}"/>
+  <path d="M28 -27 Q44 -46 54 -56 Q66 -62 70 -51 Q68 -42 58 -40 Q50 -30 42 -12Z" fill="${fill}"/>
+  <path d="M30 -30 Q42 -48 52 -58" stroke="${fill}" stroke-width="7" stroke-dasharray="3 3"/>
+  <path d="M-36 2 L-38 26 M-24 3 L-22 26 M24 3 L22 26 M34 0 L38 24 M-46 -14 Q-60 -8 -58 14" stroke="${fill}" stroke-width="5" fill="none" stroke-linecap="round"/></g>`;
+}
+function handShape(x,y,s,fill,rot){
+  const f=[[-7,-11,-12,20],[-1,-13,-3,24],[5,-12,6,22],[10,-8,16,16],[-11,1,-58,15]];
+  let g=`<ellipse cx="0" cy="0" rx="11" ry="13" fill="${fill}"/>`;
+  f.forEach(a=>{g+=`<rect x="-3.5" y="${-a[3]}" width="7" height="${a[3]}" rx="3.5" fill="${fill}" transform="translate(${a[0]} ${a[1]}) rotate(${a[2]})"/>`;});
+  return `<g transform="translate(${x} ${y}) rotate(${rot||0}) scale(${s})">${g}<rect x="-8" y="8" width="16" height="16" rx="4" fill="${fill}"/></g>`;
+}
+function smoke(r,x,y,h,col,op){let g='';for(let i=0;i<7;i++){const t=i/7;g+=`<path d="${blob(r,x+Math.sin(t*5)*h*.08+t*h*.18,y-t*h,10+t*h*.12,8+t*h*.08,8,.3)}" fill="${col}" opacity="${(op*(1-t*.7)).toFixed(2)}"/>`;}return `<g filter="url(#soft)">${g}</g>`;}
+function pot(x,y,s,col,pat){return `<g transform="${sc(x,y,s)}"><path d="M-10 0 Q-17 -10 -15 -20 Q-12 -27 -7 -29 L7 -29 Q12 -27 15 -20 Q17 -10 10 0Z" fill="${col}"/><path d="M-8 -29 L8 -29" stroke="${mix(col,'#000000',.4)}" stroke-width="3"/>${pat?`<path d="M-13 -18 L-8 -13 L-3 -18 L2 -13 L7 -18 L12 -13" stroke="${pat}" stroke-width="1.4" fill="none"/>`:''}<path d="M-12 -20 Q-10 -8 -6 -2" stroke="#fff" stroke-width="2" opacity=".18" fill="none"/></g>`;}
+
+/* ---------- scene 1: ledeno doba ---------- */
+function sceneIce(p){
+  const r=rng(101);
+  const m1=x=>335-120*bump(x,360,240)-165*bump(x,820,260)-95*bump(x,1240,200)-130*bump(x,1530,190)+14*Math.sin(x*.031);
+  const m2=x=>440-55*bump(x,180,220)-72*bump(x,1020,260)-45*bump(x,1420,170)+8*Math.sin(x*.047);
+  const pl=x=>500+7*Math.sin(x*.008)+5*Math.sin(x*.023);
+  const cliffPts=[[60,0],[110,270],[255,470],[480,565],[715,640],[900,710]];
+  const cliffX=y=>{for(let i=1;i<cliffPts.length;i++){const[a,b]=[cliffPts[i-1],cliffPts[i]];if(y<=b[0])return a[1]+(b[1]-a[1])*(y-a[0])/(b[0]-a[0]);}return 710;};
+  let s=`<defs>
+  <linearGradient id="${p}sky" x1="0" y1="0" x2="0" y2="${H}" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#6c8cab"/><stop offset=".3" stop-color="#a7bacb"/><stop offset=".5" stop-color="#e6d6c0"/><stop offset=".6" stop-color="#f2cf9f"/></linearGradient>
+  <linearGradient id="${p}m1" x1="0" y1="170" x2="0" y2="490" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f8f8f6"/><stop offset=".3" stop-color="#e1e7eb"/><stop offset=".55" stop-color="#a3b3c2"/><stop offset="1" stop-color="#7c90a3"/></linearGradient>
+  <linearGradient id="${p}m2" x1="0" y1="360" x2="0" y2="505" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#eceff0"/><stop offset=".3" stop-color="#b6c2cb"/><stop offset="1" stop-color="#7a8893"/></linearGradient>
+  <linearGradient id="${p}pl" x1="0" y1="495" x2="0" y2="900" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#d5cba9"/><stop offset=".35" stop-color="#b9ab80"/><stop offset="1" stop-color="#8b7c58"/></linearGradient>
+  <linearGradient id="${p}rock" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#887a6a"/><stop offset=".5" stop-color="#625549"/><stop offset="1" stop-color="#433a32"/></linearGradient>
+  <linearGradient id="${p}ter" x1="0" y1="700" x2="0" y2="900" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#8c7a5b"/><stop offset="1" stop-color="#5f5240"/></linearGradient>
+  <radialGradient id="${p}cave" cx=".5" cy=".92" r=".9"><stop offset="0" stop-color="#a55c29"/><stop offset=".35" stop-color="#5e3119"/><stop offset=".75" stop-color="#27180f"/><stop offset="1" stop-color="#140d09"/></radialGradient>
+  <radialGradient id="${p}glow"><stop offset="0" stop-color="#ffd27a" stop-opacity=".8"/><stop offset=".45" stop-color="#f29a3c" stop-opacity=".3"/><stop offset="1" stop-color="#f29a3c" stop-opacity="0"/></radialGradient>
+  <radialGradient id="${p}sun"><stop offset="0" stop-color="#fff6de" stop-opacity=".95"/><stop offset=".3" stop-color="#ffe6bd" stop-opacity=".45"/><stop offset="1" stop-color="#ffe6bd" stop-opacity="0"/></radialGradient>
+  <linearGradient id="${p}cold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4f6f92" stop-opacity=".22"/><stop offset=".55" stop-color="#4f6f92" stop-opacity="0"/></linearGradient>
+  </defs>`;
+  s+=`<rect width="${W}" height="${H}" fill="url(#${p}sky)"/>`;
+  s+=`<circle cx="1100" cy="185" r="230" fill="url(#${p}sun)"/><circle cx="1100" cy="190" r="30" fill="#fff4dc" opacity=".92"/>`;
+  s+=strokes(r,{n:70,area:inRect(-50,30,W,300),colors:['#dfe4e6','#b8c6cf','#f0dcc4','#9fb2c4'],len:[70,180],w:[6,16],ang:[-.05,.05],op:[.12,.3]});
+  s+=`<path d="M560 210 l10 6 l10 -6 M592 226 l8 5 l8 -5 M548 238 l7 4 l7 -4" stroke="#3d4650" stroke-width="2.2" fill="none" stroke-linecap="round"/>`;
+  s+=`<path d="${ridge(r,m1,{amp:14,step:45})}" fill="url(#${p}m1)" filter="url(#rough)"/>`;
+  s+=strokes(r,{n:110,area:under(m1,0,W,480,22),colors:['#7a8ea2','#93a6b8','#ffffff','#c8d3dc'],len:[10,30],w:[5,10],ang:[.9,1.2],op:[.14,.32]});
+  s+=`<path d="${ridge(r,m2,{amp:8,step:40})}" fill="url(#${p}m2)" filter="url(#rough)"/>`;
+  s+=strokes(r,{n:70,area:under(m2,0,W,505,12),colors:['#6f7f8c','#8c9aa6','#e8edf0'],len:[10,28],w:[5,9],ang:[.8,1.15],op:[.14,.32]});
+  for(let i=0;i<9;i++){const x=1430+i*20+rr(r,-8,8);s+=pine(x,520+rr(r,-4,6),rr(r,38,70),jit('#3d5446',r,.15));}
+  s+=`<path d="${ridge(r,pl,{amp:3,step:60})}" fill="url(#${p}pl)"/>`;
+  s+=strokes(r,{n:300,area:under(pl,0,W,900,3,.8),colors:['#a69a73','#c6bc98','#8a7d5a','#d8cfae'],len:[24,70],w:[3,8],ang:[-.08,.08],op:[.2,.45],persp:[500,900]});
+  s+=strokes(r,{n:1100,area:under(pl,0,W,900,2,.7),colors:['#c9bb8c','#a89a6d','#8c8a5e','#ddd3ae','#9b8c62','#7d7550'],len:[10,26],w:[1.3,3.2],ang:[-1.78,-1.36],op:[.55,.95],persp:[500,900]});
+  [[200,542,90,9],[520,560,130,11],[1000,548,170,10],[1500,578,120,13],[760,868,280,26],[1360,850,200,22],[1110,770,120,13],[620,640,90,10]].forEach(a=>{
+    s+=`<path d="${blob(r,a[0],a[1],a[2],a[3],11,.3)}" fill="#eef2f3" opacity=".9" filter="url(#rough)"/><path d="${blob(r,a[0]+a[2]*.1,a[1]+a[3]*.5,a[2]*.8,a[3]*.35,9,.3)}" fill="#b9c8d4" opacity=".5"/>`;});
+  [[730,540,.42,false],[775,546,.38,true],[820,538,.4,false]].forEach(a=>{s+=quad(a[0],a[1],a[2],{col:'#7d6a58',len:26,body:11,leg:26,antlers:true,headRot:20,headL:13,flip:a[3]});});
+  s+=mammoth(1290,612,.62,true,'#5a3d2c')+mammoth(1530,618,.42,false,'#6b4a34')+mammoth(1420,606,.76,false,'#563a29');
+  const spear=`<path d="M-26 -18 L40 -122" stroke="#5f4329" stroke-width="2.6" stroke-linecap="round"/><path d="M40 -122 L36 -110 L44 -114Z" fill="#cfc6b6"/>`;
+  s+=person({x:1060,y:655,h:70,body:'walk',cloth:'#7b5a3c',hood:'#6a4c33',hands:[[10,-58],[2,-50]],hold:spear});
+  s+=person({x:1122,y:662,h:74,body:'walk',cloth:'#8a6544',hood:'#715237',hands:[[10,-58],[2,-50]],hold:spear});
+  s+=`<g><path d="M700 722 L770 588 L842 722Z" fill="#8d6b48"/><path d="M770 588 L842 722 L800 722Z" fill="#6f5236"/><path d="M770 588 L758 560 M770 588 L784 562 M770 588 L770 556" stroke="#4a3624" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M770 640 L752 722 L786 722Z" fill="#2b1d13"/>${hatch([735,690],[805,690],[722,718],[818,718],6,'#a8865e',2,.5)}<path d="M716 712 Q770 704 830 712" stroke="#b99a72" stroke-width="2" fill="none" opacity=".6"/></g>`;
+  s+=`<path d="M0 60 Q150 58 270 110 Q400 165 470 255 Q545 350 565 480 Q580 600 640 715 Q690 815 710 900 L0 900Z" fill="url(#${p}rock)" filter="url(#rough)"/>`;
+  s+=strokes(r,{n:260,area:r=>{const y=rr(r,90,880);return[rr(r,0,Math.max(0,cliffX(y)-12)),y];},colors:['#998a78','#4a4038','#6f6356','#b2a38f'],len:[14,40],w:[3,8],ang:[1.1,1.5],op:[.25,.55]});
+  s+=`<path d="M0 60 Q150 52 270 104 Q400 158 470 248 L458 262 Q392 182 262 124 Q142 76 0 84Z" fill="#eef2f3" filter="url(#rough)"/>`;
+  s+=`<path d="M115 722 Q100 540 160 440 Q225 335 305 345 Q390 352 420 460 Q448 560 438 722Z" fill="url(#${p}cave)" filter="url(#rough2)"/>`;
+  s+=`<ellipse cx="285" cy="525" rx="125" ry="120" fill="#d08a52" opacity=".55" filter="url(#soft2)"/>`;
+  s+=bison(305,505,.62,'#ad4229','#1f1510')+horse(205,568,.5,'#21160f');
+  s+=`<circle cx="372" cy="452" r="22" fill="#b3402a" opacity=".55" filter="url(#soft)"/>`+handShape(372,456,.75,'#c48a58',8);
+  s+=`<circle cx="166" cy="488" r="16" fill="#b3402a" opacity=".45" filter="url(#soft)"/>`+handShape(166,491,.55,'#a7714a',-10);
+  s+=`<path d="M190 352 l4 18 l4 -16 M235 340 l3 14 l4 -13 M300 345 l3 20 l4 -19 M352 350 l3 13 l3 -12" fill="#e9eef0" opacity=".9"/>`;
+  s+=`<path d="M0 748 Q160 712 330 716 Q520 720 652 748 L712 900 L0 900Z" fill="url(#${p}ter)"/>`;
+  s+=strokes(r,{n:160,area:r=>{const y=rr(r,735,895);return[rr(r,0,cliffX(y)-6),y];},colors:['#a18c69','#6c5c45','#7f6c50'],len:[16,40],w:[3,7],ang:[-.1,.1],op:[.3,.6]});
+  s+=`<circle cx="288" cy="712" r="260" fill="url(#${p}glow)"/>`;
+  s+=smoke(r,300,650,260,'#c9c0b4',.28);
+  s+=`<path d="M246 742 Q250 730 262 732 M314 744 Q322 732 334 738" stroke="#5b5149" stroke-width="7" stroke-linecap="round" fill="none"/>`;
+  s+=fire(290,738,1.05);
+  s+=person({x:176,y:756,h:108,body:'sit',cloth:'#6e5038',hairStyle:'long',hands:[[20,-14],[12,-12]]});
+  s+=person({x:408,y:754,h:112,body:'sit',cloth:'#8a6544',hair:'#3b2718',flip:true,hands:[[24,-43],[14,-47]],hold:`<path d="M7 -50 L36 -36" stroke="#f0e5ca" stroke-width="2.8" stroke-linecap="round"/>`});
+  s+=person({x:860,y:832,h:124,cloth:'#7c5b3e',hood:'#6a4c33',dress:true});
+  s+=person({x:930,y:842,h:82,cloth:'#946f4b',hairStyle:'long',hair:'#4a2f1c',hands:[[24,-48],[6,-40]]});
+  s+=quad(1018,846,1.9,{col:'#5f554b',len:22,body:10,leg:16,tail:'up',ears:'point',headL:14,headRot:14,flip:true});
+  s+=`<path d="${blob(r,1480,882,120,52,10,.2)}" fill="#6d655b" filter="url(#rough)"/><path d="${blob(r,1470,850,90,18,9,.25)}" fill="#e9eef0" opacity=".9" filter="url(#rough)"/><path d="${blob(r,1270,895,74,30,9,.2)}" fill="#5f574e" filter="url(#rough)"/>`;
+  s+=strokes(r,{n:120,area:inRect(700,840,1600,900),colors:['#c9bb8c','#a89a6d','#8c8a5e'],len:[20,40],w:[2,4],ang:[-1.8,-1.35],op:[.6,.95]});
+  s+=`<rect width="${W}" height="${H}" fill="url(#${p}cold)"/>`;
+  return s;
+}
+
+/* ---------- scene 2: Lepenski Vir ---------- */
+function lvHut(r,x,y,s,frame){
+  const NL=[x-26*s,y],NR=[x+26*s,y],NA=[x,y-42*s],FL=[x-84*s,y-58*s],FR=[x+84*s,y-58*s],FA=[x,y-170*s];
+  let g='';
+  if(frame){
+    g+=`<path d="${P([NL,NR,FR,FL])}" fill="#c4674a" stroke="#8a4330" stroke-width="${n1(2.5*s)}"/>`;
+    g+=strokes(r,{n:40,area:r=>{const t=r(),u=r();const a=lerp(NL,FL,t),b=lerp(NR,FR,t);return lerp(a,b,u);},colors:['#d98b6a','#b2583d','#e2a184'],len:[6,14],w:[2,4],ang:[-.2,.2],op:[.3,.6]});
+    const c=[x,y-30*s],hw=20*s,hh=9*s;let st='';
+    for(let i=0;i<=8;i++){const t=i/8;st+=`<ellipse cx="${n1(c[0]-hw+t*hw*2)}" cy="${n1(c[1]-hh)}" rx="${n1(3.4*s)}" ry="${n1(2.5*s)}"/><ellipse cx="${n1(c[0]-hw*.85+t*hw*1.7)}" cy="${n1(c[1]+hh)}" rx="${n1(3.4*s)}" ry="${n1(2.5*s)}"/>`;}
+    for(let i=1;i<4;i++){const t=i/4;st+=`<ellipse cx="${n1(c[0]-hw*(1-t*.08))}" cy="${n1(c[1]-hh+t*hh*2)}" rx="${n1(3*s)}" ry="${n1(2.3*s)}"/><ellipse cx="${n1(c[0]+hw*(1-t*.08))}" cy="${n1(c[1]-hh+t*hh*2)}" rx="${n1(3*s)}" ry="${n1(2.3*s)}"/>`;}
+    g+=`<ellipse cx="${n1(c[0])}" cy="${n1(c[1])}" rx="${n1(hw)}" ry="${n1(hh)}" fill="#3d2f27"/><ellipse cx="${n1(c[0])}" cy="${n1(c[1]+1)}" rx="${n1(hw*.5)}" ry="${n1(hh*.45)}" fill="#e2733a" opacity=".85"/><g fill="#9b958a" stroke="#6b665d" stroke-width="${n1(.8*s)}">${st}</g>`;
+    let po='';for(let i=0;i<=5;i++){const t=i/5,a=lerp(NL,FL,t),b=lerp(NA,FA,t),c2=lerp(NR,FR,t);po+=`M${n1(a[0])} ${n1(a[1])}L${n1(b[0])} ${n1(b[1]-4*s)}M${n1(c2[0])} ${n1(c2[1])}L${n1(b[0])} ${n1(b[1]-4*s)}`;}
+    g+=`<path d="${po}" stroke="#6b4a2c" stroke-width="${n1(3.4*s)}" stroke-linecap="round" fill="none"/><path d="M${n1(NA[0])} ${n1(NA[1]-6*s)}L${n1(FA[0])} ${n1(FA[1]-8*s)}" stroke="#5a3d24" stroke-width="${n1(4.5*s)}" stroke-linecap="round"/>`;
+  }else{
+    g+=`<path d="${P([NL,NA,FA,FL])}" fill="#77643f"/><path d="${P([NR,NA,FA,FR])}" fill="#a78f5c"/>`;
+    g+=hatch(NL,FL,NA,FA,14,'#5c4c2f',2.2*s,.55,r)+hatch(NR,FR,NA,FA,14,'#c4ab74',2.2*s,.55,r);
+    g+=`<path d="${P([NL,NA,NR])}" fill="#5a4a30"/>`+hatch(NL,NR,NA,NA,6,'#3f3320',1.6*s,.5);
+    g+=`<path d="M${n1(NA[0])} ${n1(NA[1])}L${n1(FA[0])} ${n1(FA[1])}" stroke="#4e3d25" stroke-width="${n1(3*s)}"/><path d="M${n1(FA[0])} ${n1(FA[1])} l${n1(-6*s)} ${n1(-14*s)} M${n1(FA[0])} ${n1(FA[1])} l${n1(7*s)} ${n1(-12*s)}" stroke="#4e3d25" stroke-width="${n1(2.6*s)}"/>`;
+  }
+  return `<g filter="url(#rough2)">${g}</g>`;
+}
+function sceneLV(p){
+  const r=rng(202);
+  const back=x=>305-50*bump(x,150,200)-55*bump(x,1100,240)+12*Math.sin(x*.02);
+  const tY=x=>{if(x<360)return 475;if(x<470)return 475-(x-360)/110*220;if(x<525)return 255-(x-470)/55*38;if(x<690)return 217+(x-525)*.012;if(x<745)return 219+(x-690)/55*40;if(x<860)return 259+(x-745)/115*216;return 475;};
+  const lowH=x=>455-10*bump(x,600,200)-14*bump(x,1300,200)+5*Math.sin(x*.03);
+  const bank=x=>652+14*Math.sin(x*.004+1)+6*Math.sin(x*.013);
+  let s=`<defs>
+  <linearGradient id="${p}sky" x1="0" y1="0" x2="0" y2="${H}" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#86b6d2"/><stop offset=".3" stop-color="#c3dce3"/><stop offset=".48" stop-color="#f6e4bf"/></linearGradient>
+  <linearGradient id="${p}tr" x1="0" y1="210" x2="0" y2="480" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#d9cfb6"/><stop offset=".5" stop-color="#b4a98f"/><stop offset="1" stop-color="#7f8a6c"/></linearGradient>
+  <linearGradient id="${p}river" x1="0" y1="460" x2="0" y2="700" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#86b7bb"/><stop offset=".5" stop-color="#5d969f"/><stop offset="1" stop-color="#3f7581"/></linearGradient>
+  <linearGradient id="${p}bank" x1="0" y1="640" x2="0" y2="900" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#cdbd92"/><stop offset=".13" stop-color="#bdb27c"/><stop offset=".32" stop-color="#8f9d5c"/><stop offset="1" stop-color="#5f6e36"/></linearGradient>
+  <radialGradient id="${p}sun"><stop offset="0" stop-color="#fff8e4" stop-opacity="1"/><stop offset=".25" stop-color="#ffe9b8" stop-opacity=".6"/><stop offset="1" stop-color="#ffe9b8" stop-opacity="0"/></radialGradient>
+  <linearGradient id="${p}warm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe8b0" stop-opacity=".14"/><stop offset=".6" stop-color="#ffe8b0" stop-opacity="0"/></linearGradient>
+  </defs>`;
+  s+=`<rect width="${W}" height="${H}" fill="url(#${p}sky)"/>`;
+  s+=`<circle cx="748" cy="218" r="260" fill="url(#${p}sun)"/><circle cx="752" cy="222" r="26" fill="#fff7e2"/>`;
+  s+=strokes(r,{n:55,area:inRect(-40,30,W,250),colors:['#eef4f2','#b5d2dd','#fbecd0'],len:[60,170],w:[6,14],ang:[-.05,.05],op:[.15,.32]});
+  s+=`<path d="${ridge(r,back,{amp:10,step:45})}" fill="#97afb6" filter="url(#rough)"/>`;
+  s+=strokes(r,{n:160,area:under(back,0,W,470,8),colors:['#7f9aa1','#8ea8ad','#a7bec2'],len:[3,8],w:[7,12],op:[.4,.7]});
+  let tp=[];for(let x=360;x<=860;x+=10)tp.push([x,tY(x)+(x>525&&x<690?rr(r,-2,2):rr(r,-5,5))]);
+  s+=`<path d="M360 480 L${tp.map(q=>n1(q[0])+' '+n1(q[1])).join(' L')} L860 480Z" fill="url(#${p}tr)" filter="url(#rough)"/>`;
+  s+=strokes(r,{n:120,area:under(tY,370,850,470,8),colors:['#8b8370','#e2d8bf','#9d9580','#6d7660'],len:[14,40],w:[3,6],ang:[1.4,1.7],op:[.3,.6]});
+  s+=strokes(r,{n:110,area:under(x=>Math.max(tY(x)+120,380),370,850,472,0),colors:['#5c7a58','#6f8d62','#4b6a4c'],len:[3,8],w:[8,14],op:[.6,.9],filter:'rough2'});
+  s+=`<path d="M-20 140 Q90 170 170 262 Q250 362 345 472 L-20 472Z" fill="#577d5c" filter="url(#rough)"/>`;
+  s+=strokes(r,{n:300,area:r=>{const y=rr(r,160,470);const xm=y<262?(y-140)/122*170:170+(y-262)/210*175;return[rr(r,-10,xm-6),y];},colors:['#3f6450','#4e7a5c','#6a9168','#2f4f40','#7f9e6e'],len:[3,9],w:[8,15],op:[.6,.95],filter:'rough2'});
+  s+=`<path d="M1620 92 Q1480 150 1380 262 Q1292 372 1182 472 L1620 472Z" fill="#4f7356" filter="url(#rough)"/>`;
+  s+=strokes(r,{n:320,area:r=>{const y=rr(r,110,470);const xm=y<262?1620-(y-92)/170*240:1380-(y-262)/210*198;return[rr(r,xm+6,W+10),y];},colors:['#3f6450','#4e7a5c','#6a9168','#2f4f40','#7f9e6e'],len:[3,9],w:[8,15],op:[.6,.95],filter:'rough2'});
+  s+=`<path d="${ridge(r,lowH,{amp:4,step:40,bottom:478})}" fill="#557a58"/>`;
+  s+=strokes(r,{n:200,area:under(lowH,0,W,474,2),colors:['#3f6450','#4e7a5c','#6a9168'],len:[2,6],w:[6,10],op:[.6,.9]});
+  s+=`<rect x="0" y="470" width="${W}" height="260" fill="url(#${p}river)"/>`;
+  s+=`<path d="M380 474 L860 474 L780 560 L610 600 L460 560Z" fill="#cfc4a8" opacity=".14" filter="url(#soft)"/>`;
+  s+=`<path d="M0 475 L${W} 475" stroke="#3e5a48" stroke-width="5" opacity=".5"/>`;
+  s+=strokes(r,{n:150,area:inRect(-40,482,W,660),colors:['#d7ecea','#a9d1d1','#f4ead0'],len:[30,130],w:[2,4.5],ang:[-.02,.02],op:[.25,.6],persp:[470,700]});
+  let sp1='',sp2='';for(let t=0;t<=13;t+=.25){const R=5+t*5.4;sp1+=(t?'L':'M')+n1(1000+Math.cos(t)*R)+' '+n1(565+Math.sin(t)*R*.3);sp2+=(t?'L':'M')+n1(1000+Math.cos(t+Math.PI)*R*.9)+' '+n1(565+Math.sin(t+Math.PI)*R*.27);}
+  s+=`<path d="${sp1}" stroke="#e6f3f0" stroke-width="2.6" fill="none" opacity=".6"/><path d="${sp2}" stroke="#2f6470" stroke-width="2.4" fill="none" opacity=".4"/>`;
+  s+=`<g transform="translate(1150 592)"><ellipse cx="0" cy="8" rx="110" ry="10" fill="#2e5f6a" opacity=".45"/><path d="M-95 -4 Q-80 10 0 12 Q80 10 98 -6 Q60 2 0 3 Q-60 2 -95 -4Z" fill="#4a3322"/><path d="M-95 -4 Q-60 2 0 3 Q60 2 98 -6" stroke="#8a6440" stroke-width="3" fill="none"/></g>`;
+  s+=person({x:1100,y:594,h:50,body:'sit',cloth:'#7b5f40',hairStyle:'long',hands:[[22,-26],[14,-22]],hold:`<path d="M24 -50 L40 18" stroke="#6a4a2c" stroke-width="3" stroke-linecap="round"/><ellipse cx="40" cy="20" rx="4" ry="9" fill="#6a4a2c" transform="rotate(-15 40 20)"/>`});
+  s+=person({x:1186,y:593,h:66,cloth:'#8a6a48',hands:[[24,-46],[16,-42]],beard:true});
+  s+=`<path d="M1206 562 Q1225 575 1236 598 M1210 566 Q1236 572 1250 590 M1214 572 Q1240 590 1238 604 M1222 566 L1228 600 M1232 570 L1244 596" stroke="#d8cdb4" stroke-width="1.4" fill="none" opacity=".75"/>`;
+  s+=`<g transform="translate(1262 598) rotate(-14)"><path d="M-68 0 L-94 -20 Q-86 -2 -92 12Z" fill="#5f6d71"/><path d="M-70 0 Q-40 -13 10 -11 Q40 -10 58 -5 L82 -2 Q62 4 40 6 Q0 12 -40 8 Q-60 6 -70 0Z" fill="#7d8b8f"/><path d="M-60 5 Q-20 11 30 6 Q50 4 64 1" stroke="#c9d0cc" stroke-width="4" fill="none" opacity=".6"/><path d="M-50 -6 l5 -4 l5 4 M-30 -9 l5 -4 l5 4 M-10 -10 l5 -4 l5 4 M10 -10 l5 -4 l5 4 M30 -9 l5 -4 l5 4" stroke="#55615f" stroke-width="2" fill="none"/><path d="M62 0 l-4 7 M66 0 l-3 7" stroke="#55615f" stroke-width="1.4"/></g>`;
+  s+=`<path d="M1205 604 q6 -10 12 0 M1300 600 q7 -12 14 0 M1196 610 q-8 -8 -14 0" stroke="#eaf5f2" stroke-width="2.4" fill="none" opacity=".8"/>`;
+  s+=`<path d="${ridge(r,bank,{amp:3,step:50})}" fill="url(#${p}bank)"/>`;
+  s+=strokes(r,{n:260,area:under(bank,0,W,700,0),colors:['#e1d6b8','#a69a80','#8b8676','#cbbd99','#f0e7cf'],len:[3,7],w:[3,6],ang:[-.3,.3],op:[.5,.9]});
+  s+=strokes(r,{n:900,area:under(bank,0,W,900,44,.75),colors:['#7f9551','#6a7f3e','#a4ad6a','#55692e','#b7b37a'],len:[10,24],w:[1.4,3.2],ang:[-1.8,-1.35],op:[.55,.95],persp:[660,900]});
+  s+=leafy(r,52,700,250,['#3c5f45','#4f7a52','#6c9663','#88ad74']);
+  s+=leafy(r,1570,690,220,['#3c5f45','#4f7a52','#6c9663','#88ad74']);
+  s+=`<g><path d="M1012 708 L1030 640 L1048 708 M1112 712 L1130 644 L1148 712 M1024 652 L1136 656" stroke="#5e4329" stroke-width="4" stroke-linecap="round" fill="none"/>`;
+  for(let i=0;i<6;i++){const fx=1040+i*16;s+=`<path d="M${fx} 655 L${fx} 662" stroke="#5e4329" stroke-width="1.2"/><ellipse cx="${fx}" cy="676" rx="4.5" ry="14" fill="${jit('#9aa3a0',r,.12)}"/><path d="M${fx-4} 690 l4 6 l4 -6Z" fill="#7d8784"/>`;}
+  s+=`</g>`;
+  s+=lvHut(r,150,708,.74,false)+lvHut(r,560,716,.78,false)+lvHut(r,1250,724,.8,false);
+  s+=person({x:250,y:800,h:100,body:'sit',cloth:'#7d6043',hairStyle:'long',hands:[[22,-22],[14,-18]],hold:`<path d="M20 -24 Q30 -26 36 -20 Q30 -16 20 -20Z" fill="#9aa3a0"/>`});
+  s+=person({x:302,y:806,h:66,cloth:'#93734f',hands:[[-4,-46],[6,-38]],flip:true});
+  s+=lvHut(r,345,770,1.02,true);
+  s+=`<path d="M410 812 l70 -10 M412 818 l72 -8 M408 806 l66 -14" stroke="#6b4a2c" stroke-width="4" stroke-linecap="round"/>`;
+  s+=person({x:520,y:822,h:110,body:'walk',cloth:'#7a5a3a',flip:true,hands:[[8,-74],[-2,-70]],hold:`<path d="M-34 -86 L48 -72 M-30 -80 L50 -66" stroke="#6b4a2c" stroke-width="3.6" stroke-linecap="round"/>`});
+  s+=lvHut(r,1450,776,1.02,false);
+  s+=`<g transform="translate(640 838) scale(1.5)"><ellipse cx="0" cy="2" rx="36" ry="7" fill="#000" opacity=".22"/><path d="M-30 0 Q-37 -40 -12 -57 Q8 -67 25 -51 Q39 -35 33 -6 Q30 4 0 4 Q-26 4 -30 0Z" fill="#b39a77"/><path d="M-30 0 Q-37 -40 -12 -57 Q-24 -30 -14 0Z" fill="#8f7a5b" opacity=".6"/>
+    <path d="M-20 -44 Q-10 -50 -2 -44 M4 -44 Q14 -50 22 -43" stroke="#5c4a36" stroke-width="2.2" fill="none"/>
+    <circle cx="-10" cy="-35" r="6.5" fill="none" stroke="#5c4a36" stroke-width="2.4"/><circle cx="12" cy="-35" r="6.5" fill="none" stroke="#5c4a36" stroke-width="2.4"/><circle cx="-10" cy="-35" r="2" fill="#5c4a36"/><circle cx="12" cy="-35" r="2" fill="#5c4a36"/>
+    <path d="M1 -32 L1 -22" stroke="#5c4a36" stroke-width="2.2"/><path d="M-14 -11 Q1 -22 16 -11" stroke="#5c4a36" stroke-width="2.6" fill="none"/>
+    <path d="M-22 -24 Q-26 -14 -20 -6 M24 -24 Q28 -14 22 -6" stroke="#5c4a36" stroke-width="1.6" fill="none" opacity=".7"/></g>`;
+  s+=strokes(r,{n:120,area:inRect(0,850,W,900),colors:['#7f9551','#6a7f3e','#a4ad6a'],len:[20,40],w:[2,4],ang:[-1.8,-1.35],op:[.6,.95]});
+  s+=`<rect width="${W}" height="${H}" fill="url(#${p}warm)"/>`;
+  return s;
+}
+
+/* ---------- scene 3: Vinča ---------- */
+function vHouse(r,x,y,s){
+  const w=46*s,h=40*s,dep=80*s,dx=dep*.92,dy=-dep*.3,gb=36*s;
+  const FLb=[x-w,y],FRb=[x+w,y],FRt=[x+w,y-h],FLt=[x-w,y-h],A=[x,y-h-gb];
+  const d=q=>[q[0]+dx,q[1]+dy];
+  const wall=jit('#cda97a',r,.06),roof=jit('#bf9f5e',r,.08);
+  let g='';
+  g+=`<path d="${P([FRb,d(FRb),d(FRt),FRt])}" fill="${mix(wall,'#3a2a1a',.3)}"/>`;
+  g+=hatch(FRb,d(FRb),FRt,d(FRt),5,'#6e5233',2*s,.6);
+  const o=4*s;
+  g+=`<path d="${P([[A[0]-o*.4,A[1]-o],[d(A)[0],d(A)[1]-o],[d(FRt)[0]+o*1.4,d(FRt)[1]+o*.8],[FRt[0]+o*1.4,FRt[1]+o*.8]])}" fill="${roof}"/>`;
+  g+=hatch([A[0],A[1]-o],d([A[0],A[1]-o]),[FRt[0]+o,FRt[1]+o*.6],d([FRt[0]+o,FRt[1]+o*.6]),16,mix(roof,'#5a4422',.35),1.6*s,.5,r);
+  g+=`<path d="${P([FLb,FRb,FRt,A,FLt])}" fill="${wall}"/>`;
+  g+=`<path d="${P([[x-9*s,y],[x+9*s,y],[x+9*s,y-27*s],[x-9*s,y-27*s]])}" fill="#3a2718"/>`;
+  g+=`<path d="M${n1(FLt[0]-o)} ${n1(FLt[1]+o*.6)}L${n1(A[0])} ${n1(A[1]-o)}L${n1(FRt[0]+o*1.4)} ${n1(FRt[1]+o*.8)}" stroke="${mix(roof,'#3a2a14',.4)}" stroke-width="${n1(6*s)}" stroke-linejoin="round" fill="none"/>`;
+  g+=`<path d="M${n1(FLb[0]+3*s)} ${n1(y)} L${n1(FLb[0]+3*s)} ${n1(y-h)} M${n1(FRb[0]-3*s)} ${n1(y)} L${n1(FRb[0]-3*s)} ${n1(y-h)}" stroke="#6e5233" stroke-width="${n1(3*s)}" opacity=".7"/>`;
+  g+=`<ellipse cx="${n1(x+dx*.5)}" cy="${n1(y+2)}" rx="${n1(w+dx*.55)}" ry="${n1(5*s)}" fill="#000" opacity=".12"/>`;
+  return `<g filter="url(#rough2)">${g}</g>`;
+}
+function field(r,pts,col,row){
+  const[a,b,c,d]=pts;return `<path d="${P(pts)}" fill="${col}"/>`+hatch(a,d,b,c,14,row,2.2,.5,r);
+}
+function sceneVinca(p){
+  const r=rng(303);
+  const far=x=>392-26*bump(x,300,260)-34*bump(x,1250,300)+5*Math.sin(x*.02);
+  const slope=x=>492-10*bump(x,800,400)+4*Math.sin(x*.012);
+  const vil=x=>546+6*Math.sin(x*.006);
+  const fg=x=>708+10*Math.sin(x*.005+.5);
+  let s=`<defs>
+  <linearGradient id="${p}sky" x1="0" y1="0" x2="0" y2="${H}" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#6ea4d0"/><stop offset=".3" stop-color="#a8cbe2"/><stop offset=".46" stop-color="#e7efe8"/></linearGradient>
+  <linearGradient id="${p}vil" x1="0" y1="540" x2="0" y2="720" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#b6b874"/><stop offset="1" stop-color="#97a35b"/></linearGradient>
+  <linearGradient id="${p}fg" x1="0" y1="700" x2="0" y2="900" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#829c4c"/><stop offset="1" stop-color="#58732f"/></linearGradient>
+  <radialGradient id="${p}pit"><stop offset="0" stop-color="#fff0a8"/><stop offset=".4" stop-color="#ff9a2e"/><stop offset="1" stop-color="#a8361a"/></radialGradient>
+  <radialGradient id="${p}glow"><stop offset="0" stop-color="#ffb347" stop-opacity=".55"/><stop offset="1" stop-color="#ffb347" stop-opacity="0"/></radialGradient>
+  <linearGradient id="${p}warm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff1c4" stop-opacity=".16"/><stop offset=".55" stop-color="#fff1c4" stop-opacity="0"/></linearGradient>
+  </defs>`;
+  s+=`<rect width="${W}" height="${H}" fill="url(#${p}sky)"/>`;
+  [[300,150,1.1],[910,110,1.3],[1380,175,1],[640,235,.6],[1180,260,.5]].forEach(c=>{let g='';for(let i=0;i<6;i++){g+=`<path d="${blob(r,c[0]+rr(r,-90,90)*c[2],c[1]+rr(r,-18,14)*c[2],rr(r,45,80)*c[2],rr(r,26,40)*c[2],10,.18)}" fill="#ffffff" opacity=".92"/>`;}g+=`<path d="${blob(r,c[0],c[1]+26*c[2],120*c[2],18*c[2],10,.2)}" fill="#d3dfe8" opacity=".85"/>`;s+=`<g filter="url(#rough)">${g}</g>`;});
+  s+=`<path d="${ridge(r,far,{amp:6,step:45})}" fill="#9fb6b1" filter="url(#rough)"/>`;
+  s+=strokes(r,{n:130,area:under(far,0,W,430,4),colors:['#87a29b','#b0c4bc','#94ad9f'],len:[3,8],w:[7,12],op:[.4,.7]});
+  s+=`<rect x="0" y="428" width="${W}" height="16" fill="#a8bb93"/><rect x="0" y="442" width="${W}" height="24" fill="#bfd8dc"/>`;
+  s+=strokes(r,{n:60,area:inRect(0,446,W,462),colors:['#f4fbf8','#9ec4cc'],len:[30,90],w:[1.5,3],ang:[-.02,.02],op:[.4,.8]});
+  s+=`<path d="${ridge(r,slope,{amp:3,step:50})}" fill="#8fae62"/>`;
+  s+=field(r,[[-20,500],[330,492],[372,532],[-20,548]],'#d6b85a','#a88a34')+field(r,[[330,492],[640,488],[676,524],[372,532]],'#a9bb58','#7f9636')+field(r,[[640,488],[980,491],[1002,527],[676,524]],'#ddc067','#b09140')+field(r,[[980,491],[1320,497],[1332,533],[1002,527]],'#b4c25e','#869a3c')+field(r,[[1320,497],[1620,500],[1620,538],[1332,533]],'#d3b45a','#a88a34');
+  s+=strokes(r,{n:90,area:inRect(0,486,W,540),colors:['#6f8f45','#4f6f36'],len:[2,5],w:[6,10],op:[.5,.8]});
+  s+=`<path d="${ridge(r,vil,{amp:2,step:60})}" fill="url(#${p}vil)"/>`;
+  s+=strokes(r,{n:400,area:under(vil,0,W,720,2,.8),colors:['#a2ab62','#8d9a50','#c2bf7e','#798d42'],len:[6,16],w:[1.2,2.6],ang:[-1.8,-1.35],op:[.5,.9],persp:[540,720]});
+  s+=leafy(r,470,566,90,['#4c6b3a','#5f8045','#7a9a55'])+leafy(r,1330,580,100,['#4c6b3a','#5f8045','#7a9a55']);
+  [[520,592,.55],[705,588,.5],[885,594,.56],[1065,600,.52],[1240,596,.55],[400,668,.78],[1000,672,.74],[1190,678,.78]].sort((a,b)=>a[1]-b[1]).forEach(h=>{s+=vHouse(r,h[0],h[1],h[2]);});
+  s+=smoke(r,420,560,120,'#e8e6df',.35);
+  let fence='';
+  for(let x=1350;x<=1580;x+=11){fence+=`M${x} 716 L${x} 690 `;}
+  for(let x=1370;x<=1560;x+=10){fence+=`M${x} 668 L${x} 652 `;}
+  s+=`<path d="${fence}" stroke="#6e5233" stroke-width="3"/>`;
+  s+=sheep(r,1410,690,.95,false)+sheep(r,1470,684,.9,true)+sheep(r,1440,700,1,false)+sheep(r,1520,692,.9,false);
+  s+=quad(1540,706,1.15,{col:'#7a5a40',len:34,body:14,leg:22,horns:true,headL:18,headRot:40,flip:true});
+  s+=hatch([1345,698],[1585,698],[1345,708],[1585,708],3,'#8a6a44',2.6,.85)+hatch([1365,656],[1565,656],[1365,662],[1565,662],2,'#8a6a44',2.2,.8);
+  s+=leafy(r,1590,600,190,['#3f5c33','#527440','#6f9050','#8aa865']);
+  s+=leafy(r,90,700,230,['#3f5c33','#527440','#6f9050','#8aa865']);
+  s+=`<path d="${ridge(r,fg,{amp:3,step:60})}" fill="url(#${p}fg)"/>`;
+  [[270,836,210,34],[800,842,170,26],[1300,846,190,30]].forEach(a=>{s+=`<path d="${blob(r,a[0],a[1],a[2],a[3],11,.18)}" fill="#a68a5e" opacity=".75" filter="url(#rough)"/>`;});
+  s+=strokes(r,{n:700,area:under(fg,0,W,900,2,.7),colors:['#6f8b3c','#5a7530','#94a85a','#4b6328','#a9b46b'],len:[10,26],w:[1.4,3.2],ang:[-1.8,-1.35],op:[.55,.95],persp:[700,900]});
+  s+=`<g filter="url(#rough2)"><path d="M88 798 Q90 726 150 716 Q212 726 214 798Z" fill="#b98a5c"/><path d="M150 716 Q212 726 214 798 L170 798 Q180 740 150 716Z" fill="#9a6e45"/><path d="M126 798 Q128 766 150 763 Q172 766 174 798Z" fill="#33201a"/><ellipse cx="150" cy="792" rx="16" ry="6" fill="#f08a3a" opacity=".85"/></g>`;
+  s+=smoke(r,160,712,150,'#ece8e0',.4);
+  s+=`<ellipse cx="210" cy="822" rx="22" ry="6" fill="#7d5a38"/><ellipse cx="204" cy="815" rx="11" ry="5" fill="#d6a86a"/><ellipse cx="218" cy="818" rx="10" ry="4.5" fill="#c99a5c"/>`;
+  s+=`<path d="M284 815 Q286 800 314 798 Q344 800 346 815 Q314 822 284 815Z" fill="#8d877c"/><ellipse cx="308" cy="800" rx="13" ry="5.5" fill="#aaa397"/><path d="M296 810 q10 3 30 0" stroke="#f3eee2" stroke-width="3" opacity=".7" fill="none"/>`;
+  s+=person({x:262,y:820,h:100,body:'kneel',cloth:'#9c6b44',hairStyle:'long',hair:'#3a2416',hands:[[36,-20],[30,-23]]});
+  s+=`<g transform="translate(398 826)"><ellipse cx="0" cy="2" rx="24" ry="5" fill="#000" opacity=".2"/><path d="M-16 0 Q-26 -20 -20 -40 Q-14 -54 -9 -58 L9 -58 Q14 -54 20 -40 Q26 -20 16 0Z" fill="#8a5e3c"/><path d="M-10 -58 L10 -58" stroke="#5a3a24" stroke-width="4"/><path d="M-20 -36 Q0 -30 20 -36 M-21 -28 Q0 -22 21 -28" stroke="#c99a6c" stroke-width="2" fill="none"/></g>`;
+  let sh='';for(let i=0;i<22;i++){const x=440+rr(r,-12,12),a=rr(r,-1.9,-1.25);sh+=`M${n1(x)} 828 l${n1(Math.cos(a)*48)} ${n1(Math.sin(a)*48)} `;}
+  s+=`<path d="${sh}" stroke="#d9b65a" stroke-width="2.2" stroke-linecap="round"/><path d="M428 806 L452 806" stroke="#8a6a30" stroke-width="4"/>`;
+  s+=`<g transform="translate(850 832)"><ellipse cx="0" cy="0" rx="74" ry="12" fill="#b39860"/>${hatch([-70,-4],[70,-4],[-66,6],[66,6],18,'#8f7743',1.6,.6)}</g>`;
+  s+=pot(810,830,1.25,'#3b3230','#d8cdb8')+pot(850,834,.95,'#5c4636','#e0c9a6')+pot(895,830,1.1,'#2f2826','#cfc3ad');
+  s+=`<path d="M872 826 L878 826 L879 816 L875 811 L871 816Z M914 828 L920 828 L921 818 L917 813 L913 818Z M832 836 L838 836 L839 826 L835 821 L831 826Z" fill="#6d5a4c"/>`;
+  const zig=y=>{let d='M-15 '+y;for(let i=0;i<8;i++)d+=` L${-15+(i+1)*3.9} ${y+(i%2?0:5)}`;return d;};
+  s+=person({x:730,y:828,h:126,dress:true,cloth:'#8e3b28',hairStyle:'bun',hair:'#2b1a10',skin:'#c08a60',hands:[[22,-62],[-4,-46]],
+    pattern:`<path d="${zig(-58)} ${zig(-42)} ${zig(-26)}" stroke="#f1e6d0" stroke-width="1.5" fill="none"/><path d="M-12 -50 L12 -50" stroke="#e1b85a" stroke-width="3"/><path d="M-5 -79 Q1 -73 7 -79" stroke="#f3efe6" stroke-width="2.2" stroke-dasharray="1.5 2" fill="none"/>`,
+    hold:`<path d="M20 -60 L27 -60 L28 -69 L24 -75 L19 -69Z" fill="#5f4c40"/><circle cx="22.5" cy="-70" r=".9" fill="#e8dcc8"/><circle cx="25.5" cy="-70" r=".9" fill="#e8dcc8"/>`});
+  s+=`<circle cx="1292" cy="826" r="150" fill="url(#${p}glow)"/>`;
+  s+=smoke(r,1300,780,260,'#9a948c',.35);
+  s+=`<ellipse cx="1292" cy="828" rx="46" ry="14" fill="#6e4a32"/><ellipse cx="1292" cy="826" rx="37" ry="9" fill="url(#${p}pit)"/>`;
+  s+=`<g transform="translate(1292 826) scale(.7)">`+`<path d="M-16 0 Q-26 -14 -12 -34 Q-6 -46 -2 -64 Q10 -42 16 -28 Q22 -10 10 0Z" fill="#ef7f2a"/><path d="M-10 0 Q-16 -12 -6 -26 Q-1 -34 2 -46 Q10 -30 12 -20 Q14 -6 6 0Z" fill="#ffc24a"/>`+`</g>`;
+  const tube=`<path d="M24 -57 L84 -8" stroke="#8b6b44" stroke-width="3" stroke-linecap="round"/>`;
+  s+=person({x:1214,y:834,h:82,body:'kneel',cloth:'#6f5a3c',hands:[[42,-40],[34,-46]],hold:tube,beard:true});
+  s+=person({x:1372,y:834,h:82,body:'kneel',cloth:'#7d6440',flip:true,hands:[[42,-40],[34,-46]],hold:tube});
+  [[1450,846,16,10],[1472,842,14,9],[1462,834,12,8],[1488,850,12,8],[1436,850,10,7]].forEach((a,i)=>{s+=`<path d="${blob(r,a[0],a[1],a[2],a[3],7,.25)}" fill="${['#2f8a64','#46a57a','#1f6b4c','#3a9a70','#277a58'][i]}"/><circle cx="${a[0]-a[2]*.3}" cy="${a[1]-a[3]*.35}" r="${a[3]*.3}" fill="#9be0bd" opacity=".55"/>`;});
+  s+=strokes(r,{n:120,area:inRect(0,860,W,900),colors:['#6f8b3c','#5a7530','#94a85a'],len:[20,40],w:[2,4],ang:[-1.8,-1.35],op:[.6,.95]});
+  s+=`<rect width="${W}" height="${H}" fill="url(#${p}warm)"/>`;
+  return s;
+}
+
+/* ---------- scene 4: Uruk ---------- */
+function box(r,x,y,w,h,d,col){
+  const top=mix(col,'#fff6e0',.3),side=mix(col,'#3a2614',.25);
+  let g=`<path d="M${n1(x)} ${n1(y)}h${n1(w)}v${n1(-h)}h${n1(-w)}Z" fill="${col}"/><path d="M${n1(x+w)} ${n1(y)} l${n1(d)} ${n1(-d*.5)} v${n1(-h)} l${n1(-d)} ${n1(d*.5)}Z" fill="${side}"/><path d="M${n1(x)} ${n1(y-h)} h${n1(w)} l${n1(d)} ${n1(-d*.5)} h${n1(-w)}Z" fill="${top}"/>`;
+  g+=`<path d="M${n1(x)} ${n1(y-h)} h${n1(w)} l${n1(d)} ${n1(-d*.5)}" stroke="${mix(col,'#3a2614',.35)}" stroke-width="2" fill="none"/>`;
+  if(w>40)g+=`<path d="M${n1(x+w*.3)} ${n1(y)} v${n1(-h*.55)} h${n1(Math.min(14,w*.18))} v${n1(h*.55)}Z" fill="#4a3220"/>`;
+  if(r()>.5&&w>60)g+=`<rect x="${n1(x+w*.68)}" y="${n1(y-h*.72)}" width="7" height="6" fill="#4a3220"/>`;
+  return g;
+}
+function sceneUruk(p){
+  const r=rng(404);
+  let s=`<defs>
+  <linearGradient id="${p}sky" x1="0" y1="0" x2="0" y2="${H}" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#98bfd2"/><stop offset=".3" stop-color="#d4e0dc"/><stop offset=".48" stop-color="#f5e2b6"/></linearGradient>
+  <linearGradient id="${p}far" x1="0" y1="425" x2="0" y2="545" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#e3d5b0"/><stop offset="1" stop-color="#d8c294"/></linearGradient>
+  <linearGradient id="${p}gr" x1="0" y1="540" x2="0" y2="900" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ddc596"/><stop offset="1" stop-color="#c39f68"/></linearGradient>
+  <linearGradient id="${p}can" x1="0" y1="640" x2="0" y2="700" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#86b2b3"/><stop offset="1" stop-color="#5a8c90"/></linearGradient>
+  <linearGradient id="${p}warm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff0c0" stop-opacity=".22"/><stop offset=".6" stop-color="#fff0c0" stop-opacity="0"/></linearGradient>
+  <radialGradient id="${p}sun"><stop offset="0" stop-color="#fffbe9" stop-opacity="1"/><stop offset=".3" stop-color="#fff0c8" stop-opacity=".5"/><stop offset="1" stop-color="#fff0c8" stop-opacity="0"/></radialGradient>
+  </defs>`;
+  s+=`<rect width="${W}" height="${H}" fill="url(#${p}sky)"/>`;
+  s+=`<circle cx="260" cy="120" r="240" fill="url(#${p}sun)"/><circle cx="260" cy="120" r="34" fill="#fffbea"/>`;
+  s+=strokes(r,{n:60,area:inRect(-40,40,W,320),colors:['#f4efe0','#c7dbdc','#f6e5c0'],len:[70,180],w:[6,14],ang:[-.04,.04],op:[.15,.3]});
+  s+=`<rect x="0" y="425" width="${W}" height="125" fill="url(#${p}far)"/>`;
+  s+=`<path d="M0 462 Q200 452 420 466 Q560 474 700 468" stroke="#c4dad6" stroke-width="7" fill="none" opacity=".9"/>`;
+  for(let i=0;i<34;i++){const x=i<17?rr(r,-10,420):rr(r,1180,1620);s+=`<g opacity=".75">${palm(r,x,445+rr(r,-3,6),rr(r,30,58),rr(r,-.12,.12),'#7b8a64')}</g>`;}
+  s+=`<rect x="0" y="420" width="${W}" height="50" fill="#f2e3bd" opacity=".35" filter="url(#soft)"/>`;
+  s+=`<path d="M0 540 L${W} 540 L${W} ${H} L0 ${H}Z" fill="url(#${p}gr)"/>`;
+  s+=`<g filter="url(#rough2)"><path d="M495 550 L1145 550 L1098 452 L542 452Z" fill="#c9a46a"/><path d="M820 550 L1145 550 L1098 452 L820 452Z" fill="#a8824e" opacity=".55"/><path d="M542 452 L1098 452 L1084 440 L556 440Z" fill="#e6caa0"/>`;
+  let bl='';for(let x=520;x<=1120;x+=24){const xt=820+(x-820)*.859;bl+=`M${x} 548 L${n1(xt)} 454 `;}
+  s+=`<path d="${bl}" stroke="#94713f" stroke-width="2.6" opacity=".55"/>`;
+  s+=`<path d="M588 440 L1052 440 L1018 372 L622 372Z" fill="#d1ae74"/><path d="M820 440 L1052 440 L1018 372 L820 372Z" fill="#a8824e" opacity=".5"/><path d="M622 372 L1018 372 L1006 362 L634 362Z" fill="#ead2a8"/>`;
+  bl='';for(let x=610;x<=1035;x+=20){const xt=820+(x-820)*.853;bl+=`M${x} 438 L${n1(xt)} 374 `;}
+  s+=`<path d="${bl}" stroke="#94713f" stroke-width="2.4" opacity=".5"/>`;
+  s+=`<path d="M690 364 L950 364 L950 296 L690 296Z" fill="#f1ebdd"/><path d="M820 364 L950 364 L950 296 L820 296Z" fill="#d9cfbb" opacity=".6"/><path d="M684 296 L956 296 L956 288 L684 288Z" fill="#e2d8c4"/>`;
+  bl='';for(let x=700;x<=942;x+=16)bl+=`M${x} 362 L${x} 298 `;
+  s+=`<path d="${bl}" stroke="#cfc3a8" stroke-width="2.2"/><path d="M806 364 L806 332 Q820 318 834 332 L834 364Z" fill="#5a4630"/>`;
+  s+=`<path d="M782 550 L858 550 L834 364 L806 364Z" fill="#dcbf8e"/>`;
+  bl='';for(let y=546;y>370;y-=9){const t=(550-y)/186,l=782+24*t,rt=858-24*t;bl+=`M${n1(l)} ${y} L${n1(rt)} ${y} `;}
+  s+=`<path d="${bl}" stroke="#a8824e" stroke-width="1.6" opacity=".7"/><path d="M820 550 L858 550 L834 364 L820 364Z" fill="#a8824e" opacity=".25"/></g>`;
+  const hs=[];for(let i=0;i<13;i++)hs.push([rr(r,230,640),rr(r,560,642),rr(r,50,105),rr(r,28,52),rr(r,14,26),pick(r,['#d9bf8f','#cfb07a','#e2cb9e','#c9a56d'])]);
+  for(let i=0;i<13;i++)hs.push([rr(r,900,1350),rr(r,560,642),rr(r,50,105),rr(r,28,52),rr(r,14,26),pick(r,['#d9bf8f','#cfb07a','#e2cb9e','#c9a56d'])]);
+  hs.push([700,600,60,34,18,'#d4b580'],[880,612,70,38,20,'#cfb07a']);
+  hs.sort((a,b)=>a[1]-b[1]);let hg='';hs.forEach((h,i)=>{hg+=box(r,...h);if(i===8)hg+=palm(r,560,610,150,.06,'#5d7146');if(i===18)hg+=palm(r,1280,612,170,-.08,'#5d7146');});
+  s+=`<g filter="url(#rough2)">${hg}</g>`;
+  s+=palm(r,180,660,210,.08,'#56693f')+palm(r,1430,650,200,-.06,'#56693f');
+  s+=strokes(r,{n:500,area:inRect(0,640,W,900),colors:['#cdb07a','#e3cda0','#b9965e','#d8bc88'],len:[20,60],w:[3,8],ang:[-.08,.08],op:[.25,.5],persp:[600,900]});
+  s+=`<path d="M0 652 Q200 637 420 650 Q560 658 720 646 L722 664 Q560 680 420 676 Q200 668 0 694Z" fill="url(#${p}can)"/>`;
+  s+=strokes(r,{n:40,area:inRect(0,652,700,680),colors:['#d8ebe6','#a8cfcc'],len:[20,60],w:[1.5,3],ang:[-.03,.03],op:[.4,.8]});
+  s+=strokes(r,{n:180,area:r=>{const x=rr(r,0,740);return[x,r()<.5?646-x*.01+rr(r,-4,4):682-x*.03+rr(r,-3,5)];},colors:['#7c8f4a','#a6a95a','#5f7438','#c2b66a'],len:[16,38],w:[1.6,3],ang:[-1.85,-1.3],op:[.7,1]});
+  s+=`<g transform="translate(470 668)"><path d="M-62 -14 Q-52 6 0 8 Q52 6 64 -18 Q48 -4 0 -2 Q-48 -2 -62 -14Z" fill="#cdb46e"/><path d="M-40 -2 l-2 8 M-20 0 l-1 8 M0 0 l0 8 M20 0 l1 8 M40 -2 l2 8" stroke="#8a7440" stroke-width="2"/></g>`;
+  s+=person({x:480,y:664,h:60,cloth:'#e6dcc6',hairStyle:'none',skin:'#a8724c',hands:[[12,-50],[4,-44]],hold:`<path d="M-4 -96 L28 18" stroke="#7a5a36" stroke-width="2.6" stroke-linecap="round"/>`});
+  s+=`<path d="M138 846 L138 692 M342 852 L342 698" stroke="#6e5233" stroke-width="5" stroke-linecap="round"/><path d="M120 694 Q240 676 362 698 L358 718 Q240 698 124 716Z" fill="#c9ad6a"/>`+hatch([124,700],[360,704],[126,714],[358,716],22,'#9a7f44',1.6,.7);
+  s+=`<path d="${blob(r,104,838,26,24,8,.15)}" fill="#bfa47c"/><path d="${blob(r,74,846,22,20,8,.15)}" fill="#ae9268"/><path d="M98 816 l8 -6 M70 828 l6 -6" stroke="#6e5233" stroke-width="3"/>`;
+  s+=person({x:238,y:846,h:98,body:'sit',cloth:'#ebe2ce',hairStyle:'none',skin:'#a8724c',hands:[[22,-30],[12,-26]],hold:`<rect x="8" y="-30" width="18" height="12" rx="3" fill="#c49a62" transform="rotate(-24 17 -24)"/><path d="M20 -32 L31 -46" stroke="#a8915f" stroke-width="2" stroke-linecap="round"/>`});
+  s+=`<g transform="translate(335 850)"><path d="M-26 -16 L-22 0 L22 0 L26 -16Z" fill="#a8864e"/>${hatch([-26,-16],[26,-16],[-22,0],[22,0],8,'#7d6236',1.4,.7)}<rect x="-18" y="-30" width="15" height="12" rx="3" fill="#c79d64" transform="rotate(-12 -10 -24)"/><rect x="-2" y="-32" width="15" height="12" rx="3" fill="#b88e58" transform="rotate(10 6 -26)"/><rect x="10" y="-27" width="14" height="11" rx="3" fill="#cfa66d"/></g>`;
+  s+=`<path d="M900 788 L966 774" stroke="#5e4630" stroke-width="5" stroke-linecap="round"/>`;
+  s+=quad(1000,818,1.35,{col:'#8f877b',len:30,body:13,leg:28,ears:'long',tail:'down',headL:20,headRot:32,headUp:1.2});
+  s+=person({x:1080,y:822,h:100,body:'walk',cloth:'#d9cdb2',hairStyle:'short',beard:true,skin:'#a8724c',hands:[[-6,-50],[10,-46]],hold:`<path d="M-6 -50 Q-30 -48 -48 -44" stroke="#5e4630" stroke-width="1.6" fill="none"/>`});
+  s+=`<g filter="url(#rough2)"><path d="M738 790 L898 790 L898 746 L738 746Z" fill="#8a6644"/><path d="M738 760 L898 760 M738 775 L898 775" stroke="#5e4630" stroke-width="2.4"/><path d="M738 746 L898 746 L906 740 L746 740Z" fill="#a8825a"/>
+    <ellipse cx="780" cy="736" rx="22" ry="12" fill="#c8b088"/><ellipse cx="822" cy="732" rx="20" ry="13" fill="#bda27a"/><path d="M850 742 Q846 712 862 704 Q878 712 874 742Z" fill="#a9643e"/>
+    ${['765','872'].map(cx=>`<circle cx="${cx}" cy="806" r="31" fill="#7a5a3a"/><path d="M${+cx-10} ${806-29.4} L${+cx-10} ${806+29.4} M${+cx+10} ${806-29.4} L${+cx+10} ${806+29.4}" stroke="#4e3824" stroke-width="2.4"/><rect x="${+cx-26}" y="796" width="52" height="5" fill="#5e4630"/><rect x="${+cx-26}" y="812" width="52" height="5" fill="#5e4630"/><circle cx="${cx}" cy="806" r="7" fill="#3a281a"/>`).join('')}</g>`;
+  s+=`<ellipse cx="818" cy="840" rx="110" ry="7" fill="#000" opacity=".15"/>`;
+  s+=`<path d="M1214 846 L1214 694 M1488 846 L1488 694" stroke="#6e5233" stroke-width="5" stroke-linecap="round"/><path d="M1198 694 Q1350 672 1504 694 L1500 718 Q1350 698 1202 718Z" fill="#b65a3a"/>`;
+  bl='';for(let i=1;i<9;i++){const x=1202+i*33;bl+=`M${x} ${693-Math.sin(i/9*Math.PI)*20} L${x} ${717-Math.sin(i/9*Math.PI)*19} `;}
+  s+=`<path d="${bl}" stroke="#e8c48a" stroke-width="6" opacity=".7"/>`;
+  s+=`<path d="M1300 812 L1300 836 M1404 812 L1404 836" stroke="#5e4630" stroke-width="4"/><path d="M1294 808 L1410 808 L1410 816 L1294 816Z" fill="#8a6644"/><path d="M1312 800 L1396 800 L1404 808 L1304 808Z" fill="#2f2620"/>`;
+  bl='';for(let i=0;i<8;i++){bl+=`<circle cx="${1316+i*10}" cy="803" r="1.6" fill="#e8dcc0"/><circle cx="${1314+i*10.6}" cy="806" r="1.4" fill="#c9b07a"/>`;}
+  s+=bl;
+  s+=person({x:1262,y:850,h:88,body:'sit',cloth:'#ebe2ce',hairStyle:'short',beard:true,skin:'#a8724c',hands:[[42,-34],[30,-30]]});
+  s+=person({x:1450,y:850,h:88,body:'sit',cloth:'#c9b48a',hairStyle:'long',hair:'#2b1a10',skin:'#b07a50',flip:true,hands:[[44,-36],[30,-30]]});
+  s+=strokes(r,{n:130,area:inRect(0,860,W,900),colors:['#c39f68','#ab8853','#d9bf8f'],len:[30,70],w:[3,7],ang:[-.06,.06],op:[.35,.6]});
+  s+=palm(r,1580,905,520,-.13,'#52663d');
+  s+=`<rect width="${W}" height="${H}" fill="url(#${p}warm)"/>`;
+  return s;
+}
+
+/* ---------- close-up drawings ---------- */
+let artId=0;
+const T=(x,y,t,a)=>`<text x="${x}" y="${y}" font-family="Atkinson Hyperlegible, Segoe UI, sans-serif" font-size="12" font-weight="700" fill="var(--muted)" text-anchor="${a||'middle'}">${t}</text>`;
+function svgArt(inner,label){return `<svg viewBox="0 0 360 190" role="img" aria-label="${label}">${inner}</svg>`;}
+const ART={
+  cave(){const i='a'+(++artId),r=rng(5);return svgArt(`<defs><radialGradient id="${i}" cx=".42" cy=".4" r=".85"><stop offset="0" stop-color="#e0b07c"/><stop offset=".6" stop-color="#bb8856"/><stop offset="1" stop-color="#8a5c36"/></radialGradient></defs>
+    <rect width="360" height="190" fill="url(#${i})"/>${strokes(r,{n:70,area:inRect(0,0,360,190),colors:['#a87448','#e6c094','#7d5434'],len:[10,40],w:[2,6],ang:[-.6,.6],op:[.2,.45]})}
+    <path d="M40 30 Q90 60 70 110 M300 20 Q280 70 320 120" stroke="#6b4428" stroke-width="2" fill="none" opacity=".5"/>
+    ${bison(150,118,1.2,'#a8432a','#22160f')}
+    <circle cx="292" cy="88" r="44" fill="#a93a24" opacity=".6" filter="url(#soft)"/>${handShape(292,96,1.5,'#d3a273',6)}
+    ${T(292,176,'otisak šake')}${T(140,176,'bizon, crveni oker i ugalj')}`,'Bizon i otisak šake na zidu pećine');},
+  flute(){let tk='';for(let c=0;c<=22;c++){const x=30+c*13.6;tk+=`<path d="M${n1(x)} 132 v${c%5===0?12:6}" stroke="var(--muted)" stroke-width="1.4"/>`;if(c%5===0)tk+=T(n1(x),160,c);}
+    return svgArt(`<path d="M30 92 Q27 80 40 80 L300 84 Q318 84 330 78 Q340 90 330 101 Q318 96 300 98 L40 104 Q27 104 30 92Z" fill="#ebdfc4" stroke="#b49f7a" stroke-width="2"/>
+    <path d="M44 86 L296 89" stroke="#fff8e8" stroke-width="3" opacity=".7"/><path d="M44 100 L296 95" stroke="#c4ae86" stroke-width="3" opacity=".6"/>
+    ${[118,150,182,214,246].map(x=>`<ellipse cx="${x}" cy="90" rx="5.5" ry="3.8" fill="#5a4630"/>`).join('')}
+    <path d="M33 84 L44 92 L33 100" fill="none" stroke="#7a6446" stroke-width="2"/>
+    <path d="M60 87 l6 3 M90 88 l5 3 M270 90 l6 2" stroke="#a48b63" stroke-width="1.5"/>
+    <rect x="28" y="128" width="304" height="20" rx="3" fill="none" stroke="var(--line)" stroke-width="1.5"/>${tk}${T(180,182,'centimetri (oko 22 cm, kao školski lenjir)')}${T(182,64,'pet rupica za prste')}`,'Frula od kosti sa pet rupica, duga oko 22 cm');},
+  dog(){const r=rng(8);return svgArt(`<rect y="150" width="360" height="40" fill="var(--line)" opacity=".6"/>${strokes(r,{n:60,area:inRect(0,150,360,188),colors:['#8c8a5e','#a89a6d'],len:[6,14],w:[1.5,3],ang:[-1.8,-1.35],op:[.5,.9]})}
+    ${quad(150,164,2.7,{col:'#6a5d50',len:22,body:10,leg:16,tail:'up',ears:'point',headL:14,headRot:14})}
+    <path d="M300 60 q-10 -14 -20 0 q-10 14 20 34 q30 -20 20 -34 q-10 -14 -20 0Z" fill="#c4553a" opacity=".85"/>`,'Pas iz ledenog doba');},
+  plan(){return svgArt(`<path d="M0 66 Q90 60 180 66 Q270 72 360 66 L360 80 Q270 86 180 80 Q90 74 0 80Z" fill="#7fb0b6" opacity=".8"/>${T(330,96,'Dunav')}
+    <path d="M150 16 L210 16 L256 58 L104 58Z" fill="#a69c86"/>${T(250,30,'planina Treskavac','start')}
+    <path d="M104 88 L256 88 L214 168 L146 168Z" fill="#c4674a" stroke="#8a4330" stroke-width="2.5"/>
+    <rect x="166" y="114" width="28" height="22" rx="3" fill="#3d2f27"/>${[0,1,2,3,4].map(i=>`<circle cx="${166+i*7}" cy="113" r="3.4" fill="#9b958a"/><circle cx="${166+i*7}" cy="137" r="3.4" fill="#9b958a"/>`).join('')}<circle cx="165" cy="125" r="3.4" fill="#9b958a"/><circle cx="195" cy="125" r="3.4" fill="#9b958a"/>
+    <path d="M104 76 L104 58 M256 76 L256 58" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="3 3"/>
+    ${T(60,130,'osnova kuće','middle')}<path d="M92 126 L128 126" stroke="var(--muted)" stroke-width="1.2"/>${T(282,130,'ognjište','middle')}<path d="M256 126 L200 126" stroke="var(--muted)" stroke-width="1.2"/>
+    ${T(180,184,'široka strana gleda na reku, kao ogledalo planine')}`,'Osnova kuće u obliku trapeza i planina Treskavac preko Dunava');},
+  fishface(){const i='a'+(++artId);return svgArt(`<defs><radialGradient id="${i}" cx=".38" cy=".3" r=".8"><stop offset="0" stop-color="#d2bc96"/><stop offset=".7" stop-color="#a88f6a"/><stop offset="1" stop-color="#7d6a4e"/></radialGradient></defs>
+    <ellipse cx="180" cy="176" rx="96" ry="10" fill="#000" opacity=".15"/>
+    <g filter="url(#rough2)"><path d="M108 168 Q92 70 150 28 Q182 10 216 30 Q262 60 254 140 Q250 176 180 176 Q120 176 108 168Z" fill="url(#${i})"/>
+    <path d="M130 66 Q150 52 172 64 M188 64 Q210 52 230 66" stroke="#5c4a36" stroke-width="4" fill="none"/>
+    <circle cx="152" cy="86" r="15" fill="none" stroke="#5c4a36" stroke-width="5"/><circle cx="208" cy="86" r="15" fill="none" stroke="#5c4a36" stroke-width="5"/><circle cx="152" cy="86" r="4.5" fill="#5c4a36"/><circle cx="208" cy="86" r="4.5" fill="#5c4a36"/>
+    <path d="M180 92 L180 118" stroke="#5c4a36" stroke-width="4.5"/><path d="M148 146 Q180 120 212 146" stroke="#5c4a36" stroke-width="5.5" fill="none"/>
+    <path d="M124 110 Q118 134 132 156 M236 110 Q242 134 228 156 M150 40 Q180 30 210 40" stroke="#5c4a36" stroke-width="2.5" fill="none" opacity=".7"/></g>`,'Kamena skulptura sa licem nalik ribi');},
+  beluga(){return svgArt(`<rect y="0" width="360" height="190" fill="#7fb0b6" opacity=".22"/><path d="M0 172 L360 172" stroke="var(--muted)" stroke-width="1.5"/>
+    <g transform="translate(0 4)"><path d="M28 104 L4 80 Q14 104 6 126Z" fill="#5f6d71"/><path d="M26 104 Q60 84 140 84 Q220 84 268 96 L296 102 Q262 112 220 116 Q140 126 70 120 Q40 116 26 104Z" fill="#7d8b8f"/>
+    <path d="M40 112 Q120 124 230 112" stroke="#c9d0cc" stroke-width="7" fill="none" opacity=".55"/>
+    ${[60,92,124,156,188,220].map(x=>`<path d="M${x} 88 l7 -6 l7 6" stroke="#55615f" stroke-width="2.4" fill="none"/>`).join('')}
+    <circle cx="258" cy="96" r="2.4" fill="#222"/><path d="M270 106 l-3 10 M276 105 l-2 10" stroke="#55615f" stroke-width="1.6"/></g>
+    <path d="M26 146 L296 146" stroke="var(--ink)" stroke-width="1.5"/><path d="M26 140 v12 M296 140 v12" stroke="var(--ink)" stroke-width="1.5"/>${T(160,164,'moruna, može da preraste 4 metra')}
+    <g transform="translate(320 172)"><circle cx="0" cy="-90" r="7" fill="var(--muted)"/><path d="M-7 -80 L7 -80 L9 -44 L-9 -44Z" fill="var(--muted)"/><path d="M-4 -44 L-5 0 M4 -44 L5 0 M-7 -78 L-12 -50 M7 -78 L12 -50" stroke="var(--muted)" stroke-width="5" stroke-linecap="round"/></g>${T(316,188,'učenik 1,5 m')}`,'Moruna u poređenju sa učenikom');},
+  copper(){const r=rng(3);return svgArt(`${[[50,96,22,15],[72,90,18,13],[62,108,16,11],[40,110,12,9]].map((a,k)=>`<path d="${blob(r,a[0],a[1],a[2],a[3],7,.25)}" fill="${['#2f8a64','#46a57a','#1f6b4c','#3a9a70'][k]}"/><circle cx="${a[0]-a[2]*.3}" cy="${a[1]-a[3]*.35}" r="${a[3]*.3}" fill="#9be0bd" opacity=".6"/>`).join('')}
+    <path d="M100 100 L132 100 M124 92 L132 100 L124 108" stroke="var(--muted)" stroke-width="2.5" fill="none"/>
+    <ellipse cx="180" cy="126" rx="38" ry="11" fill="#6e4a32"/><ellipse cx="180" cy="124" rx="30" ry="7" fill="#ff9a2e"/>${fire(180,124,.9)}
+    <path d="M226 100 L258 100 M250 92 L258 100 L250 108" stroke="var(--muted)" stroke-width="2.5" fill="none"/>
+    <path d="M300 70 Q318 96 314 112 Q308 128 296 128 Q282 126 284 108 Q286 92 300 70Z" fill="#c8733c"/><path d="M294 88 Q290 104 292 116" stroke="#f0b07a" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M330 120 L344 84" stroke="#b5652e" stroke-width="5" stroke-linecap="round"/>
+    ${T(56,156,'malahit')}${T(56,171,'(zelena ruda)')}${T(180,156,'vatra')}${T(180,171,'oko 1.100 °C')}${T(310,156,'bakar')}${T(310,171,'kap i šilo')}`,'Od zelene rude do bakra');},
+  bread(){const r=rng(4);let ear='';for(let k=0;k<9;k++){ear+=`<ellipse cx="${54+(k%2?6:-6)}" cy="${40+k*9}" rx="5" ry="8" fill="#d9b65a" transform="rotate(${k%2?25:-25} ${54+(k%2?6:-6)} ${40+k*9})"/>`;}
+    return svgArt(`<path d="M54 160 L54 50" stroke="#b8963c" stroke-width="3"/>${ear}<path d="M54 40 L50 18 M58 44 L64 22 M50 56 L42 36 M58 60 L68 40" stroke="#c9a54a" stroke-width="1.4"/>
+    <path d="M120 140 Q124 118 180 114 Q238 118 242 140 Q180 152 120 140Z" fill="#8d877c"/><ellipse cx="172" cy="116" rx="26" ry="9" fill="#aaa397"/><path d="M140 136 q30 4 70 0" stroke="#f3eee2" stroke-width="4" opacity=".75" fill="none"/>
+    <ellipse cx="306" cy="128" rx="40" ry="20" fill="#c9924f"/><path d="M276 120 Q306 104 336 120" stroke="#e8b878" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M290 126 l8 -6 M306 124 l8 -6 M322 126 l6 -5" stroke="#8f5a2a" stroke-width="2"/>
+    ${T(54,180,'pšenica')}${T(180,180,'žrvanj')}${T(306,180,'pogača')}`,'Pšenica, žrvanj i pogača');},
+  figurine(){const zig=y=>{let d=`M146 ${y}`;for(let i=0;i<10;i++)d+=` L${146+(i+1)*6.8} ${y+(i%2?0:8)}`;return d;};
+    return svgArt(`<ellipse cx="180" cy="178" rx="60" ry="8" fill="#000" opacity=".15"/>
+    <g filter="url(#rough2)"><path d="M140 176 Q136 140 146 104 Q150 90 162 86 L198 86 Q210 90 214 104 Q224 140 220 176Z" fill="#6d5a4c"/>
+    <path d="M146 100 Q128 104 122 114 Q130 118 148 112Z M214 100 Q232 104 238 114 Q230 118 212 112Z" fill="#6d5a4c"/>
+    <path d="M180 84 L180 74" stroke="#6d5a4c" stroke-width="16"/>
+    <path d="M148 40 L212 40 L220 58 L180 82 L140 58Z" fill="#7e6a5a"/><path d="M148 40 L212 40 L180 30Z" fill="#5f4e42"/>
+    <path d="M156 54 Q164 48 172 54 Q164 58 156 54Z M188 54 Q196 48 204 54 Q196 58 188 54Z" fill="#e8dcc8"/><path d="M180 50 L180 68" stroke="#5a483c" stroke-width="3"/>
+    <path d="${zig(118)} ${zig(140)}" stroke="#e8dcc8" stroke-width="2.2" fill="none"/><path d="M150 130 L210 130 M148 156 L212 156" stroke="#e8dcc8" stroke-width="2.2"/>
+    <path d="M160 166 Q170 160 180 166 Q190 172 200 166" stroke="#e8dcc8" stroke-width="2" fill="none"/></g>
+    ${T(296,64,'lice kao maska','middle')}<path d="M250 60 L224 56" stroke="var(--muted)" stroke-width="1.2"/>${T(296,132,'urezane šare:','middle')}${T(296,147,'odeća i pojas','middle')}<path d="M250 136 L222 136" stroke="var(--muted)" stroke-width="1.2"/>`,'Vinčanska figurina sa urezanim šarama');},
+  tablet(){const r=rng(6);let w='';
+    const wedgeH=(x,y)=>`<path d="M${n1(x)} ${n1(y)} l8 -4.5 l0 9Z" fill="#7a5530"/><path d="M${n1(x+8)} ${n1(y)} l7 0" stroke="#7a5530" stroke-width="2"/>`;
+    const wedgeV=(x,y)=>`<path d="M${n1(x)} ${n1(y)} l-4.5 -8 l9 0Z" fill="#7a5530"/><path d="M${n1(x)} ${n1(y)} l0 8" stroke="#7a5530" stroke-width="2"/>`;
+    const corner=(x,y)=>`<path d="M${n1(x)} ${n1(y)} l7 -6 l2 8Z" fill="#7a5530"/>`;
+    for(let row=0;row<4;row++){let x=66;while(x<214){const k=r();if(k<.4)w+=wedgeH(x,58+row*28);else if(k<.75)w+=wedgeV(x+5,52+row*28);else w+=corner(x,60+row*28);x+=rr(r,14,24);}if(row<3)w+=`<path d="M56 ${70+row*28} L222 ${71+row*28}" stroke="#a87f4a" stroke-width="1.2" opacity=".7"/>`;}
+    return svgArt(`<ellipse cx="138" cy="172" rx="104" ry="7" fill="#000" opacity=".15"/><path d="M44 30 Q40 24 52 22 L222 26 Q234 26 232 40 L230 154 Q230 164 218 164 L56 160 Q44 160 44 150Z" fill="#cda06a"/><path d="M50 30 L224 34" stroke="#e8c494" stroke-width="3" opacity=".7"/>
+    ${w}
+    <path d="M276 160 L330 34" stroke="#c8b07a" stroke-width="7" stroke-linecap="round"/><path d="M330 34 L338 22 L326 30Z" fill="#8f7848"/>
+    ${T(138,186,'glinena pločica sa znakovima')}${T(302,186,'štapić od trske')}`,'Glinena pločica sa klinastim pismom');},
+  wheel(){return svgArt(`<g transform="translate(120 92)"><circle r="66" fill="#8a6644"/><circle r="66" fill="none" stroke="#5e4630" stroke-width="4"/><path d="M-22 -62 L-22 62 M22 -62 L22 62" stroke="#5e4630" stroke-width="3.5"/><rect x="-62" y="-30" width="124" height="10" fill="#5e4630"/><rect x="-62" y="20" width="124" height="10" fill="#5e4630"/><circle r="13" fill="#3a281a"/><circle r="5" fill="#1d140d"/></g>
+    <g transform="translate(278 92)" opacity=".55"><circle r="48" fill="none" stroke="var(--muted)" stroke-width="7"/>${[0,1,2,3,4,5].map(k=>`<path d="M0 0 L${n1(Math.cos(k*Math.PI/3)*46)} ${n1(Math.sin(k*Math.PI/3)*46)}" stroke="var(--muted)" stroke-width="4"/>`).join('')}<circle r="8" fill="var(--muted)"/></g>
+    ${T(120,182,'pun točak od tri daske')}${T(278,164,'točak sa paocima')}${T(278,180,'1.500 godina kasnije')}`,'Pun drveni točak i kasniji točak sa paocima');},
+  ur(){const c=30,ox=60,oy=32;const holes=new Set(['0,4','0,5','2,4','2,5']),ros=new Set(['0,0','2,0','1,3','0,6','2,6']);let g='';
+    for(let rw=0;rw<3;rw++)for(let cl=0;cl<8;cl++){if(holes.has(rw+','+cl))continue;const x=ox+cl*c,y=oy+rw*c;g+=`<rect x="${x}" y="${y}" width="${c-2}" height="${c-2}" rx="2" fill="#2e4a6e"/>`;
+      if(ros.has(rw+','+cl)){const cx=x+c/2-1,cy=y+c/2-1;let pe='';for(let k=0;k<8;k++)pe+=`<ellipse cx="${cx}" cy="${cy-7}" rx="3" ry="6" fill="#e9d9b4" transform="rotate(${k*45} ${cx} ${cy})"/>`;g+=pe+`<circle cx="${cx}" cy="${cy}" r="3" fill="#b5452e"/>`;}
+      else{const cx=x+c/2-1,cy=y+c/2-1;g+=`<circle cx="${cx}" cy="${cy}" r="5" fill="none" stroke="#e9d9b4" stroke-width="1.5"/>${(rw+cl)%2?`<circle cx="${cx}" cy="${cy}" r="1.6" fill="#b5452e"/>`:''}`;}}
+    const pc=(x,y,col)=>`<circle cx="${x}" cy="${y}" r="9" fill="${col}" stroke="#000" stroke-opacity=".3" stroke-width="1.5"/><circle cx="${x}" cy="${y}" r="3" fill="none" stroke="${col==='#2a221c'?'#eee':'#2a221c'}" stroke-width="1"/>`;
+    const die=(x,y)=>`<path d="M${x} ${y-11} L${x+10} ${y+7} L${x-10} ${y+7}Z" fill="#e6dcc6" stroke="#8a7a5a" stroke-width="1.5"/><circle cx="${x}" cy="${y-8}" r="2" fill="#2a221c"/>`;
+    return svgArt(`<rect x="${ox-6}" y="${oy-6}" width="${8*c+10}" height="${3*c+10}" rx="4" fill="#5e4630" opacity=".25"/>${g}
+      ${pc(ox+c*1.5-1,oy+c*.5-1,'#efe6d2')}${pc(ox+c*5.5-1,oy+c*1.5-1,'#efe6d2')}${pc(ox+c*2.5-1,oy+c*2.5-1,'#2a221c')}${pc(ox+c*3.5-1,oy+c*1.5-1,'#2a221c')}
+      ${die(78,160)}${die(104,160)}${die(130,160)}${die(156,160)}${T(262,165,'kockice u obliku piramide','middle')}${T(74,17,'rozeta','middle')}`,'Tabla Kraljevske igre iz Ura');}
+};
+
+/* ---------- content ---------- */
+const ERAS=[
+  {id:'ledeno',name:'Ledeno doba',sub:'Lovci i sakupljači',c:'--era1',ago:[40000,12000],
+   when:'Pre 40.000 do 12.000 godina',bc:'Otprilike od 38.000. do 10.000. godine pre nove ere',
+   intro:'Zemlja je bila mnogo hladnija nego danas. Veliki delovi Evrope bili su pod snegom i ledom, a po travnatim ravnicama šetali su mamuti, vunasti nosorozi i irvasi. Ljudi nisu imali stalne kuće. Selili su se za životinjama koje su lovili i skupljali plodove, korenje i jaja.',
+   life:[['Kuće','Pećine i šatori od koža i kostiju'],['Hrana','Meso, riba, bobice, korenje'],['Alati','Kamen, kost, rog i drvo']],
+   note:'<b>Zanimljivo:</b> u to vreme more je bilo niže za oko 120 metara, jer je mnogo vode bilo zarobljeno u ledu. Na mestima gde je danas more moglo se hodati.',
+   build:sceneIce,
+   spots:[
+    {x:372,y:402,cat:'Umetnost',title:'Slike na zidovima pećina',art:'cave',cap:'Bizon i otisak šake, crtež po uzoru na pećinske slike',
+     text:'U pećinama Francuske i Španije sačuvane su slike bizona, konja, jelena i mamuta. Najpoznatija je pećina Lasko, oslikana pre oko 17.000 godina. Boje su pravili od zemlje i minerala: crvenu i žutu od okera, a crnu od drvenog uglja. Nanosili su ih prstima, mahovinom ili četkicama od dlake. Pošto je u pećini mrak, slikali su uz svetlo malih kamenih lampi u kojima je gorela životinjska mast.',
+     fact:'Na zidovima ima i otisaka šaka. Slikar bi prislonio šaku na kamen i preko nje duvao boju kroz šuplju kost, kao kroz slamčicu. Kada skloni ruku, na zidu ostane njen obris. To je potpis star hiljadama godina.',
+     q:'Da si ti slikar iz ledenog doba, šta bi nacrtao na zidu da ljudi za 17.000 godina saznaju kako si živeo?'},
+    {x:452,y:612,cat:'Muzika',title:'Najstariji muzički instrument',art:'flute',sound:true,cap:'Frula od kosti, crtež sa razmerom',
+     text:'U pećini Hole Fels u Nemačkoj arheolozi su pronašli frulu napravljenu od kosti krila beloglavog supa, velike ptice. Stara je oko 40.000 godina i ima pet rupica za prste. To je jedan od najstarijih muzičkih instrumenata na svetu. Muzičari su napravili kopije ovakvih frula i na njima se zaista mogu svirati različiti tonovi.',
+     fact:'Frula je duga oko 22 centimetra, otprilike koliko i školski lenjir. Pronađena je razbijena na 12 komada, koje su naučnici strpljivo sastavili.',
+     q:'Ljudi ledenog doba borili su se za hranu i toplotu. Zašto su ipak trošili vreme na muziku? Šta muzika daje ljudima?'},
+    {x:1018,y:722,cat:'Životinje',title:'Prvi najbolji prijatelj',art:'dog',cap:'Pas iz ledenog doba, crtež',
+     text:'Psi potiču od vukova. Ljudi i vukovi su se vremenom zbližili: vukovi su dobijali ostatke hrane, a ljudi pomoć u lovu i nekoga ko čuva logor. Kod grada Bona u Nemačkoj pronađen je grob star oko 14.000 godina. U njemu su bili sahranjeni muškarac, žena i njihov pas.',
+     fact:'Po zubima tog psa naučnici su otkrili da se kao štene teško razboleo od štenećaka. Bez pomoći bi uginuo za manje od tri nedelje, ali je preživeo još oko osam. To znači da su ga ljudi grejali, hranili i pojili, iako im tada nije mogao pomoći u lovu.',
+     q:'Zašto misliš da su ljudi ledenog doba brinuli o bolesnom psu koji im nije bio od koristi u lovu? Po čemu liče na nas danas?'}
+   ]},
+  {id:'lepenski',name:'Lepenski Vir',sub:'Ribari na Dunavu',c:'--era2',ago:[11500,8000],
+   when:'Pre 11.500 do 8.000 godina',bc:'Otprilike od 9.500. do 6.000. godine pre nove ere',
+   intro:'Kada se led povukao, klima je postala toplija. Na obali Dunava, u Đerdapskoj klisuri u istočnoj Srbiji, ljudi su podigli jedno od najstarijih stalnih naselja u Evropi. Nisu morali da se sele, jer im je reka davala dovoljno ribe. Naselje je dobilo ime po velikom viru u Dunavu ispred njega.',
+   life:[['Kuće','Kuće u obliku trapeza, okrenute ka reci'],['Hrana','Riba, jelen, divlja svinja, plodovi'],['Alati','Kamen, kost i rog, mreže i udice']],
+   note:'<b>Zanimljivo:</b> kada je pravljena brana Đerdap, nalazište bi ostalo pod vodom. Zato su ga arheolozi oko 1970. godine premestili skoro 30 metara više, kamen po kamen. Danas ga možeš posetiti.',
+   build:sceneLV,
+   spots:[
+    {x:345,y:556,cat:'Arhitektura i matematika',title:'Kuće po planu',art:'plan',cap:'Osnova kuće i planina Treskavac, pojednostavljen crtež',
+     text:'Sve kuće u Lepenskom Viru imale su sličan oblik: osnovu u obliku trapeza, usku pozadi i široku prema reci. Pod je bio od tvrdog krečnog maltera crvenkaste boje, nalik na beton. U sredini je bilo ognjište oivičeno kamenjem. Kuće nisu građene nasumično, već su poređane u lepezu i sve okrenute ka Dunavu.',
+     fact:'Tačno preko reke, na rumunskoj obali, nalazi se planina Treskavac. I ona ima oblik trapeza! Mnogi istraživači misle da su kuće namerno pravljene po uzoru na planinu, i da su ljudi posmatrali kako sunce izlazi iza nje i tako pratili godišnja doba.',
+     q:'Nacrtaj trapez u svesci. Zašto bi neko pravio kuću baš u tom obliku, a ne kao kvadrat ili krug?'},
+    {x:640,y:690,cat:'Misterija',title:'Kamene glave sa ribljim licem',art:'fishface',cap:'Skulptura od rečnog oblutka, crtež po uzoru na nalaze',
+     text:'U kućama su pronađene skulpture isklesane od velikih rečnih oblutaka. Na mnogima je lice sa krupnim okruglim očima i ustima povijenim nadole, kao kod ribe. Neke su teže od 50 kilograma, a kamen je donošen iz reke Boljetinke, udaljene desetak kilometara. Najpoznatija skulptura zove se Praroditeljka i postala je simbol Lepenskog Vira.',
+     fact:'Arheolozi ni danas ne znaju sigurno šta ove skulpture predstavljaju. Možda pretke, duhove reke ili bića napola ljude, napola ribe. Svako može da iznese svoju pretpostavku, kao pravi istraživač.',
+     q:'Šta misliš, zašto su ljudi koji su živeli od ribolova pravili lica koja liče na ribu?'},
+    {x:1300,y:512,cat:'Priroda',title:'Džinovska riba iz Dunava',art:'beluga',cap:'Moruna u poređenju sa učenikom',
+     text:'Ljudi Lepenskog Vira jeli su mnogo ribe: šarana, soma, kečigu i morunu. Moruna je najveća riba koja živi u Dunavu. Može da naraste duža od čoveka, a neke su bile duže i od četiri metra. Morune su plivale iz Crnog mora uzvodno Dunavom, pa su ribari tada imali najviše posla.',
+     fact:'Danas morune više ne mogu da stignu do Lepenskog Vira, jer im put zatvara brana Đerdap. Moruna je danas veoma ugrožena vrsta.',
+     q:'Šta bi se desilo sa naseljem kada bi jedne godine riba nestala iz reke? Kako bi ljudi preživeli?'}
+   ]},
+  {id:'vinca',name:'Prva sela',sub:'Zemljoradnici iz Vinče',c:'--era3',ago:[8000,6500],
+   when:'Pre 8.000 do 6.500 godina',bc:'Otprilike od 6.000. do 4.500. godine pre nove ere',
+   intro:'Ljudi su naučili da seju žito i da gaje ovce, koze, svinje i krave. To se prvo desilo na Bliskom istoku, a odatle se proširilo i na Balkan. Pošto više nisu zavisili samo od lova, mogli su da žive na istom mestu mnogo godina. Kod današnjeg Beograda, u Vinči, nastalo je veliko selo sa kućama od drveta i blata. Po njemu je cela ova kultura dobila ime: vinčanska kultura.',
+   life:[['Kuće','Kuće od pruća i blata, krov od trske'],['Hrana','Hleb, kaša, mleko, meso domaćih životinja'],['Alati','Glačan kamen, glina i prvi bakar']],
+   note:'<b>Zanimljivo:</b> arheolog Miloje Vasić počeo je iskopavanja u Vinči 1908. godine. Naselje je bilo toliko dugo naseljeno da su se ostaci kuća nagomilali u brdo visoko oko 10 metara.',
+   build:sceneVinca,
+   spots:[
+    {x:290,y:672,cat:'Hrana',title:'Prvi hleb sa naše njive',art:'bread',cap:'Od zrna do pogače',
+     text:'Prvi zemljoradnici sejali su stare vrste pšenice, jednozrnu i dvozrnu, zatim ječam i sočivo. Zrnevlje su mleli na ravnom kamenu, žrvnju, trljajući ga drugim kamenom napred i nazad. Od brašna i vode mesili su testo i pekli pogače u kupolastim pećima od gline. Žito se moglo čuvati u velikim glinenim posudama, pa su ljudi imali hrane i preko zime.',
+     fact:'Mlevenje žita bio je težak posao koji je trajao i po nekoliko sati dnevno. Na kostima nekih žena iz tog vremena naučnici su pronašli promene od svakodnevnog klečanja za žrvnjem.',
+     q:'Danas hleb kupujemo u pekari za minut. Nabroj sve korake od semena do hleba koje su ljudi u Vinči morali sami da urade.'},
+    {x:818,y:704,cat:'Moda',title:'Figurine koje nose odeću',art:'figurine',cap:'Vinčanska figurina, crtež po uzoru na nalaze',
+     text:'U Vinči je pronađeno na stotine glinenih figurina. Imaju lica u obliku trougla ili petougla sa krupnim očima, kao da nose masku. Na telima su urezane linije, cik-cak šare i spirale. Arheolozi misle da te šare prikazuju odeću: haljine, kecelje, pojaseve i nakit. Zato nam figurine pomažu da zamislimo kako su se ljudi oblačili pre 7.000 godina.',
+     fact:'Ljudi su tada već znali da predu vunu i lan i da tkaju na razboju. Arheolozi pronalaze glinene tegove koji su zatezali niti na razboju i pršljenke, male kolutove za vreteno.',
+     q:'Kada bi arheolog za 7.000 godina našao figuricu obučenu kao ti danas, šta bi zaključio o nama i našoj modi?'},
+    {x:1292,y:698,cat:'Tehnologija',title:'Prvi metal na svetu',art:'copper',cap:'Od zelene rude do bakra',
+     text:'Ljudi vinčanske kulture skupljali su zeleno kamenje, malahit, i pravili od njega perle. Onda su otkrili nešto neverovatno: kada se ta ruda zagreje u veoma jakoj vatri, iz nje izlazi crvenkasti metal, bakar. U Belovodu kod Petrovca na Mlavi pronađeni su tragovi topljenja bakra stari oko 7.000 godina. To je jedan od najstarijih dokaza na svetu da su ljudi dobijali metal iz rude.',
+     fact:'Za topljenje bakra potrebna je vatra od oko 1.100 stepeni, pet puta toplija od rerne u kojoj se peče kolač. Da bi bila tako jaka, ljudi su verovatno duvali u nju kroz duge cevi.',
+     q:'Koje metalne predmete koristiš svakog dana? Kako bi izgledao tvoj dan bez ijednog od njih?'}
+   ]},
+  {id:'uruk',name:'Prvi gradovi',sub:'Uruk u Mesopotamiji',c:'--era4',ago:[5500,4500],
+   when:'Pre 5.500 do 4.500 godina',bc:'Otprilike od 3.500. do 2.500. godine pre nove ere',
+   intro:'Između reka Tigra i Eufrata, na prostoru današnjeg Iraka, sela su prerasla u gradove. Uruk je oko 3.000. godine pre nove ere imao više od 40.000 stanovnika, više od bilo kog mesta na svetu u to vreme. Kuće su građene od opeke od blata, osušene na suncu. U sredini grada uzdizao se hram na visokoj terasi. Ljudi su se sada bavili različitim zanimanjima: bili su zemljoradnici, grnčari, trgovci, sveštenici i pisari.',
+   life:[['Kuće','Kuće od opeke, ulice i hramovi'],['Hrana','Ječam, urme, riba, hleb i pivo'],['Alati','Bakar, bronza i grnčarski točak']],
+   note:'<b>Zanimljivo:</b> prema predanju, Urukom je kasnije vladao kralj Gilgameš, junak Epa o Gilgamešu, jedne od najstarijih zapisanih priča na svetu.',
+   build:sceneUruk,
+   spots:[
+    {x:240,y:704,cat:'Pismo i škola',title:'Prvo pismo na svetu',art:'tablet',cap:'Glinena pločica i štapić od trske, crtež',
+     text:'Hramovi u Uruku skupljali su i delili velike količine ječma, ovaca i piva. Da ne bi zaboravili ko je šta dao, službenici su počeli da beleže znakove na mekim glinenim pločicama. Tako je oko 3.200. godine pre nove ere nastalo pismo. Prvi znakovi bili su male sličice, a kasnije su ih utiskivali zašiljenim štapićem od trske, pa su izgledali kao klinovi. Zato se zove klinasto pismo.',
+     fact:'Pisari su učili u školama koje su se zvale kuće pločica. Učenici su po ceo dan prepisivali znakove, a sačuvane su i njihove vežbe sa greškama. U jednom kasnijem zapisu učenik se žali da je kažnjen jer je zakasnio u školu.',
+     q:'Prvo pismo služilo je za brojanje ječma i ovaca, a ne za priče. Zašto je baš brojanje i trgovina nateralo ljude da izmisle pismo?'},
+    {x:818,y:686,cat:'Izumi',title:'Točak',art:'wheel',cap:'Pun točak i kasniji točak sa paocima',
+     text:'Prvi točkovi nisu služili za vožnju, već grnčarima. Na ploči koja se okreće mogli su brže i lepše da oblikuju posude. Oko 3.500. godine pre nove ere ljudi su točkove stavili pod kola. Ti točkovi su bili puni, napravljeni od dve ili tri drvene daske spojene zajedno. Kola su vukli volovi i magarci, pa se teret prenosio mnogo lakše.',
+     fact:'Laki točkovi sa paocima izmišljeni su tek oko 1.500 godina kasnije, oko 2.000. godine pre nove ere. Zahvaljujući njima nastala su brza bojna kola.',
+     q:'Gde sve danas koristimo točak? Pokušaj da nađeš primere i van vozila.'},
+    {x:1356,y:754,cat:'Igre',title:'Društvena igra stara 4.600 godina',art:'ur',cap:'Tabla Kraljevske igre iz Ura, crtež',
+     text:'U kraljevskim grobnicama grada Ura, nedaleko od Uruka, pronađene su table za igru stare oko 4.600 godina. Tabla ima 20 polja, a na pet njih nacrtane su rozete, cvetovi. Igrala su je dva igrača, svaki sa po sedam figura, a bacali su kockice u obliku piramide. Igra je bila omiljena u celom starom svetu, od Egipta do Indije, skoro 3.000 godina.',
+     fact:'Pravila su sačuvana na glinenoj pločici koju je mnogo kasnije napisao jedan vavilonski pisar. Zahvaljujući njoj, igru možemo da igramo i danas. Jedno od pravila: figura koja stane na rozetu dobija još jedno bacanje.',
+     q:'Koju društvenu igru ti voliš? Šta je zajedničko igri iz Ura i današnjim igrama?'}
+   ]}
+];
+const CMP=[
+  ['Gde žive',['U pećinama i šatorima od kože. Često se sele.','U stalnom naselju, u kućama u obliku trapeza.','U selu, u kućama od drveta, pruća i blata.','U gradu sa ulicama, hramom i zidinama.']],
+  ['Kako dolaze do hrane',['Love i sakupljaju plodove.','Love ribu i divljač, sakupljaju plodove.','Seju žito i gaje stoku.','Navodnjavaju njive kanalima i trguju.']],
+  ['Od čega prave alate',['Kamen, kost, drvo, rog.','Kamen, kost, rog.','Glačan kamen, glina i prvi bakar.','Bakar, bronza, glina, trska.']],
+  ['Koliko ljudi živi zajedno',['Grupa od nekoliko porodica, 20 do 50 ljudi.','Nekoliko desetina, možda stotinak ljudi.','Stotine ljudi.','Desetine hiljada ljudi.']],
+  ['Šta je novo',['Umetnost, muzika, pripitomljen pas.','Stalno naselje i kuće po planu.','Zemljoradnja, grnčarija, metal.','Pismo, točak, različita zanimanja.']]
+];
+
+/* flute-synth */
+function fluteChain(ctx,out){
+  const inp=ctx.createGain();inp.gain.value=2.2;
+  const lp=ctx.createBiquadFilter();lp.type='lowpass';lp.frequency.value=5200;
+  const len=Math.floor(ctx.sampleRate*2.6),ir=ctx.createBuffer(2,len,ctx.sampleRate),pre=Math.floor(ctx.sampleRate*.015);
+  for(let c=0;c<2;c++){const d=ir.getChannelData(c);for(let i=0;i<len;i++)d[i]=i<pre?0:(Math.random()*2-1)*Math.pow(1-i/len,3.2);}
+  const cv=ctx.createConvolver();cv.buffer=ir;
+  const wet=ctx.createGain();wet.gain.value=.3;const dry=ctx.createGain();dry.gain.value=.85;
+  const comp=ctx.createDynamicsCompressor();comp.threshold.value=-14;comp.ratio.value=4;
+  inp.connect(lp);lp.connect(dry);lp.connect(cv);cv.connect(wet);dry.connect(comp);wet.connect(comp);comp.connect(out||ctx.destination);
+  return inp;
+}
+function fluteSchedule(ctx,dest,t0){
+  const sr=ctx.sampleRate,nb=ctx.createBuffer(1,sr*2,sr),nd=nb.getChannelData(0);
+  for(let i=0;i<nd.length;i++)nd[i]=Math.random()*2-1;
+  const wave=ctx.createPeriodicWave(new Float32Array([0,1,.3,.12,.05,.02]),new Float32Array(6));
+  const N={D5:587.33,E5:659.26,Fs5:739.99,A5:880,B5:987.77,D6:1174.66};
+  const tune=[['A5',1],['B5',.5],['A5',.5],['Fs5',1],['E5',1],['D5',2],[0,.5],
+    ['E5',.5],['Fs5',.5],['A5',1],['D6',1],['B5',.5],['A5',.5],['Fs5',2],[0,.5],
+    ['A5',.5],['Fs5',.5],['E5',1],['D5',.5],['E5',.5],['Fs5',1],['E5',.5],['D5',.5],['D5',2.5]];
+  const beat=60/88,nodes=[];let t=t0,first=true;
+  tune.forEach(([n,b])=>{
+    const dur=b*beat;if(!n){t+=dur;first=true;return;}
+    const f=N[n]*Math.pow(2,(Math.random()*14-7)/1200),vel=first?.24:.2,end=t+dur*.96;first=false;
+    const o=ctx.createOscillator();o.setPeriodicWave(wave);
+    o.frequency.setValueAtTime(f*.982,t);o.frequency.exponentialRampToValueAtTime(f,t+.08);
+    const lfo=ctx.createOscillator();lfo.frequency.value=4.6+Math.random()*.8;
+    const lg=ctx.createGain();lg.gain.setValueAtTime(0,t);lg.gain.linearRampToValueAtTime(f*.006,t+Math.min(.4,dur*.7));
+    lfo.connect(lg);lg.connect(o.frequency);
+    const g=ctx.createGain();g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vel,t+.06);
+    g.gain.linearRampToValueAtTime(vel*.85,Math.max(t+.07,end-.06));g.gain.linearRampToValueAtTime(0,end+.04);
+    const ns=ctx.createBufferSource();ns.buffer=nb;ns.loop=true;
+    const bp=ctx.createBiquadFilter();bp.type='bandpass';bp.frequency.value=f*1.4;bp.Q.value=1.2;
+    const ng=ctx.createGain();ng.gain.setValueAtTime(0,t);ng.gain.linearRampToValueAtTime(vel*.55,t+.025);
+    ng.gain.linearRampToValueAtTime(vel*.14,t+.14);ng.gain.linearRampToValueAtTime(vel*.12,Math.max(t+.15,end-.05));ng.gain.linearRampToValueAtTime(0,end+.04);
+    o.connect(g);g.connect(dest);ns.connect(bp);bp.connect(ng);ng.connect(dest);
+    const st=end+.1;o.start(t);lfo.start(t);ns.start(t,Math.random());o.stop(st);lfo.stop(st);ns.stop(st);
+    nodes.push(o,lfo,ns);t+=dur;
+  });
+  return {nodes,end:t};
+}
+/* end flute-synth */
+const ICON={
+  note:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 17.5V5.5l11-2.2v12.2" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><circle cx="6.4" cy="17.6" r="3" fill="currentColor"/><circle cx="17.4" cy="15.5" r="3" fill="currentColor"/></svg>',
+  play:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l12 7-12 7z" fill="currentColor"/></svg>',
+  stop:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor"/></svg>'};
+const Flute={playing:false,ctx:null,inp:null,bus:null,cur:null,timer:0,
+  toggle(){if(this.playing)this.stop();else this.play();},
+  play(){
+    try{
+      if(!this.ctx){const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;this.ctx=new AC();this.inp=fluteChain(this.ctx);}
+      if(this.ctx.state==='suspended')this.ctx.resume();
+      this.bus=this.ctx.createGain();this.bus.connect(this.inp);
+      this.cur=fluteSchedule(this.ctx,this.bus,this.ctx.currentTime+.08);this.playing=true;
+      clearTimeout(this.timer);
+      this.timer=setTimeout(()=>{this.playing=false;this.cur=null;musicUI();},(this.cur.end-this.ctx.currentTime+.5)*1000);
+    }catch(e){this.playing=false;}
+    musicUI();
+  },
+  stop(){
+    clearTimeout(this.timer);
+    if(this.cur&&this.ctx){const now=this.ctx.currentTime;try{this.bus.gain.setTargetAtTime(0,now,.04);}catch(e){}this.cur.nodes.forEach(n=>{try{n.stop(now+.3);}catch(e){}});}
+    this.cur=null;const wasPlaying=this.playing;this.playing=false;if(wasPlaying)musicUI();
+  }
+};
+const NOTES_HTML=[['&#9834;',0,0],['&#9835;',.7,10],['&#9834;',1.4,-6],['&#9835;',2.1,4]].map(n=>`<span style="left:calc(${368/W*100}% + ${n[2]}px);top:${700/H*100}%;animation-delay:${n[1]}s">${n[0]}</span>`).join('');
+function musicUI(){
+  document.querySelectorAll('[data-music]').forEach(b=>{
+    const on=Flute.playing,inScene=b.classList.contains('music');
+    b.classList.toggle('playing',on);b.setAttribute('aria-pressed',String(on));
+    const ic=b.querySelector('.ic,.pi');if(ic)ic.innerHTML=on?ICON.stop:(inScene?ICON.note:ICON.play);
+    const tx=b.querySelector('.txt');if(tx)tx.textContent=on?'Zaustavi frulu':(inScene?'Poslušaj frulu':'Poslušaj kako je mogla da zvuči');
+  });
+  const nt=$('notes'),want=(Flute.playing&&state.era===0&&state.view==='explore')?'on':'off';if(nt&&nt.dataset.s!==want){nt.dataset.s=want;nt.innerHTML=want==='on'?NOTES_HTML:'';}
+}
+
+/* ---------- state + render ---------- */
+const $=id=>document.getElementById(id);
+const state={era:0,spot:-1,marks:true,view:'explore'};
+try{const v=localStorage.getItem('opdg-era');if(v!==null&&+v>=0&&+v<4)state.era=+v;}catch(e){}
+const tok=(location.hash||'').replace('#','');
+const ti=ERAS.findIndex(e=>e.id===tok);if(ti>=0)state.era=ti;if(tok==='uporedi')state.view='compare';
+
+const sceneCache={};
+function sceneSVG(i,prefix){const e=ERAS[i];return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Ilustracija: ${e.name}">${e.build(prefix)}</svg>`;}
+
+function buildRuler(){
+  const max=42000,pos=a=>(1-a/max)*100;let h='<div class="track"></div>';
+  ERAS.forEach((e,i)=>{const l=pos(e.ago[0]),w=pos(e.ago[1])-l;h+=`<button type="button" class="seg" data-era="${i}" style="--c:var(${e.c});left:${l}%;width:${w}%" aria-label="${e.name}"></button>`;});
+  [[40000,'pre 40.000 god.'],[30000,'30.000'],[20000,'20.000'],[10000,'10.000'],[0,'danas']].forEach((t,k)=>{h+=`<span class="tick ${k===0?'first':k===4?'last':'mid'}" style="left:${pos(t[0])}%">${t[1]}</span>`;});
+  $('ruler').innerHTML=h;
+  let b='';ERAS.forEach((e,i)=>{b+=`<button type="button" class="era-btn" data-era="${i}" style="--c:var(${e.c})"><span class="n">${i+1}</span><b>${e.name}</b><small>${e.when.replace('Pre','pre').replace(' godina',' god.')}</small></button>`;});
+  b+=`<button type="button" class="era-btn cmp" id="cmpbtn"><span class="n">&#8801;</span><b>Uporedi</b><small>sva četiri doba</small></button>`;
+  $('eras').innerHTML=b;
+}
+
+function renderScene(){
+  const i=state.era,el=$('scene');
+  if(!sceneCache[i])sceneCache[i]=sceneSVG(i,'s'+i+'_');
+  const reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(el.dataset.era!==String(i)){
+    if(el.dataset.era!==undefined&&!reduce){el.classList.add('fading');setTimeout(()=>{el.innerHTML=sceneCache[i];el.dataset.era=i;requestAnimationFrame(()=>el.classList.remove('fading'));},160);}
+    else{el.innerHTML=sceneCache[i];el.dataset.era=i;}
+  }
+  const e=ERAS[i];
+  $('cap').innerHTML=`<b>${e.name}</b><span>${e.when}</span>`;
+  let h='';e.spots.forEach((s,k)=>{const x=s.x/W*100,y=s.y/H*100;h+=`<button type="button" class="hs${x>66?' left':''}${state.spot===k?' on':''}" data-spot="${k}" style="left:${x}%;top:${y}%" aria-label="${k+1}. ${s.title}"><span class="num">${k+1}</span><span class="lbl">${s.cat}</span></button>`;});
+  if(i===0)h+=`<button type="button" class="music left" data-music style="left:${360/W*100}%;top:${646/H*100}%" aria-label="Poslušaj frulu"><span class="ic"></span><span class="lbl txt"></span></button>`;
+  $('hotspots').innerHTML=h;$('hotspots').hidden=!state.marks;musicUI();
+}
+
+function renderPanel(){
+  const e=ERAS[state.era],pn=$('panel');
+  if(state.spot<0){
+    pn.innerHTML=`<div><p class="eyebrow">Doba ${state.era+1} od 4</p><h2>${e.name}</h2><p class="sub">${e.sub}</p></div>
+      <div class="when"><b>${e.when}</b><span>${e.bc}</span></div>
+      <p>${e.intro}</p>
+      <dl class="life">${e.life.map(l=>`<div><dt>${l[0]}</dt><dd>${l[1]}</dd></div>`).join('')}</dl>
+      <p class="h3">Istraži sliku</p>
+      <ul class="spotlist">${e.spots.map((s,k)=>`<li><button type="button" class="spotbtn" data-spot="${k}"><span class="num">${k+1}</span><span class="chip">${s.cat}</span><b>${s.title}</b></button></li>`).join('')}</ul>
+      <p class="note">${e.note}</p>`;
+  }else{
+    const s=e.spots[state.spot],last=state.spot===2,nextLbl=last?(state.era<3?`Sledeće doba: ${ERAS[state.era+1].name} &#8594;`:'Uporedi sva doba &#8594;'):`Sledeća zanimljivost &#8594;`;
+    pn.innerHTML=`<button type="button" class="back" id="back">&#8592; ${e.name}</button>
+      <div class="cardhead"><span class="num">${state.spot+1}</span><div><span class="chip">${s.cat}</span><h2>${s.title}</h2></div></div>
+      <figure class="art">${ART[s.art]()}<figcaption>${s.cap}</figcaption></figure>
+      ${s.sound?`<button type="button" class="playbtn" data-music><span class="pi"></span><span class="txt"></span></button><p class="soundnote">Zvuk je napravljen na računaru. Niko ne zna koje su melodije svirali u ledenom dobu, pa je ovo izmišljena pesmica od tonova koje frula sa pet rupica može da da.</p>`:''}
+      <p>${s.text}</p>
+      <div class="fact"><b>Da li si znao?</b><p>${s.fact}</p></div>
+      <div class="board"><small>Pitanje za razred</small><p>${s.q}</p></div>
+      <div class="cardnav"><button type="button" class="nextspot" id="nextspot">${nextLbl}</button></div>`;
+  }
+  pn.scrollTop=0;musicUI();
+}
+
+function renderChrome(){
+  document.querySelectorAll('.seg').forEach(b=>b.classList.toggle('on',+b.dataset.era===state.era&&state.view==='explore'));
+  document.querySelectorAll('.era-btn[data-era]').forEach(b=>{const on=+b.dataset.era===state.era&&state.view==='explore';b.classList.toggle('on',on);b.setAttribute('aria-current',on?'true':'false');});
+  $('cmpbtn').classList.toggle('on',state.view==='compare');
+  $('prev').disabled=state.era===0;$('next').disabled=state.era===3;
+  $('explore').hidden=state.view!=='explore';$('compare').hidden=state.view!=='compare';
+  const mb=$('marks');mb.setAttribute('aria-pressed',String(state.marks));mb.querySelector('span').textContent=state.marks?'Sakrij oznake':'Prikaži oznake';
+}
+
+let cmpBuilt=false;
+function renderCompare(){
+  if(cmpBuilt)return;cmpBuilt=true;
+  let h='<thead><tr><th scope="col"></th>';
+  ERAS.forEach((e,i)=>{h+=`<th scope="col"><button type="button" class="thumb" data-goto="${i}" aria-label="Otvori: ${e.name}">${sceneSVG(i,'c'+i+'_')}</button><span class="thname" style="--c:var(${e.c})"><i></i>${e.name}</span><span class="thwhen">${e.when}</span></th>`;});
+  h+='</tr></thead><tbody>';
+  CMP.forEach(row=>{h+=`<tr><th scope="row">${row[0]}</th>${row[1].map(c=>`<td>${c}</td>`).join('')}</tr>`;});
+  $('cmp').innerHTML=h+'</tbody>';
+}
+
+function render(){renderChrome();if(state.view==='explore'){renderScene();renderPanel();}else renderCompare();try{localStorage.setItem('opdg-era',state.era);}catch(e){}}
+function goEra(i){if(i<0||i>3)return;if(i!==state.era||state.view!=='explore')Flute.stop();state.era=i;state.spot=-1;state.view='explore';render();}
+function openSpot(k){state.spot=k;renderScene();renderPanel();}
+
+/* ---------- grain texture ---------- */
+(function(){try{const c=document.createElement('canvas');c.width=c.height=300;const x=c.getContext('2d');const r=rng(77);const im=x.createImageData(300,300);
+  for(let i=0;i<im.data.length;i+=4){const v=200+r()*55;im.data[i]=v;im.data[i+1]=v-4;im.data[i+2]=v-12;im.data[i+3]=255;}x.putImageData(im,0,0);
+  x.globalAlpha=.08;x.strokeStyle='#5a4630';for(let i=0;i<260;i++){x.lineWidth=r()*1.4+.3;x.beginPath();const a=r()*300,b=r()*300;x.moveTo(a,b);x.lineTo(a+r()*40-20,b+r()*8-4);x.stroke();}
+  $('grain').style.backgroundImage=`url(${c.toDataURL()})`;}catch(e){}})();
+
+/* ---------- events ---------- */
+buildRuler();
+document.addEventListener('click',ev=>{
+  const t=ev.target.closest('button');if(!t)return;
+  if(t.dataset.music!==undefined){Flute.toggle();return;}
+  if(t.dataset.era!==undefined){goEra(+t.dataset.era);return;}
+  if(t.dataset.spot!==undefined){openSpot(+t.dataset.spot);return;}
+  if(t.dataset.goto!==undefined){goEra(+t.dataset.goto);window.scrollTo({top:0});return;}
+  if(t.id==='cmpbtn'){Flute.stop();state.view='compare';render();return;}
+  if(t.id==='back'){state.spot=-1;renderScene();renderPanel();return;}
+  if(t.id==='nextspot'){if(state.spot<2)openSpot(state.spot+1);else if(state.era<3)goEra(state.era+1);else{Flute.stop();state.view='compare';render();}return;}
+  if(t.id==='prev'){goEra(state.era-1);return;}
+  if(t.id==='next'){goEra(state.era+1);return;}
+  if(t.id==='marks'){state.marks=!state.marks;renderChrome();$('hotspots').hidden=!state.marks;return;}
+  if(t.id==='fs'){const a=$('app');try{if(document.fullscreenElement)document.exitFullscreen();else if(a.requestFullscreen){const pr=a.requestFullscreen();if(pr&&pr.catch)pr.catch(()=>{});}}catch(e){}return;}
+});
+document.addEventListener('keydown',ev=>{
+  if(ev.altKey||ev.ctrlKey||ev.metaKey)return;
+  if(ev.key==='ArrowRight'){if(state.view==='explore')goEra(state.era+1);ev.preventDefault();}
+  else if(ev.key==='ArrowLeft'){if(state.view==='compare')goEra(state.era);else goEra(state.era-1);ev.preventDefault();}
+  else if(ev.key==='1'||ev.key==='2'||ev.key==='3'){if(state.view==='explore'){openSpot(+ev.key-1);}}
+  else if(ev.key==='Escape'){if(state.view==='explore'&&state.spot>=0){state.spot=-1;renderScene();renderPanel();}}
+});
+if(!document.fullscreenEnabled){$('fs').hidden=true;}
+document.addEventListener('fullscreenchange',()=>{$('fs').querySelector('span').textContent=document.fullscreenElement?'Izađi iz celog ekrana':'Ceo ekran';});
+render();
+})();
+</script>
+
+</body></html>

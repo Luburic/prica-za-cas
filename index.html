@@ -1,0 +1,733 @@
+<!doctype html>
+<html lang="sr-Latn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Priča za čas</title>
+<link rel="icon" type="image/svg+xml" href="logo/znak.svg">
+<meta name="description" content="Obrazovni alat koji nastavnike uči da uz veštačku inteligenciju prave interaktivne obrazovne vizuale za čas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FBF6EC; --surface:#FFFFFF; --surface-2:#F4ECDD; --ink:#2A211A; --muted:#6A5C4F;
+  --line:#E6DBCA; --accent:#F4B53F; --accent-ink:#2A211A; --link:#9A5B06;
+  --ph-bg:#FFE1A1; --ph-ink:#6B4300; --ok-bg:#D8F0DE; --ok-ink:#1F5532;
+  --bad-bg:#FBE1DC; --bad-ink:#8A2B1C; --code-bg:#FFFCF6;
+  --shadow:0 1px 2px rgba(60,40,20,.06),0 8px 24px rgba(60,40,20,.08);
+  --serif:"Fraunces",Georgia,"Times New Roman",serif;
+  --sans:"Source Sans 3","Segoe UI",system-ui,-apple-system,sans-serif;
+  --mono:"JetBrains Mono",Consolas,"Courier New",monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#1A1511; --surface:#241D17; --surface-2:#2D241C; --ink:#F3EADF; --muted:#BBA994;
+    --line:#3C3128; --accent:#FFC857; --accent-ink:#2A211A; --link:#FFC857;
+    --ph-bg:#5A4316; --ph-ink:#FFE1A1; --ok-bg:#1E3B28; --ok-ink:#BFE8CB;
+    --bad-bg:#45231C; --bad-ink:#F6C3B8; --code-bg:#1F1914;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.3);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1A1511; --surface:#241D17; --surface-2:#2D241C; --ink:#F3EADF; --muted:#BBA994;
+  --line:#3C3128; --accent:#FFC857; --accent-ink:#2A211A; --link:#FFC857;
+  --ph-bg:#5A4316; --ph-ink:#FFE1A1; --ok-bg:#1E3B28; --ok-ink:#BFE8CB;
+  --bad-bg:#45231C; --bad-ink:#F6C3B8; --code-bg:#1F1914;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.3);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 18px/1.6 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:var(--link)}
+h1,h2,h3{font-family:var(--serif);font-weight:700;line-height:1.15;margin:0;letter-spacing:-.01em}
+p{margin:0 0 1em}
+.wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+@media (max-width:600px){.wrap{padding:0 16px}body{font-size:17px}}
+strong{font-weight:700}
+code,kbd{font-family:var(--mono);font-size:.86em}
+
+/* zaglavlje */
+.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:16px;height:60px}
+.brand{display:flex;align-items:center;gap:10px;font:700 20px/1 var(--serif);color:var(--ink);text-decoration:none;white-space:nowrap}
+.brand-mark{width:36px;height:36px;flex:none}
+.nav{margin-left:auto;display:flex;gap:4px}
+.nav a{color:var(--muted);text-decoration:none;font-weight:600;font-size:16px;padding:8px 12px;border-radius:999px}
+.nav a:hover{color:var(--ink);background:var(--surface-2)}
+@media (max-width:640px){.nav a.hide-sm{display:none}.brand > span:last-child{display:none}.nav a{padding:8px 10px}}
+
+/* uvod */
+.hero{padding:72px 0 56px}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+.eyebrow{display:inline-block;font-weight:700;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--link);margin-bottom:16px}
+.hero h1{font-size:clamp(34px,5vw,54px);margin-bottom:22px}
+.lead{font-size:clamp(18px,2vw,21px);color:var(--muted);max-width:36em}
+.btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:8px;font:700 17px/1 var(--sans);padding:14px 22px;border-radius:999px;text-decoration:none;border:2px solid transparent;cursor:pointer}
+.btn-main{background:var(--accent);color:var(--accent-ink)}
+.btn-main:hover{filter:brightness(1.05)}
+.btn-ghost{border-color:var(--line);color:var(--ink);background:var(--surface)}
+.btn-ghost:hover{border-color:var(--muted)}
+.btn:focus-visible,.nav a:focus-visible,.card a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--link);outline-offset:3px}
+.stack{position:relative;aspect-ratio:1/0.86;max-width:480px;justify-self:center;width:100%}
+.stack img{position:absolute;width:78%;aspect-ratio:16/10;object-fit:cover;border-radius:14px;box-shadow:var(--shadow);border:4px solid var(--surface)}
+.stack img:nth-child(1){left:0;top:0;transform:rotate(-5deg)}
+.stack img:nth-child(2){right:0;top:22%;transform:rotate(4deg)}
+.stack img:nth-child(3){left:8%;bottom:0;transform:rotate(-1.5deg)}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr;gap:40px}.hero{padding:44px 0 36px}.stack{max-width:420px}}
+
+/* kome je namenjeno */
+.who{padding:8px 0 72px}
+.who-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:28px}
+.panel h2{font-size:24px;margin-bottom:14px}
+.panel ul{margin:0;padding-left:1.2em}
+.panel li{margin:.35em 0}
+.facts{display:grid;grid-template-columns:1fr;gap:14px}
+.fact{display:grid;grid-template-columns:42px 1fr;gap:2px 16px;padding:20px 24px}
+.fact .ic{grid-row:span 2;margin:0}
+.fact .ic{width:42px;height:42px;border-radius:12px;background:var(--surface-2);display:grid;place-items:center;margin-bottom:12px;color:var(--link)}
+.fact .ic svg{width:22px;height:22px}
+.fact h3{font:700 18px/1.3 var(--sans);margin-bottom:6px}
+.fact p{font-size:16px;color:var(--muted);margin:0}
+.note{font-size:16px;color:var(--muted);margin:16px 0 0}
+@media (max-width:860px){.who-grid{grid-template-columns:1fr}.facts{grid-template-columns:1fr}}
+
+/* sekcije */
+.sec{padding:80px 0;border-top:1px solid var(--line)}
+.sec-head{max-width:720px;margin-bottom:40px}
+.sec-head h2{font-size:clamp(30px,4vw,42px);margin-bottom:14px}
+.sec-head p{color:var(--muted);font-size:19px;margin:0}
+.num{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font:700 17px/1 var(--sans);flex:none}
+
+/* primeri */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media (max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:620px){.grid{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.card .thumb{display:block;aspect-ratio:16/10;background:var(--surface-2);overflow:hidden}
+.card .thumb img{width:100%;height:100%;object-fit:cover}
+.card .body{padding:20px 22px 22px;display:flex;flex-direction:column;flex:1}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.tag{font-size:13px;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--surface-2);color:var(--muted)}
+.card h3{font:700 21px/1.25 var(--serif);margin-bottom:8px}
+.card h3 a{color:var(--ink);text-decoration:none}
+.card h3 a::after{content:"";position:absolute;inset:0}
+.card{position:relative}
+.card p{font-size:16px;color:var(--muted);margin:0 0 14px}
+.card .open{margin-top:auto;font-weight:700;font-size:16px;color:var(--link)}
+
+/* koraci */
+.steps{display:grid;gap:22px}
+.step{display:grid;grid-template-columns:56px 1fr;gap:6px 18px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:28px}
+.step > .num{width:44px;height:44px;font-size:20px}
+.step h3{font-size:26px;margin:6px 0 12px}
+.step-body{grid-column:2;min-width:0}
+.step-body > p{max-width:46em}
+@media (max-width:640px){.step{grid-template-columns:1fr;padding:22px 18px}.step-body{grid-column:1}.step h3{font-size:23px}}
+
+.callout{border-radius:14px;padding:16px 18px;margin:16px 0;border:1px solid var(--line);background:var(--surface-2);font-size:17px}
+.callout.warn{background:var(--ph-bg);color:var(--ph-ink);border-color:transparent}
+.callout strong{display:block;margin-bottom:4px}
+.callout p:last-child{margin:0}
+
+/* graditelj prompta */
+.builder{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:24px;margin-top:18px}
+@media (max-width:980px){.builder{grid-template-columns:1fr}.preview{position:relative;top:0;max-height:none}.preview pre{max-height:520px}}
+.field{margin-bottom:18px}
+.field label{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px;font-weight:700;font-size:17px;margin-bottom:4px}
+.field label .ph-name{font:600 12px/1.4 var(--mono);background:var(--ph-bg);color:var(--ph-ink);padding:1px 6px;border-radius:5px}
+.field .hint{font-size:15px;color:var(--muted);margin:0 0 8px}
+.field input,.field textarea{width:100%;font:400 17px/1.45 var(--sans);color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:10px;padding:10px 12px}
+.field textarea{min-height:150px;resize:vertical}
+.field input:focus,.field textarea:focus{border-color:var(--link);outline:none}
+.field.short input{max-width:140px}
+.pair{display:flex;gap:16px;flex-wrap:wrap}
+.pair .field{flex:1 1 180px}
+.preview{position:sticky;top:76px;align-self:start;max-height:calc(100vh - 96px);display:flex;flex-direction:column;background:var(--code-bg);border:1px solid var(--line);border-radius:16px;overflow:hidden;min-height:0}
+.preview-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 14px;border-bottom:1px solid var(--line);background:var(--surface)}
+.preview-bar .t{font:600 14px/1 var(--mono);color:var(--muted);margin-right:auto}
+.small-btn{font:700 15px/1 var(--sans);padding:10px 14px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.small-btn.main{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.small-btn:hover{filter:brightness(1.04)}
+.preview pre{margin:0;padding:18px;font:400 13.5px/1.6 var(--mono);white-space:pre-wrap;word-break:break-word;overflow:auto;flex:1;min-height:0}
+.preview mark{border-radius:4px;padding:0 3px;font-weight:600}
+.preview mark.empty{background:var(--ph-bg);color:var(--ph-ink)}
+.preview mark.filled{background:var(--ok-bg);color:var(--ok-ink)}
+.status{font-size:15px;padding:10px 14px;border-top:1px solid var(--line);background:var(--surface);color:var(--muted)}
+.status.ok{color:var(--ok-ink);background:var(--ok-bg)}
+.status.warn{color:var(--ph-ink);background:var(--ph-bg)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:15px;color:var(--muted);margin:6px 0 0}
+.legend span::before{content:"";display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.legend .l-empty::before{background:var(--ph-bg);border:1px solid var(--ph-ink)}
+.legend .l-filled::before{background:var(--ok-bg);border:1px solid var(--ok-ink)}
+
+/* alati */
+.tools{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+@media (max-width:700px){.tools{grid-template-columns:1fr}}
+.tool{border:1px solid var(--line);border-radius:14px;padding:18px;background:var(--bg)}
+.tool h4{margin:0 0 6px;font:700 19px/1.3 var(--sans)}
+.tool h4 a{color:var(--ink)}
+.tool p{font-size:16px;color:var(--muted);margin:0}
+ol.plain,ul.plain{margin:8px 0 0;padding-left:1.3em}
+ol.plain li,ul.plain li{margin:.4em 0}
+
+/* tok stanice */
+.flow{padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:20px 0 8px;counter-reset:f}
+.flow li{list-style:none;position:relative;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:16px 16px 14px}
+.flow li::before{counter-increment:f;content:counter(f);display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--surface-2);font-weight:700;font-size:14px;margin-bottom:8px}
+.flow li:not(:last-child)::after{content:"";position:absolute;right:-11px;top:50%;width:10px;height:10px;border-top:2px solid var(--muted);border-right:2px solid var(--muted);transform:translateY(-50%) rotate(45deg);opacity:.6}
+.flow b{display:block;font-size:17px;margin-bottom:4px}
+.flow span{font-size:15px;color:var(--muted);display:block}
+.flow ul{margin:0;padding:0}
+@media (max-width:860px){.flow{grid-template-columns:1fr 1fr}.flow li::after{display:none}}
+@media (max-width:480px){.flow{grid-template-columns:1fr}}
+.flow-wrap{padding:0;margin:0}
+
+.compare{display:grid;gap:12px;margin:16px 0}
+.pairx{display:grid;grid-template-columns:1fr 1.6fr;gap:12px}
+@media (max-width:760px){.pairx{grid-template-columns:1fr}}
+.ex{border-radius:12px;padding:14px 16px;font-size:16px}
+.ex .lbl{display:block;font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
+.ex.bad{background:var(--bad-bg);color:var(--bad-ink)}
+.ex.good{background:var(--ok-bg);color:var(--ok-ink)}
+.template{position:relative;background:var(--code-bg);border:1px solid var(--line);border-radius:14px;padding:18px 18px 18px;margin:16px 0}
+.template pre{margin:0;font:400 14.5px/1.65 var(--mono);white-space:pre-wrap}
+.template .small-btn{position:absolute;top:12px;right:12px}
+.template .head{font-weight:700;font-size:15px;color:var(--muted);margin-bottom:8px;font-family:var(--sans)}
+.checklist{list-style:none;padding:0;margin:10px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:8px 24px}
+@media (max-width:700px){.checklist{grid-template-columns:1fr}}
+.checklist li{position:relative;padding-left:30px;font-size:17px}
+.checklist li::before{content:"";position:absolute;left:0;top:4px;width:18px;height:18px;border-radius:5px;border:2px solid var(--muted)}
+
+footer{border-top:1px solid var(--line);padding:36px 0 48px;color:var(--muted);font-size:15px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer .author{margin-bottom:14px}
+footer .author p{margin:0;color:var(--ink);font-size:16px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:var(--ink);color:var(--bg);padding:12px 20px;border-radius:999px;font-weight:700;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:50;max-width:calc(100% - 32px);text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#o-sajtu" aria-label="Priča za čas, početak">
+      <img class="brand-mark" src="logo/znak.svg" alt="" width="36" height="36">
+      <span>Priča za čas</span>
+    </a>
+    <nav class="nav" aria-label="Glavna navigacija">
+      <a href="#o-sajtu" class="hide-sm">O alatu</a>
+      <a href="#primeri">Primeri</a>
+      <a href="#proces">Kako se pravi</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- 1. ŠTA JE OVO I KOME JE NAMENJENO -->
+<section class="hero" id="o-sajtu">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Obrazovni alat za nastavnike</span>
+      <h1>Napravi interaktivnu priču za čas uz pomoć veštačke inteligencije</h1>
+      <p class="lead">Ovde učiš kako da uz Claude ili ChatGPT napraviš obrazovni vizual: ilustrovanu priču koju projektuješ na času i kroz koju vodiš učenike klik po klik. Dobijaš gotov prompt, šest polja koja popunjavaš i uputstvo kako da gotov proizvod doteraš.</p>
+      <div class="btns">
+        <a class="btn btn-main" href="#primeri">Pogledaj primere</a>
+        <a class="btn btn-ghost" href="#proces">Kako se pravi</a>
+      </div>
+    </div>
+    <div class="stack" aria-hidden="true">
+      <img src="slike/pecina.webp" alt="">
+      <img src="slike/struja.webp" alt="">
+      <img src="slike/fotosinteza.webp" alt="">
+    </div>
+  </div>
+</section>
+
+<section class="who" aria-labelledby="kome">
+  <div class="wrap who-grid">
+    <div class="panel">
+      <h2 id="kome">Kome je namenjeno</h2>
+      <ul>
+        <li>Učiteljima i nastavnicima u osnovnoj i srednjoj školi</li>
+        <li>Profesorima i asistentima na fakultetu</li>
+        <li>Edukatorima u muzejima, bibliotekama, naučnim centrima i na radionicama</li>
+      </ul>
+      <p class="note">Ne treba ti znanje programiranja. Treba ti tema koju dobro poznaješ, izvor iz kog predaješ i vremena za nekoliko krugova ispravki.</p>
+    </div>
+    <div class="facts">
+      <div class="panel fact">
+        <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M9 14l-2 2 2 2M15 14l2 2-2 2"/></svg></div>
+        <h3>Jedan HTML fajl</h3>
+        <p>Otvara se u pregledaču i radi bez interneta, na projektoru, računaru i telefonu.</p>
+      </div>
+      <div class="panel fact">
+        <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 9l11 6-5 1-2 5z"/><path d="M5 3v2M3 5h2M9 3l-.5 1.5M3 9l1.5-.5"/></svg></div>
+        <h3>Tempo određuješ ti</h3>
+        <p>Svaka stanica je jedan pojam i jedno pitanje. Ništa ne prelazi samo, sve ide na klik dok ti pričaš.</p>
+      </div>
+      <div class="panel fact">
+        <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg></div>
+        <h3>Zasnovano na istraživanju</h3>
+        <p>Prompt ugrađuje Majerove principe multimedijalnog učenja i teoriju kognitivnog opterećenja.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. PRIMERI -->
+<section class="sec" id="primeri" aria-labelledby="primeri-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="primeri-h">Primeri</h2>
+      <p>Svih šest primera napravljeno je istim promptom i istim procesom koji je opisan ispod. Klikni na primer i prođi ga kao učenik.</p>
+    </div>
+    <div class="grid">
+
+      <article class="card">
+        <a class="thumb" href="primeri/Kako%20radi%20fotosinteza.html" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="slike/fotosinteza.webp" alt="" loading="lazy" width="960" height="600"></a>
+        <div class="body">
+          <div class="tags"><span class="tag">Biologija</span><span class="tag">3D prikaz</span></div>
+          <h3><a href="primeri/Kako%20radi%20fotosinteza.html" target="_blank" rel="noopener">Kako radi fotosinteza</a></h3>
+          <p>Ćelija lista u 3D prikazu. Pokazuje kako svetlost, voda i ugljen-dioksid u hloroplastu postaju šećer i kiseonik. Drugi deo primenjuje to na praktične probleme: požutelo lišće, lampe u plastenicima i senčenje biljaka.</p>
+          <span class="open" aria-hidden="true">Otvori primer →</span>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="thumb" href="primeri/Kako%20smo%20ukrotili%20struju.html" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="slike/struja.webp" alt="" loading="lazy" width="960" height="600"></a>
+        <div class="body">
+          <div class="tags"><span class="tag">Tehnika i fizika</span><span class="tag">6. razred</span></div>
+          <h3><a href="primeri/Kako%20smo%20ukrotili%20struju.html" target="_blank" rel="noopener">Kako smo ukrotili struju</a></h3>
+          <p>Put struje od munje i Dunava, preko brane Đerdap, generatora, transformatora i dalekovoda, do utičnice, procesora i piksela na ekranu. Na kraju se ceo put premotava unazad.</p>
+          <span class="open" aria-hidden="true">Otvori primer →</span>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="thumb" href="primeri/%C4%8Cemu%20meni%20ova%20matematika.html" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="slike/matematika.webp" alt="" loading="lazy" width="960" height="600"></a>
+        <div class="body">
+          <div class="tags"><span class="tag">Matematika</span><span class="tag">5. i 6. razred</span></div>
+          <h3><a href="primeri/%C4%8Cemu%20meni%20ova%20matematika.html" target="_blank" rel="noopener">Čemu meni ova matematika</a></h3>
+          <p>Deset stanica u gradu pokazuje gde se gradivo koristi: procenti na bateriji telefona, uglovi kod robota, negativni brojevi u liftu, trouglovi u mostu, simetrija aviona, površina solarnog krova, prosti brojevi u lozinkama i koordinate u igrici.</p>
+          <span class="open" aria-hidden="true">Otvori primer →</span>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="thumb" href="primeri/%C5%A0ta%20su%20nam%20bile%20neke%20stanice%20od%20pe%C4%87ine%20do%20grada.html" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="slike/pecina.webp" alt="" loading="lazy" width="960" height="600"></a>
+        <div class="body">
+          <div class="tags"><span class="tag">Istorija</span><span class="tag">Praistorija</span></div>
+          <h3><a href="primeri/%C5%A0ta%20su%20nam%20bile%20neke%20stanice%20od%20pe%C4%87ine%20do%20grada.html" target="_blank" rel="noopener">Od pećine do grada</a></h3>
+          <p>Četiri doba na vremenskoj traci u razmeri: ledeno doba, Lepenski Vir, prva sela (Vinča) i prvi gradovi. Na svakoj slici tačke otvaraju nalaze, od pećinskih crteža do točka, uz pitanja za razgovor sa razredom.</p>
+          <span class="open" aria-hidden="true">Otvori primer →</span>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="thumb" href="primeri/Kako%20stvara%C5%A1%20ljubav%20kada%20si%20dete.html" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="slike/ljubav.webp" alt="" loading="lazy" width="960" height="600"></a>
+        <div class="body">
+          <div class="tags"><span class="tag">Razredni čas</span><span class="tag">Mlađi razredi</span></div>
+          <h3><a href="primeri/Kako%20stvara%C5%A1%20ljubav%20kada%20si%20dete.html" target="_blank" rel="noopener">Bašta ljubavi</a></h3>
+          <p>Kroz kraj sa stanom, školom, pekarom i parkom prati se šta je ljubav, kako se pokazuje (porodica, prijatelji, nepoznati) i kako se neguje kroz brigu, odgovornost i poštovanje. Brojač cvetova beleži napredak.</p>
+          <span class="open" aria-hidden="true">Otvori primer →</span>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="thumb" href="primeri/Za%C5%A1to%20nam%20trebaju%20zdravi%20nastavnici.html" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="slike/nastavnici.webp" alt="" loading="lazy" width="960" height="600"></a>
+        <div class="body">
+          <div class="tags"><span class="tag">Šira publika</span><span class="tag">Društvo</span></div>
+          <h3><a href="primeri/Za%C5%A1to%20nam%20trebaju%20zdravi%20nastavnici.html" target="_blank" rel="noopener">Šta će nam nastavnici</a></h3>
+          <p>Ana kreće u prvi razred kod učiteljice Mire. Priča prati 20 godina i pokazuje kako Mirin rad stiže do grada i države: roditelji rade dok deca uče, ko plaća nastavnike i šta im treba osim plate.</p>
+          <span class="open" aria-hidden="true">Otvori primer →</span>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- 3. PROCES -->
+<section class="sec" id="proces" aria-labelledby="proces-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="proces-h">Kako se pravi</h2>
+      <p>Sedam koraka. Najviše vremena ide na peti i šesti: prolazak kroz priču i ispravke. Prva verzija skoro nikad nije gotova verzija.</p>
+    </div>
+
+    <ol class="steps" style="list-style:none;margin:0;padding:0">
+
+      <!-- KORAK 1 -->
+      <li class="step" id="korak-1">
+        <span class="num" aria-hidden="true">1</span>
+        <div class="step-body">
+          <h3>Popuni prompt</h3>
+          <p>Prompt je uputstvo koje daješ veštačkoj inteligenciji. Ceo tekst je već napisan. Ti popunjavaš samo delove označene <mark style="background:var(--ph-bg);color:var(--ph-ink);padding:0 4px;border-radius:4px">žutom bojom</mark>: temu, publiku, izvor, dužinu, broj pojmova i smernice. Upiši ih levo, a prompt desno se sam dopunjuje. Ostatak prompta ne menjaj.</p>
+
+          <div class="builder">
+            <form id="form" autocomplete="off" onsubmit="return false">
+              <div class="field">
+                <label for="f-tema">Tema <span class="ph-name">OPISATI U REČENICI ILI DVE</span></label>
+                <p class="hint">Šta učenik treba da razume na kraju. Npr. „Kako struja putuje od reke do ekrana računara.”</p>
+                <input id="f-tema" data-key="tema" type="text">
+              </div>
+              <div class="field">
+                <label for="f-publika">Publika i predznanje <span class="ph-name">NAVESTI…</span></label>
+                <p class="hint">Razred ili ko gleda, i šta već znaju. Npr. „6. razred; znaju šta je baterija, ne znaju šta je generator.”</p>
+                <input id="f-publika" data-key="publika" type="text">
+              </div>
+              <div class="field">
+                <label for="f-izvor">Primarni izvor informacija <span class="ph-name">NAVESTI UDŽEBNIK…</span></label>
+                <p class="hint">Udžbenik (izdavač, razred, lekcija) ili drugi izvor. Ako možeš, priloži i PDF ili fotografije lekcije u 3. koraku.</p>
+                <input id="f-izvor" data-key="izvor" type="text">
+              </div>
+              <div class="pair">
+                <div class="field short">
+                  <label for="f-duzina">Dužina <span class="ph-name">DEFINISATI</span></label>
+                  <p class="hint">Koliko minuta traje priča na času. Npr. 15.</p>
+                  <input id="f-duzina" data-key="duzina" type="number" min="3" max="90" inputmode="numeric">
+                </div>
+                <div class="field short">
+                  <label for="f-pojmovi">Broj pojmova <span class="ph-name">X</span></label>
+                  <p class="hint">Koliko stanica ima priča. Za 15 minuta, oko 8.</p>
+                  <input id="f-pojmovi" data-key="pojmovi" type="number" min="2" max="30" inputmode="numeric">
+                </div>
+              </div>
+              <div class="field">
+                <label for="f-jezik">Jezik i pismo <span class="ph-name" style="background:var(--ok-bg);color:var(--ok-ink)">već popunjeno</span></label>
+                <p class="hint">Menjaj samo ako ti treba ćirilica, ijekavica ili drugi jezik.</p>
+                <input id="f-jezik" data-key="jezik" type="text" value="srpski, latinica, ekavica">
+              </div>
+              <div class="field">
+                <label for="f-smernice">Smernice <span class="ph-name">OPISATI U PAR PARAGRAFA…</span></label>
+                <p class="hint">Najvažnije polje. Opiši šta želiš da se vidi: od čega priča počinje, kojim redom idu pojmovi, koje mesto ili proizvod iz okoline da se koristi, šta učenici često pogrešno razumeju i čime priča treba da se završi.</p>
+                <textarea id="f-smernice" data-key="smernice" placeholder="Npr. Počni od kuće u selu uveče, kada se upali svetlo. Pitanje je odakle dolazi struja. Prati put unazad: utičnica, stub, trafostanica, dalekovod, brana Đerdap. Učenici misle da se struja „čuva” u žicama, pokaži da se pravi u trenutku kad se troši. Na kraju se vrati na kuću i ceo put prikaži odjednom."></textarea>
+              </div>
+              <button type="button" class="small-btn" id="clearBtn">Obriši sva polja</button>
+            </form>
+
+            <div class="preview">
+              <div class="preview-bar">
+                <span class="t">prompt.md</span>
+                <a class="small-btn" href="prompt.md" download>Preuzmi prazan</a>
+                <button type="button" class="small-btn main" id="copyBtn">Kopiraj prompt</button>
+              </div>
+              <pre id="promptOut" aria-live="off"></pre>
+              <div class="status" id="status" role="status"></div>
+            </div>
+          </div>
+          <p class="legend"><span class="l-empty">treba popuniti</span><span class="l-filled">popunjeno</span></p>
+        </div>
+      </li>
+
+      <!-- KORAK 2 -->
+      <li class="step" id="korak-2">
+        <span class="num" aria-hidden="true">2</span>
+        <div class="step-body">
+          <h3>Otvori Claude ili ChatGPT</h3>
+          <p>Prompt radi na oba alata. Izaberi jedan:</p>
+          <div class="tools">
+            <div class="tool">
+              <h4><a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a></h4>
+              <p>Priča se otvara u prozoru sa strane (artifact) i odmah može da se klikće. Ispravke se objavljuju na isti link, a prethodne verzije ostaju sačuvane.</p>
+            </div>
+            <div class="tool">
+              <h4><a href="https://chatgpt.com" target="_blank" rel="noopener">chatgpt.com</a></h4>
+              <p>Ako ne dobiješ fajl za preuzimanje, napiši: „Pošalji mi celu stranicu kao .html fajl za preuzimanje.”</p>
+            </div>
+          </div>
+          <div class="callout warn">
+            <strong>Potrebna je plaćena verzija za najbolje rezultate</strong>
+            <p>Koristi Claude Pro (ili Max) odnosno ChatGPT Plus (ili Pro). Priče iz primera imaju od 90 do 225 KB koda, a besplatne verzije imaju niža ograničenja i često prekinu ovako dug fajl na pola ili daju jednostavniju sliku. U izboru modela uzmi najjači ponuđeni model i uključi produženo razmišljanje (thinking).</p>
+          </div>
+        </div>
+      </li>
+
+      <!-- KORAK 3 -->
+      <li class="step" id="korak-3">
+        <span class="num" aria-hidden="true">3</span>
+        <div class="step-body">
+          <h3>Nalepi prompt i priloži izvor</h3>
+          <ol class="plain">
+            <li>Otvori <strong>novi razgovor</strong>.</li>
+            <li>Priloži lekciju iz udžbenika (PDF ili fotografije) ako je imaš. Tako model proverava činjenice u tvom izvoru, a ne u svom sećanju.</li>
+            <li>Nalepi popunjen prompt (<kbd>Ctrl</kbd> + <kbd>V</kbd>) i pošalji.</li>
+          </ol>
+          <p style="margin-top:12px">Prva verzija se pravi duže nego obična poruka, često i desetak minuta ili više, jer model piše hiljade redova koda. Ne prekidaj ga.</p>
+        </div>
+      </li>
+
+      <!-- KORAK 4 -->
+      <li class="step" id="korak-4">
+        <span class="num" aria-hidden="true">4</span>
+        <div class="step-body">
+          <h3>Proveri plan</h3>
+          <p>Model prvo pošalje kratak plan: priču u jednoj rečenici, lanac pojmova, analogiju, scene i pitanja na stanicama. Pročitaj ga dok model radi dalje. Ovo je najjeftinije mesto za ispravku.</p>
+          <p>Ako je redosled pojmova pogrešan, fali važan pojam ili analogija ne odgovara tvojoj publici, zaustavi ga i napiši šta da promeni, npr. „Zamenite stanice 3 i 4: generator mora pre turbine. Analogiju sa vozom zameni vodenicom.”</p>
+        </div>
+      </li>
+
+      <!-- KORAK 5 -->
+      <li class="step" id="korak-5">
+        <span class="num" aria-hidden="true">5</span>
+        <div class="step-body">
+          <h3>Prođi celu priču kao učenik</h3>
+          <p>Klikni kroz sve stanice od početka do kraja i uz svaku zapiši <strong>broj stanice</strong> i šta ne valja. Proveri:</p>
+          <ul class="checklist">
+            <li>Činjenice se slažu sa udžbenikom</li>
+            <li>Pojam je objašnjen pre nego što se koristi</li>
+            <li>Tekst je kratak i po meri uzrasta</li>
+            <li>Animacija pokazuje ono što tekst kaže</li>
+            <li>Svako dugme radi, nigde nema zastoja</li>
+            <li>Izgleda dobro na telefonu i u tamnoj temi</li>
+          </ul>
+        </div>
+      </li>
+
+      <!-- KORAK 6 -->
+      <li class="step" id="korak-6">
+        <span class="num" aria-hidden="true">6</span>
+        <div class="step-body">
+          <h3>Doteruj u krugovima: uvek reci gde i šta</h3>
+          <p>Ispravke pišeš u istom razgovoru. Model najbolje ispravlja kad tačno zna <strong>u kojoj stanici</strong> i <strong>u kom delu stanice</strong> je problem. Svaka stanica ima isti tok od četiri dela:</p>
+
+          <ol class="flow">
+            <li><b>Dugme na sceni</b><span>Pitanje koje zasvetli, npr. „Šta je munja?”. Menjaš tekst pitanja ili mesto dugmeta.</span></li>
+            <li><b>Prozor sa tekstom</b><span>Naslov i kratki pasusi bez animacije. Menjaš tekst, tačnost, podebljane pojmove.</span></li>
+            <li><b>Pogled izbliza</b><span>Animacija posle „Dalje”. Menjaš crtež, šta se kreće i kojim redom.</span></li>
+            <li><b>Posledica na sceni</b><span>Šta se promeni u svetu kad se prozor zatvori i gde ode kamera.</span></li>
+          </ol>
+          <p style="font-size:16px;color:var(--muted)">Van stanica postoje još: uvodni pregled, završni rasplet, traka sa tačkama ispod scene, Mali rečnik i zvuk.</p>
+
+          <div class="template">
+            <div class="head">Šablon za jednu ispravku</div>
+            <button type="button" class="small-btn" data-copy="tpl">Kopiraj</button>
+<pre id="tpl">Stanica [broj] („[pitanje sa dugmeta]”), [dugme / prozor sa tekstom / pogled izbliza / posledica na sceni]:
+Sad: [šta vidiš]
+Treba: [šta želiš]
+Ostalo ne menjaj.</pre>
+          </div>
+
+          <div class="compare">
+            <div class="pairx">
+              <div class="ex bad"><span class="lbl">Neodređeno</span>„Animacija kod brane nije dobra, popravi.”</div>
+              <div class="ex good"><span class="lbl">Konkretno</span>„Stanica 6 („Čemu služi brana?”), pogled izbliza: voda kroz branu ide odozdo nagore. Treba da pada odozgo kroz cev i okreće turbinu. Ostalo ne menjaj.”</div>
+            </div>
+            <div class="pairx">
+              <div class="ex bad"><span class="lbl">Neodređeno</span>„Tekst je pretežak.”</div>
+              <div class="ex good"><span class="lbl">Konkretno</span>„Stanica 3, prozor sa tekstom: drugi pasus uvodi i napon i struju. Ostavi samo struju, a napon prebaci u stanicu 5 i dodaj ga u rečnik.”</div>
+            </div>
+            <div class="pairx">
+              <div class="ex bad"><span class="lbl">Neodređeno</span>„Kraj je slab.”</div>
+              <div class="ex good"><span class="lbl">Konkretno</span>„Rasplet: kamera se ne vraća na kuću. Neka se udalji do cele doline, pa prikaže završnu rečenicu i dugme Pogledaj ponovo.”</div>
+            </div>
+          </div>
+
+          <p><strong>Pravila koja štede vreme:</strong></p>
+          <ul class="plain">
+            <li>Jedna do tri ispravke po poruci. Kod više ispravki odjednom model lakše nešto preskoči ili pokvari.</li>
+            <li>Uvek dodaj „Ostalo ne menjaj.” Tako ne gubiš delove koji već rade.</li>
+            <li>Posle ispravke ponovo prođi tu stanicu i one pre i posle nje.</li>
+            <li>Ako se pokvari nešto što je radilo, napiši tačno šta i u kojoj stanici, i traži da vrati prethodno stanje tog dela.</li>
+            <li>Činjenice proveravaš ti, u udžbeniku. Model može da pogreši i kad zvuči sigurno.</li>
+          </ul>
+        </div>
+      </li>
+
+      <!-- KORAK 7 -->
+      <li class="step" id="korak-7">
+        <span class="num" aria-hidden="true">7</span>
+        <div class="step-body">
+          <h3>Sačuvaj i koristi na času</h3>
+          <ul class="plain">
+            <li>Preuzmi gotov <code>.html</code> fajl i otvori ga u pregledaču (Chrome, Edge, Firefox). Internet nije potreban.</li>
+            <li>Na času uključi <strong>Ceo ekran</strong>. Napred ideš klikom, strelicom na tastaturi ili daljinskim za prezentacije.</li>
+            <li>Fajl možeš da pošalješ učenicima da ga prođu sami, na računaru ili telefonu.</li>
+          </ul>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap author">
+    <p>Alat i primere napravio je <strong>Nikola Luburić</strong> · <a href="https://www.linkedin.com/in/nikola-luburic/" target="_blank" rel="noopener">Pošalji mi svoju priču ili pitanje na LinkedIn-u</a></p>
+  </div>
+  <div class="wrap">
+    <span>Priča za čas · obrazovni alat za nastavnike</span>
+    <span><a href="#o-sajtu">Na vrh ↑</a></span>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script type="text/plain" id="promptSrc">
+## Zadatak
+
+Napravi interaktivnu obrazovnu priču: jednu samostalnu HTML stranicu, objavljenu kao artifact i poslatu kao .html fajl za rad bez interneta. Priča objašnjava publici šta je tema koristeći konkretne priče gde se korak po korak izlažu pojmovi i ostavlja jasan mentalni model na koji se kasnije nadograđuje. Koristi se na času: nastavnik priča uz nju, a tempo određuje onaj ko klikne.
+
+## Ulazni podaci
+
+- **Tema:** OPISATI U REČENICI ILI DVE
+- **Publika i predznanje:** NAVESTI DA LI JE ZA NAROD ILI ZA ODREĐEN RAZRED U ŠKOLI
+- **Primarni izvor informacija:** NAVESTI UDŽEBNIK KOJI SE KORISTI ILI DRUGI IZVOR
+- **Jezik i pismo:** srpski, latinica, ekavica
+- **Dužina:** Priča treba da se ispriča u DEFINISATI minuta.
+- **Smernice:** OPISATI U PAR PARAGRAFA ŠTA ŽELITE DA SE PRIKAŽE
+
+## Način rada
+
+1. Proveri činjenice u izvorima; ništa iz sećanja.
+2. Pošalji kratak plan i odmah nastavi: priča u jednoj rečenici, lanac pojmova, analogija, scene, stanice sa pitanjima, rasplet.
+3. Pre predaje prođi celu priču u pregledaču (računar, telefon, tamna tema, konzola bez grešaka). Zatim pročitaj sav tekst kao celinu: lanac bez rupa, pojam pre upotrebe, jezik po meri publike, tačne činjenice.
+4. Kod ispravki menjaj samo traženo i objavi na isti link.
+
+## Principi
+
+Primeni principe multimedijalnog učenja (Majer) i teoriju kognitivnog opterećenja. Svaki izbor im služi.
+
+- **Koherentnost:** jedan proces; bez izmišljenih međukoraka, sporednih tema i ukrasa.
+- **Signaliziranje:** u svakom trenutku jedno mesto za gledanje; boje imaju stalno značenje.
+- **Prostorna i vremenska bliskost:** tekst stoji uz ono što objašnjava i javlja se zajedno sa slikom.
+- **Segmentiranje:** sve ide na klik; ništa ne prelazi samo.
+- **Prethodna obuka:** na početku pregled cele teme i glavnih segmenata; pojam se uvodi pre upotrebe.
+- **Redundantnost i modalitet:** tekst je kratak jer nastavnik priča; slika nosi objašnjenje.
+- **Personalizacija:** obraćanje na „ti”, primeri iz života publike.
+- **Od konkretnog ka apstraktnom:** stvaran svet, zumiranje ka apstraktnom, pa povratak na celu sliku.
+- **Generativnost:** pogled izbliza prvo pokaže, pa pusti učenika da proba.
+- **Bez zavodljivih detalja:** animacija i zvuk samo kad pomažu razumevanju.
+
+## Priča
+
+- Lanac od X pojmova. Svaka stanica je pojam i jedno pitanje na dugmetu (npr. „Šta je munja?”) ili poziv (npr. „Otvori svoj laptop”). Najviše jedan do dva nova pojma po stanici.
+- Jedna analogija nosi celu priču.
+- Stvaran proizvod ili mesto koje publika zna, po mogućstvu lokalno.
+- Svet pamti napredak: objašnjeno ostaje uključeno i označeno.
+- Rasplet: udaljavanje do cele slike ili premotavanje puta, pa jedna do dve završne rečenice i „Pogledaj ponovo”.
+
+## Interakcija
+
+Scena zauzima ceo ekran. Svaka stanica ide istim tokom: zasvetli jedno dugme na mestu radnje → prozor sa strane, kratak tekst bez animacije → „Dalje” otvara pogled izbliza u istom prozoru, sa animacijom; kad se završi, „Dalje” zasija → prozor se zatvara, posledica se odigra na sceni i kamera je prati → zasvetli sledeće dugme.
+
+- Prozor ne pokriva stanicu, jer se kamera pomeri; na telefonu se otvara odozdo.
+- Bez automatskog prelaska, izbora brzine i dugmadi van prozora.
+- Ispod scene su samo tanka traka (tačke za svaku celinu, Zvuk, Ispočetka, Ceo ekran) i zatvoren Mali rečnik, sa napomenom o pojednostavljenjima i izvorima.
+- Tastatura i daljinski za prezentacije rade; skok na tačku vraća tačno stanje sveta.
+
+## Tekst
+
+- Strana ima naslov do sedam reči i do tri kratka pasusa (40 do 80 reči). Uz pogled izbliza idu najviše dve rečenice.
+- Svaki termin izbaci, zameni ili uvedi. Uveden termin je podebljan prvi put, objašnjen i upisan u rečnik. Pretpostavi manje predznanja nego što misliš.
+- Brojevi su u lokalnom formatu, sa jedinicom i poređenjem sa nečim poznatim. Primeri i pojednostavljenja su označeni.
+- Bez crtica kao interpunkcije, bez „nije X, nego Y”, bez dvotačke posle koje sledi otkriće i bez šablonskih fraza.
+
+## Stil
+
+Ilustrovan stvaran svet, ni fotografija ni šema: 2D presek sa dubinom u SVG-u. Veselo i staloženo, toplo i deci i starijima. Kamera putuje kroz jedan neprekinut svet i zumiranjem prelazi između nivoa razmere. Tamna tema je noćna verzija sveta. Tipografija je krupna i čitljiva (tekst oko 20 px). Animacije su spore i mirne.
+
+## Zvuk
+
+Zvuk se sintetizuje u pregledaču (Web Audio, bez fajlova): ambijent prema mestu kamere, tiha muzika po fazama, kratki efekti za ključne događaje. Počinje posle prvog klika, stiša se dok je prozor otvoren, a dugme za isključivanje pamti izbor. Ništa ne sme da zamara pri ponavljanju; jačinu proveri offline renderom.
+
+## Tehnika
+
+Spolja samo fontovi sa Google Fonts (sa rezervnim fontom) i biblioteke sa dozvoljenih CDN-ova (npr. Three.js r128 sa cdnjs). Stanice su zapisane kao podaci, animacije se mogu prekinuti, smanjeno kretanje se poštuje, dugmad su pristupačna, a na telefonu nema vodoravnog skrola.</script>
+<script>
+(function(){
+  var RAW = document.getElementById('promptSrc').textContent.normalize('NFC').replace(/^\s*\n/, '').replace(/\s+$/, '') + '\n';
+  // Delovi prompta koje korisnik popunjava
+  var PH = [
+    {key:'tema',     re:'OPISATI U REČENICI ILI DVE', label:'Tema'},
+    {key:'publika',  re:'NAVESTI DA LI JE ZA NAROD ILI ZA ODREĐEN RAZRED U ŠKOLI', label:'Publika i predznanje'},
+    {key:'izvor',    re:'NAVESTI UDŽEBNIK KOJI SE KORISTI ILI DRUGI IZVOR', label:'Primarni izvor'},
+    {key:'jezik',    re:'srpski, latinica, ekavica', label:'Jezik i pismo', prefilled:true},
+    {key:'duzina',   re:'DEFINISATI', label:'Dužina'},
+    {key:'smernice', re:'OPISATI U PAR PARAGRAFA ŠTA ŽELITE DA SE PRIKAŽE', label:'Smernice'},
+    {key:'pojmovi',  re:'(?<=Lanac od )X(?= pojmova)', label:'Broj pojmova'}
+  ];
+  var esc = function(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+  var plain = function(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')};
+  var big = new RegExp(PH.map(function(p){return '(' + (p.key==='pojmovi'? p.re : plain(p.re)) + ')';}).join('|'), 'g');
+  var inputs = {};
+  document.querySelectorAll('#form [data-key]').forEach(function(el){inputs[el.dataset.key]=el;});
+  var STORE = 'pricazacas-polja';
+  try{
+    var saved = JSON.parse(localStorage.getItem(STORE)||'{}');
+    Object.keys(saved).forEach(function(k){ if(inputs[k] && typeof saved[k]==='string') inputs[k].value = saved[k]; });
+  }catch(e){}
+
+  var out = document.getElementById('promptOut'), status = document.getElementById('status');
+  var filledText = RAW, missing = [];
+
+  function render(){
+    var html = '', text = '', last = 0, m; missing = [];
+    big.lastIndex = 0;
+    while((m = big.exec(RAW))){
+      var idx = m.slice(1).findIndex(function(g){return g!==undefined;});
+      var p = PH[idx], val = (inputs[p.key].value||'').trim();
+      var chunk = RAW.slice(last, m.index);
+      html += esc(chunk); text += chunk;
+      if(val){
+        html += '<mark class="filled">' + esc(val) + '</mark>'; text += val;
+      } else {
+        html += '<mark class="empty">' + esc(m[0]) + '</mark>'; text += m[0];
+        if(!p.prefilled) missing.push(p.label);
+      }
+      last = m.index + m[0].length;
+    }
+    html += esc(RAW.slice(last)); text += RAW.slice(last);
+    out.innerHTML = html; filledText = text;
+    if(missing.length){
+      status.className = 'status warn';
+      status.textContent = 'Još treba popuniti: ' + missing.join(', ') + '.';
+    } else {
+      status.className = 'status ok';
+      status.textContent = 'Sva polja su popunjena. Kopiraj prompt i pređi na 2. korak.';
+    }
+  }
+  function save(){
+    try{ var o={}; Object.keys(inputs).forEach(function(k){o[k]=inputs[k].value;}); localStorage.setItem(STORE, JSON.stringify(o)); }catch(e){}
+  }
+  Object.keys(inputs).forEach(function(k){ inputs[k].addEventListener('input', function(){render(); save();}); });
+
+  var toastEl = document.getElementById('toast'), tt;
+  function toast(msg){ toastEl.textContent = msg; toastEl.classList.add('show'); clearTimeout(tt); tt = setTimeout(function(){toastEl.classList.remove('show');}, 2600); }
+  function copy(text, okMsg){
+    var fallback = function(){
+      var ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly',''); ta.style.position='fixed'; ta.style.opacity='0';
+      document.body.appendChild(ta); ta.select();
+      var ok = false; try{ ok = document.execCommand('copy'); }catch(e){}
+      document.body.removeChild(ta);
+      toast(ok ? okMsg : 'Kopiranje nije uspelo. Označi tekst i kopiraj ručno.');
+    };
+    if(navigator.clipboard && window.isSecureContext){
+      navigator.clipboard.writeText(text).then(function(){toast(okMsg);}, fallback);
+    } else fallback();
+  }
+  document.getElementById('copyBtn').addEventListener('click', function(){
+    copy(filledText, missing.length ? 'Kopirano. Pazi: ' + missing.length + ' ' + (missing.length===1?'polje nije popunjeno.':'polja nisu popunjena.') : 'Prompt je kopiran.');
+  });
+  document.getElementById('clearBtn').addEventListener('click', function(){
+    Object.keys(inputs).forEach(function(k){ inputs[k].value = k==='jezik' ? 'srpski, latinica, ekavica' : ''; });
+    render(); save();
+  });
+  document.querySelectorAll('[data-copy]').forEach(function(b){
+    b.addEventListener('click', function(){ copy(document.getElementById(b.dataset.copy).textContent, 'Šablon je kopiran.'); });
+  });
+  render();
+})();
+</script>
+</body>
+</html>

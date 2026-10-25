@@ -1,0 +1,1512 @@
+<!doctype html>
+<html lang="sr-Latn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);box-sizing:border-box}</style>
+<title>Bašta ljubavi</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:ital,wght@0,400;0,600;0,800;1,400&display=swap">
+<style>
+/* Raspored: ceo ekran je ilustrovani kraj u preseku; prozor sa strane (na telefonu odozdo), ispod tanka traka i zatvoren Mali rečnik. */
+:root{
+  --font-d:"Baloo 2","Trebuchet MS","Segoe UI",system-ui,sans-serif;
+  --font-b:"Nunito","Segoe UI","Helvetica Neue",Arial,sans-serif;
+  /* interfejs */
+  --bg:#DCE9F1; --paper:#FBFDFE; --paper2:#EEF4F8; --ink:#1C2A3D; --ink-soft:#56667C; --line:#C8D5E1;
+  --signal:#1F6FD1; --signal-soft:#1F6FD12E; --bar:#EAF1F6; --chip:#E1EAF2; --chip2:#ECE5F3; --glass-ui:#FBFDFEE6;
+  /* stalna značenja boja */
+  --love:#EFA21C; --love-soft:#FFD982; --bloom:#E0507A; --deed:#2F9356; --violet:#7E62D6;
+  --cu-bg:#E7F1F7; --inner:#1E3155; --inner2:#2F4C7C; --isoil:#5B4636;
+  --day:1; --night:0;
+  /* scena: dan */
+  --sky1:#7DB6E4; --sky2:#DCEEF5; --sun:#FFE38A; --cloud:#FFFFFF; --starc:#FFFFFF;
+  --hill1:#9DC5A8; --hill2:#BBD8C1; --city:#AFC6D2; --far:#8FB89A;
+  --grass:#86BF6E; --grass2:#6EA95A; --soil:#B48A63; --soil2:#9C7351; --soil3:#82603F; --soil4:#6C4F35;
+  --side:#DAD3C6; --road:#8F959D; --dash:#F3F3EE; --curb:#BDB5A6; --water1:#74B6CA; --water2:#5A9FB7;
+  --wallA:#EACBA6; --wallA2:#D6AF89; --roof:#B4654A; --cut:#6E5D50; --frame:#FFFFFF; --glass:#C3E2F1; --glassD:#B4D8EA; --curtain:#E8A38C;
+  --room1:#D1E8DC; --room2:#F6DDC8; --room3:#F6ECBC; --floor:#B98A5E; --wood:#A8744E; --sofa:#6E90C0; --sofa2:#5C7DAE;
+  --fridge:#EDF1F4; --counter:#C9D3DA; --cab:#B8C7D5; --linen:#F6F5F0; --blanket:#C2A4D6; --rug:#D9A68A; --poster:#F2DFB4;
+  --school:#E6BA5E; --school2:#D2A146; --tile:#BF563F; --trim:#FFF6E0;
+  --shop:#F4F0E6; --awn1:#D2504B; --awn2:#FFF6EC; --pastry:#C7864A; --navy:#2E4E86;
+  --leaf:#5FA35A; --leaf2:#4C8E4B; --leaf3:#79B967; --trunk:#7B5A3E; --bench:#B07A4C; --metal:#5D6B78; --lamp:#FFE8A3; --stone:#BDB6AA;
+  --pot:#C46F4B; --potrim:#A65A3B; --ceger:#E6D7B5; --veg1:#E8823A; --veg2:#6FAE4C; --silver:#C9D2DB; --wilt:#A8968A; --brain:#EBCAD7; --cufig:#F4F7FA;
+  --inks:#2C3A4C; --cheek:#F28B8B; --shoe:#3B3530;
+  --skin1:#F1C8A4; --skin2:#D7A07A; --skin3:#A86F4C; --hair1:#4A3426; --hair2:#CFCFCF; --hair3:#262626; --hair4:#C8873A;
+  --cKid:#8B5A9F; --cMama:#5F7DB0; --cBaka:#96664A; --cDeda:#7B8790; --cFriend:#BE5638; --cGirl:#6A67A8; --cKoms:#3E4D69;
+  --cNew:#868A44; --cDeka:#556677; --cVera:#9C7397; --cDenim:#43587A; --cDark:#3A3F4B; --cBrown:#6B5444;
+  --dog:#D6B07A; --dog2:#B48A55; --fox:#D9773A; --foxw:#F6EFE6;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0B1322; --paper:#14213A; --paper2:#1B2B47; --ink:#E8EEF7; --ink-soft:#A9B9CF; --line:#2E4263;
+    --signal:#68ACFF; --signal-soft:#68ACFF33; --bar:#0F192C; --chip:#1E2E4A; --chip2:#2A2445; --glass-ui:#14213AE6;
+    --love:#FFBE45; --love-soft:#FFE09A; --bloom:#FF7EA2; --deed:#56C47E; --violet:#AE97FF;
+    --cu-bg:#0F1B31; --inner:#0A1428; --inner2:#1A2B4D; --isoil:#3E3024;
+    --day:0; --night:1;
+    --sky1:#081329; --sky2:#22355B; --sun:#F3F0DC; --cloud:#2B3C5D; --starc:#FFF7DD;
+    --hill1:#1D383F; --hill2:#26444A; --city:#1F2E45; --far:#17303A;
+    --grass:#2E5A3A; --grass2:#244A30; --soil:#5A4532; --soil2:#4A3828; --soil3:#3D2E22; --soil4:#30241B;
+    --side:#5C616C; --road:#363B44; --dash:#8F959D; --curb:#4F555F; --water1:#1E4C63; --water2:#2D6582;
+    --wallA:#7E6A57; --wallA2:#6A5848; --roof:#5E3A30; --cut:#3A3029; --frame:#C8C2B8; --glass:#FFD77A; --glassD:#2C3F5E; --curtain:#9A5C4C;
+    --room1:#41625A; --room2:#725847; --room3:#716943; --floor:#5C4632; --wood:#5E4330; --sofa:#3F5982; --sofa2:#344B70;
+    --fridge:#9AA4AE; --counter:#6E7A84; --cab:#55636F; --linen:#BFBDB5; --blanket:#7E6A90; --rug:#6E5243; --poster:#6F6450;
+    --school:#8A6E3A; --school2:#755C30; --tile:#6E352A; --trim:#B8AE97;
+    --shop:#7D7A72; --awn1:#8A3A38; --awn2:#B3AC9F; --pastry:#9C693A; --navy:#24406E;
+    --leaf:#2F5E3A; --leaf2:#244D30; --leaf3:#3B6E44; --trunk:#4A3828; --bench:#6A4A30; --metal:#3B4652; --lamp:#FFE08A; --stone:#6E6A62;
+    --pot:#8F4F35; --potrim:#753F2A; --ceger:#B5A88C; --veg1:#B9672D; --veg2:#4E8538; --silver:#AAB4BE; --wilt:#7C6E66; --brain:#6B5766; --cufig:#22324D;
+    --inks:#1A2230; --cheek:#D9757A; --shoe:#2A2522;
+    --skin1:#D7AD8A; --skin2:#BC8865; --skin3:#8E5C3E; --hair2:#B5B5B5;
+    --cKid:#7A4E8C; --cMama:#4E6795; --cBaka:#7D5540; --cDeda:#646F77; --cFriend:#9C462E; --cGirl:#57558B; --cKoms:#33405A;
+    --cNew:#6E7238; --cDeka:#465565; --cVera:#81607D; --cDenim:#384A68; --cDark:#2E333D; --cBrown:#584536;
+    --dog:#B0905F; --dog2:#8E6D42; --fox:#B9622D; --foxw:#D9D2C8;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0B1322; --paper:#14213A; --paper2:#1B2B47; --ink:#E8EEF7; --ink-soft:#A9B9CF; --line:#2E4263;
+  --signal:#68ACFF; --signal-soft:#68ACFF33; --bar:#0F192C; --chip:#1E2E4A; --chip2:#2A2445; --glass-ui:#14213AE6;
+  --love:#FFBE45; --love-soft:#FFE09A; --bloom:#FF7EA2; --deed:#56C47E; --violet:#AE97FF;
+  --cu-bg:#0F1B31; --inner:#0A1428; --inner2:#1A2B4D; --isoil:#3E3024;
+  --day:0; --night:1;
+  --sky1:#081329; --sky2:#22355B; --sun:#F3F0DC; --cloud:#2B3C5D; --starc:#FFF7DD;
+  --hill1:#1D383F; --hill2:#26444A; --city:#1F2E45; --far:#17303A;
+  --grass:#2E5A3A; --grass2:#244A30; --soil:#5A4532; --soil2:#4A3828; --soil3:#3D2E22; --soil4:#30241B;
+  --side:#5C616C; --road:#363B44; --dash:#8F959D; --curb:#4F555F; --water1:#1E4C63; --water2:#2D6582;
+  --wallA:#7E6A57; --wallA2:#6A5848; --roof:#5E3A30; --cut:#3A3029; --frame:#C8C2B8; --glass:#FFD77A; --glassD:#2C3F5E; --curtain:#9A5C4C;
+  --room1:#41625A; --room2:#725847; --room3:#716943; --floor:#5C4632; --wood:#5E4330; --sofa:#3F5982; --sofa2:#344B70;
+  --fridge:#9AA4AE; --counter:#6E7A84; --cab:#55636F; --linen:#BFBDB5; --blanket:#7E6A90; --rug:#6E5243; --poster:#6F6450;
+  --school:#8A6E3A; --school2:#755C30; --tile:#6E352A; --trim:#B8AE97;
+  --shop:#7D7A72; --awn1:#8A3A38; --awn2:#B3AC9F; --pastry:#9C693A; --navy:#24406E;
+  --leaf:#2F5E3A; --leaf2:#244D30; --leaf3:#3B6E44; --trunk:#4A3828; --bench:#6A4A30; --metal:#3B4652; --lamp:#FFE08A; --stone:#6E6A62;
+  --pot:#8F4F35; --potrim:#753F2A; --ceger:#B5A88C; --veg1:#B9672D; --veg2:#4E8538; --silver:#AAB4BE; --wilt:#7C6E66; --brain:#6B5766; --cufig:#22324D;
+  --inks:#1A2230; --cheek:#D9757A; --shoe:#2A2522;
+  --skin1:#D7AD8A; --skin2:#BC8865; --skin3:#8E5C3E; --hair2:#B5B5B5;
+  --cKid:#7A4E8C; --cMama:#4E6795; --cBaka:#7D5540; --cDeda:#646F77; --cFriend:#9C462E; --cGirl:#57558B; --cKoms:#33405A;
+  --cNew:#6E7238; --cDeka:#465565; --cVera:#81607D; --cDenim:#384A68; --cDark:#2E333D; --cBrown:#584536;
+  --dog:#B0905F; --dog2:#8E6D42; --fox:#B9622D; --foxw:#D9D2C8;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{height:100%}
+body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-b);font-size:16px;-webkit-text-size-adjust:100%;overflow-x:hidden}
+[hidden]{display:none!important}
+button{font-family:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--signal);outline-offset:3px;border-radius:8px}
+
+#app{height:calc(100% - 46px);min-height:420px;display:flex;flex-direction:column;background:var(--bg)}
+#app:fullscreen{height:100%}
+#stage{position:relative;flex:1;min-height:0;overflow:hidden;overflow:clip;background:var(--sky2);touch-action:manipulation}
+#world{position:absolute;inset:0;width:100%;height:100%;display:block}
+#ov{position:absolute;inset:0;pointer-events:none}
+.ovi{position:absolute;left:0;top:0;will-change:transform}
+
+/* merač */
+#meter{position:absolute;top:12px;left:max(12px, env(safe-area-inset-left, 0px));display:flex;align-items:center;gap:10px;padding:8px 14px 8px 10px;border-radius:16px;background:var(--glass-ui);box-shadow:0 2px 10px #0000001f;z-index:3}
+#meter .mflower{width:30px;height:30px;flex:none}
+#meter .mnum{font:800 1.9rem/1 var(--font-d);font-variant-numeric:tabular-nums;color:var(--bloom);min-width:1.4ch;text-align:right}
+#meter .mlab{font:700 .78rem/1.15 var(--font-b);color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em}
+#meter .pips{display:flex;gap:3px;margin-top:4px}
+#meter .pip{width:7px;height:7px;border-radius:50%;background:var(--line)}
+#meter .pip.on{background:var(--bloom)}
+#meter.bump .mnum{animation:bump .6s ease-out}
+@keyframes bump{0%{transform:scale(1)}40%{transform:scale(1.35)}100%{transform:scale(1)}}
+
+/* dugme na mestu radnje */
+.hot{position:absolute;left:0;top:0;pointer-events:auto;border:0;background:none;padding:0;cursor:pointer;display:block}
+.hot .hin{position:absolute;left:0;top:0;transform:translate(-50%,calc(-100% + 18px));display:flex;flex-direction:column;align-items:center;gap:8px}
+.hot .pill{background:var(--paper);color:var(--ink);border:2.5px solid var(--signal);border-radius:20px;padding:8px 16px;font:800 1.12rem/1.2 var(--font-b);box-shadow:0 6px 18px #00000033;width:max-content;max-width:min(300px,70vw);text-align:center;text-wrap:balance}
+.hot .ring{width:36px;height:36px;border-radius:50%;border:3.5px solid var(--signal);background:var(--signal-soft);box-shadow:0 0 0 0 var(--signal-soft);animation:ring 1.8s ease-in-out infinite}
+.hot:hover .pill,.hot:focus-visible .pill{background:var(--signal);color:var(--paper)}
+.hot:focus-visible{outline:none}
+@keyframes ring{0%,100%{box-shadow:0 0 0 0 var(--signal-soft);transform:scale(1)}50%{box-shadow:0 0 0 14px var(--signal-soft);transform:scale(1.08)}}
+.mark{position:absolute;left:0;top:0;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;border:3px solid var(--signal);opacity:.75}
+
+.wl{position:absolute;left:0;top:0;transform:translate(-50%,-50%);font:800 1rem/1.1 var(--font-d);color:var(--ink);background:var(--glass-ui);padding:5px 12px;border-radius:12px;white-space:nowrap;box-shadow:0 2px 8px #0000001a;opacity:0;transition:opacity .6s}
+#stage.far .wl.place{opacity:1}
+#stage.far .wl.place.hid{opacity:0}
+.wl.spark{background:var(--love-soft);color:#3A2A08;opacity:0;transition:opacity .4s}
+.wl.spark.on{opacity:1}
+.wl.step{background:var(--paper);border:2px solid var(--love);opacity:0;transition:opacity .4s}
+.wl.step.on{opacity:1}
+
+/* prozor */
+#panel{position:absolute;z-index:5;top:14px;right:max(14px, env(safe-area-inset-right, 0px));bottom:14px;width:clamp(340px,35vw,470px);display:flex;flex-direction:column;background:var(--paper);color:var(--ink);border-radius:20px;box-shadow:0 12px 40px #00000040;overflow:hidden}
+#panel .pscroll{flex:1;min-height:0;overflow-y:auto;padding:22px 26px 12px;display:flex;flex-direction:column;gap:12px}
+#panel .pstep{font:700 .8rem/1.2 var(--font-b);text-transform:uppercase;letter-spacing:.07em;color:var(--ink-soft)}
+#panel .pq{font:italic 600 1.05rem/1.3 var(--font-b);color:var(--signal);margin:0}
+#panel h1,#panel h2{font:800 1.9rem/1.12 var(--font-d);margin:0;text-wrap:balance;letter-spacing:-.005em}
+#panel h2:focus{outline:none}
+.ptext{display:flex;flex-direction:column;gap:12px}
+.ptext p{margin:0;font-size:1.25rem;line-height:1.5;max-width:62ch}
+.term{font-weight:800;text-decoration:underline dotted var(--ink-soft);text-decoration-thickness:2px;text-underline-offset:5px}
+.tag{display:inline-block;font:800 .7rem/1 var(--font-b);text-transform:uppercase;letter-spacing:.08em;padding:4px 7px 3px;border-radius:6px;margin-right:6px;vertical-align:3px;color:var(--ink-soft)}
+.tag.ex{background:var(--chip)}
+.tag.simp{border:1.5px dashed var(--ink-soft)}
+.tag.book{display:table;margin:0 0 6px;background:var(--chip2);text-transform:none;letter-spacing:.01em;font-size:.85rem;font-style:normal;padding:5px 9px 4px}
+.legend{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:1.08rem}
+.legend li{display:flex;align-items:center;gap:10px}
+.sw{width:18px;height:18px;border-radius:50%;flex:none}
+.phases{margin:0;padding-left:1.4em;font-size:1.15rem;line-height:1.5}
+.pcu{display:flex;flex-direction:column;gap:10px}
+.cu{width:100%;height:auto;max-height:min(270px,36svh);display:block;background:var(--cu-bg);border-radius:14px}
+.cucap{margin:0;font-size:1.15rem;line-height:1.45}
+.cutry{display:flex;flex-direction:column;gap:8px}
+.cutry .row{display:flex;flex-wrap:wrap;gap:8px}
+.choice{display:block;width:100%;text-align:left;padding:10px 14px;border-radius:14px;border:2px solid var(--line);background:var(--paper2);font:700 1.05rem/1.35 var(--font-b);cursor:pointer}
+.choice:hover{border-color:var(--signal)}
+.choice.ok{border-color:var(--deed);background:var(--paper)}
+.choice.no{opacity:.55}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:7px 11px;border-radius:999px;border:2px solid var(--line);background:var(--paper2);font:700 1rem/1 var(--font-b);cursor:pointer}
+.chip:hover{border-color:var(--signal)}
+.chip.no{opacity:.5}
+.vign{margin:0;font:italic 600 1.1rem/1.4 var(--font-b);padding:10px 14px;border-radius:12px;background:var(--chip)}
+.fb{margin:0;min-height:1.4em;font-size:1rem;color:var(--ink-soft)}
+.hold{position:relative;overflow:hidden;align-self:flex-start;padding:12px 26px;border-radius:999px;border:2.5px solid var(--signal);background:var(--paper);font:800 1.1rem/1 var(--font-b);cursor:pointer;user-select:none;-webkit-user-select:none;touch-action:none}
+.hold .fill{position:absolute;inset:0;background:var(--signal-soft);transform-origin:left;transform:scaleX(var(--p,0))}
+.hold span{position:relative}
+.act{align-self:flex-start;padding:11px 22px;border-radius:999px;border:2.5px solid var(--signal);background:var(--paper);font:800 1.05rem/1 var(--font-b);cursor:pointer}
+.act:hover{background:var(--signal);color:var(--paper)}
+.slider{display:flex;align-items:center;gap:12px;font-weight:700}
+.slider input{flex:1;accent-color:var(--signal);height:28px}
+.pfoot{padding:12px 26px 18px;display:flex;justify-content:flex-end;border-top:1px solid var(--line)}
+#btnNext{padding:13px 30px;border-radius:999px;border:0;background:var(--ink);color:var(--paper);font:800 1.15rem/1 var(--font-b);cursor:pointer}
+#btnNext:disabled{opacity:.38;cursor:not-allowed}
+#btnNext.ready{background:var(--signal);animation:ready 1.8s ease-in-out infinite}
+@keyframes ready{0%,100%{box-shadow:0 0 0 0 var(--signal-soft)}50%{box-shadow:0 0 0 12px var(--signal-soft)}}
+
+/* svg pogleda izbliza */
+.cu text,#world text{font-family:var(--font-b);font-weight:800}
+.cu .tap{cursor:pointer}
+.cu .tap:focus{outline:none}
+.cu .tap:focus-visible .tapring{stroke-width:5}
+.tapring{fill:none;stroke:var(--signal);stroke-width:3;animation:tp 1.6s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes tp{0%,100%{opacity:.95;transform:scale(1)}50%{opacity:.45;transform:scale(1.14)}}
+.beacon{opacity:0;transition:opacity .8s;pointer-events:none}
+#stage.far .fl-on .beacon{opacity:.9}
+.cu .al{fill:var(--love)} .cu .au{fill:var(--ink)} .cu .dd{fill:var(--line);opacity:.55}
+
+/* traka */
+#bar{flex:none;height:52px;display:flex;align-items:center;gap:12px;justify-content:space-between;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));background:var(--bar);border-top:1px solid var(--line)}
+#dots{display:flex;align-items:center;gap:14px;min-width:0;overflow-x:auto;scrollbar-width:none}
+#dots::-webkit-scrollbar{display:none}
+.phase{display:flex;align-items:center;gap:6px}
+.phase .pn{font:700 .75rem/1 var(--font-b);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);margin-right:2px;white-space:nowrap}
+.dot{width:24px;height:24px;border:0;padding:0;background:none;cursor:pointer;display:grid;place-items:center;flex:none}
+.dot i{width:11px;height:11px;border-radius:50%;border:2px solid var(--ink-soft);display:block}
+.dot.done i{background:var(--bloom);border-color:var(--bloom)}
+.dot.cur i{width:15px;height:15px;border-color:var(--signal);background:var(--signal)}
+.dot.fin i{border-radius:3px;transform:rotate(45deg)}
+#tools{display:flex;gap:6px;flex:none}
+.tb{display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 12px;border-radius:10px;border:1.5px solid var(--line);background:var(--paper);font:700 .92rem/1 var(--font-b);cursor:pointer}
+.tb svg{width:18px;height:18px;flex:none}
+.tb[aria-pressed="false"] .on{display:none}
+.tb[aria-pressed="true"] .off{display:none}
+
+/* rečnik */
+#recnik{background:var(--paper);border-top:1px solid var(--line)}
+#recnik>summary{height:45px;display:flex;align-items:center;gap:10px;cursor:pointer;list-style:none;font:800 1rem/1 var(--font-b);padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+#recnik>summary::-webkit-details-marker{display:none}
+#recnik>summary::before{content:"";width:9px;height:9px;border-right:2.5px solid var(--ink-soft);border-bottom:2.5px solid var(--ink-soft);transform:rotate(-45deg);transition:transform .2s}
+#recnik[open]>summary::before{transform:rotate(45deg)}
+#recnik .sub{font-weight:600;color:var(--ink-soft)}
+.rwrap{padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:8px 40px;display:grid;gap:28px;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));max-width:1300px}
+.rwrap section{min-width:0}
+.rwrap h3{font:800 1.3rem/1.2 var(--font-d);margin:0 0 10px}
+.rwrap dl{margin:0;display:grid;gap:10px}
+.rwrap dt{font-weight:800;font-size:1.08rem}
+.rwrap dt small{font-weight:600;color:var(--ink-soft);margin-left:6px}
+.rwrap dd{margin:0;line-height:1.45;color:var(--ink)}
+.rwrap .later{opacity:.72}
+.rwrap ul{margin:0;padding-left:1.1em;display:grid;gap:8px;line-height:1.45}
+.rwrap a{color:var(--signal)}
+.keys{display:grid;gap:6px}
+kbd{font:700 .85rem/1 var(--font-b);border:1.5px solid var(--line);border-bottom-width:3px;border-radius:6px;padding:3px 6px;background:var(--paper2)}
+
+/* telefon: prozor odozdo */
+@media (max-width:760px), (max-aspect-ratio:4/5){
+  #panel{top:auto;left:0;right:0;bottom:0;width:auto;max-height:64%;border-radius:20px 20px 0 0}
+  #panel .pscroll{padding:16px max(16px, env(safe-area-inset-left, 0px)) 10px max(16px, env(safe-area-inset-right, 0px))}
+  #panel h1,#panel h2{font-size:1.55rem}
+  .ptext p{font-size:1.12rem}
+  .cucap{font-size:1.05rem}
+  .pfoot{padding:10px max(16px, env(safe-area-inset-right, 0px)) 12px max(16px, env(safe-area-inset-left, 0px))}
+  .phase .pn{display:none}
+  .tb .tl{display:none}
+  .tb{width:36px;padding:0;justify-content:center}
+  #bar{gap:8px}
+  #dots{gap:8px}
+  .phase{gap:0}
+  .dot{width:15px;height:34px}
+  .dot i{width:9px;height:9px}
+  .dot.cur i{width:12px;height:12px}
+  #tools{gap:4px}
+  .cu{max-height:30svh}
+  #meter{padding:6px 10px 6px 8px}
+  #meter .mnum{font-size:1.5rem}
+  .hot .pill{font-size:1rem;padding:7px 12px}
+}
+@media (max-width:420px){ #meter .pips{display:none} }
+@media (prefers-reduced-motion: reduce){
+  .hot .ring,#btnNext.ready,.tapring{animation:none}
+  .wl{transition:none}
+}
+</style>
+
+</head>
+<body>
+<div id="app">
+  <div id="stage" aria-label="Ilustrovani kraj: zgrada, škola, pekara i park uz reku">
+    <svg id="world" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tvoj kraj u preseku"></svg>
+    <div id="ov"></div>
+    <div id="meter" role="status" aria-live="polite">
+      <svg class="mflower" viewBox="-20 -20 40 40" aria-hidden="true"><g style="fill:var(--bloom)"><circle cx="0" cy="-10" r="8"/><circle cx="9.5" cy="-3" r="8"/><circle cx="6" cy="8.5" r="8"/><circle cx="-6" cy="8.5" r="8"/><circle cx="-9.5" cy="-3" r="8"/></g><circle r="6" style="fill:var(--love)"/></svg>
+      <div><div class="mlab">Cvetovi u kraju</div><div class="pips" aria-hidden="true"></div></div>
+      <div class="mnum">0</div>
+    </div>
+    <aside id="panel" hidden aria-labelledby="pTitle">
+      <div class="pscroll">
+        <div class="pstep" id="pStep"></div>
+        <p class="pq" id="pQ" hidden></p>
+        <h2 id="pTitle" tabindex="-1"></h2>
+        <div class="ptext" id="pText"></div>
+        <div class="pcu" id="pCu" hidden>
+          <svg class="cu" id="cuSvg" viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg"></svg>
+          <p class="cucap" id="cuCap"></p>
+          <div class="cutry" id="cuTry"></div>
+        </div>
+      </div>
+      <div class="pfoot"><button id="btnNext" type="button">Dalje</button></div>
+    </aside>
+  </div>
+  <nav id="bar" aria-label="Kretanje kroz priču">
+    <div id="dots"></div>
+    <div id="tools">
+      <button class="tb" id="btnSound" type="button" aria-pressed="true" title="Zvuk">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h4l5-4v14l-5-4H4z"/><g class="on"><path d="M16.5 8.5a5 5 0 0 1 0 7"/><path d="M19 6a8.5 8.5 0 0 1 0 12"/></g><g class="off"><path d="M17 9l5 6M22 9l-5 6"/></g></svg><span class="tl">Zvuk</span>
+      </button>
+      <button class="tb" id="btnRestart" type="button" title="Ispočetka">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v5h5"/></svg><span class="tl">Ispočetka</span>
+      </button>
+      <button class="tb" id="btnFull" type="button" title="Ceo ekran">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><span class="tl">Ceo ekran</span>
+      </button>
+    </div>
+  </nav>
+</div>
+<details id="recnik">
+  <summary>Mali rečnik <span class="sub">· pojednostavljenja i izvori</span></summary>
+  <div class="rwrap">
+    <section><h3>Pojmovi</h3><dl id="gloss"></dl></section>
+    <section>
+      <h3>Pojednostavljenja</h3>
+      <ul>
+        <li>Kraj, porodica, pas Žuća i ostali likovi iz kraja su izmišljeni primeri.</li>
+        <li>Oksitocin ima mnogo poslova u telu, a deluje drugačije u zavisnosti od situacije i osobe. Ljubav ne zavisi samo od njega.</li>
+        <li>Harvardsko istraživanje je počelo 1938. sa 724 mladića iz Bostona. Pokazuje da topli odnosi i zdravlje idu zajedno, ali ne dokazuje šta je uzrok. Mreža tačaka u pogledu izbliza je ilustracija, a ne pravi podaci.</li>
+        <li>K. S. Luis opisuje četiri ljubavi. Ovde su tri (naklonost, prijateljstvo, nesebična ljubav), a četvrta, zaljubljenost, izostavljena je.</li>
+        <li>Geri Čepmen je pisao za odrasle parove. Pregled istraživanja (Impet, Park i Mjuz, 2024) nije potvrdio da svako ima jedan glavni način, pa ovde govorimo o pet načina koji svima prijaju.</li>
+        <li>From ljubav zove umećem i navodi četiri dela: brigu, odgovornost, poštovanje i znanje. Ovde umeće zovemo veština, a znanje upoznavanje, i stavljamo ga pre poštovanja, jer From kaže da ne možeš poštovati nekog koga ne poznaješ.</li>
+        <li>Fauler i Kristakis su posmatrali igru sa nepoznatim ljudima u laboratoriji. Lanac od jednog do troje do devetoro ljudi je pojednostavljen prikaz iz njihovog saopštenja. Na isti način se širi i nelepo ponašanje.</li>
+        <li>Sedam najsjajnijih zvezda Velikog medveda zovemo i Velika kola. Iz Srbije se vide svake vedre noći na severnom delu neba.</li>
+      </ul>
+    </section>
+    <section>
+      <h3>Izvori</h3>
+      <ul>
+        <li>Stanice 1 i 9 do 12: Erih From, <i>Umeće ljubavi</i> (1956). <a href="https://sive.rs/book/ArtOfLoving" target="_blank" rel="noopener">beleške o knjizi</a></li>
+        <li>Stanica 2: oksitocin i dodir. <a href="https://sciencedaily.com/releases/2023/05/230509122117.htm" target="_blank" rel="noopener">Univerzitet u Linšepingu, 2023</a></li>
+        <li>Stanica 3: Harvardsko istraživanje razvoja odraslih. <a href="https://news.harvard.edu/gazette/story/2025/05/things-money-cant-buy-like-happiness-and-better-health" target="_blank" rel="noopener">Harvard Gazette, 2025</a>, <a href="https://news.harvard.edu/gazette/story/2023/02/work-out-daily-ok-but-how-socially-fit-are-you" target="_blank" rel="noopener">o 724 učesnika</a></li>
+        <li>Stanica 4: Kristin Nef, saosećanje prema sebi. <a href="https://selfcompassion.web.unc.edu/what-is-self-compassion/the-three-components-of-self-compassion/" target="_blank" rel="noopener">tri dela saosećanja</a></li>
+        <li>Stanice 5 do 7: K. S. Luis, <i>Četiri ljubavi</i> (1960). <a href="https://www.supersummary.com/the-four-loves/summary/" target="_blank" rel="noopener">pregled knjige</a></li>
+        <li>Stanica 5: deda Rade iz knjige <i>Bašta sljezove boje</i>, Branko Ćopić. <a href="https://www.lektire.rs/basta-sljezove-boje-branko-copic/" target="_blank" rel="noopener">sažetak</a></li>
+        <li>Stanica 7: bajka <i>Devojčica i krčag</i>, zapisao Lav Tolstoj. <a href="https://www.lektire.rs/devojcica-i-krcag-lav-nikolajevic-tolstoj/" target="_blank" rel="noopener">sažetak</a></li>
+        <li>Stanica 8: Geri Čepmen, <i>Pet jezika ljubavi</i> (1992), i provera Impet, Park i Mjuz (2024). <a href="https://www.utoronto.ca/news/little-evidence-linking-five-love-languages-healthy-relationships-researchers-say" target="_blank" rel="noopener">Univerzitet u Torontu</a></li>
+        <li>Stanica 13: Fauler i Kristakis (2010). <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2851803" target="_blank" rel="noopener">rad u časopisu PNAS</a>, <a href="https://www.sciencedaily.com/releases/2010/03/100308151049.htm" target="_blank" rel="noopener">saopštenje</a></li>
+      </ul>
+    </section>
+    <section>
+      <h3>Za nastavnika</h3>
+      <div class="keys">
+        <div><kbd>→</kbd> <kbd>Razmak</kbd> <kbd>PageDown</kbd> dalje (radi i daljinski za prezentacije)</div>
+        <div><kbd>←</kbd> <kbd>PageUp</kbd> korak nazad</div>
+        <div><kbd>Esc</kbd> zatvara prozor</div>
+        <div>Tačke u traci vode na početak svake stanice, sa svim cvećem koje je do tada izraslo.</div>
+      </div>
+    </section>
+  </div>
+</details>
+
+<script>
+(()=>{
+"use strict";
+const NS="http://www.w3.org/2000/svg";
+const $=s=>document.querySelector(s);
+const RM=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
+const lerp=(a,b,t)=>a+(b-a)*t;
+const E={io:t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2,out:t=>1-Math.pow(1-t,3),lin:t=>t,
+  back:t=>{const c1=1.6,c3=c1+1;return 1+c3*Math.pow(t-1,3)+c1*Math.pow(t-1,2);}};
+const D=ms=>RM?0:ms;
+function rng(seed){let a=seed>>>0;return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+
+/* SVG pomoćnik: f = boja popune iz tokena, s = boja linije */
+function S(tag,a,p){const e=document.createElementNS(NS,tag);let st="";if(a){for(const k in a){const v=a[k];if(v==null)continue;
+  if(k==="f")st+="fill:var(--"+v+");";else if(k==="s")st+="stroke:var(--"+v+");";else if(k==="st")st+=v;else if(k==="text")e.textContent=v;else e.setAttribute(k,v);}}
+  if(st)e.setAttribute("style",st);if(p)p.appendChild(e);return e;}
+function grad(defs,type,id,stops,attrs){const g=S(type,Object.assign({id},attrs||{}),defs);stops.forEach(([o,tok,op])=>S("stop",{offset:o,st:`stop-color:var(--${tok});stop-opacity:${op==null?1:op}`},g));return g;}
+function glowDefs(defs,pre){
+  grad(defs,"radialGradient",pre+"Gold",[["0","love",1],["0.3","love",.6],["1","love",0]]);
+  grad(defs,"radialGradient",pre+"Rose",[["0","bloom",.75],["0.4","bloom",.3],["1","bloom",0]]);
+  grad(defs,"radialGradient",pre+"Deed",[["0","deed",.6],["1","deed",0]]);
+  grad(defs,"radialGradient",pre+"Vio",[["0","violet",.8],["1","violet",0]]);
+  grad(defs,"radialGradient",pre+"Inner",[["0","inner2"],["1","inner"]]);
+}
+
+/* ---------- tokovi animacije (mogu se prekinuti) ---------- */
+function tw(tok,ms,fn,ease){ease=ease||E.io;return new Promise(res=>{
+  if(!tok||tok.dead){res(false);return;}
+  if(ms<=0||tok.skip){fn(1);res(true);return;}
+  const t0=performance.now();
+  const step=now=>{if(tok.dead){res(false);return;}if(tok.skip){fn(1);res(true);return;}
+    const t=Math.min(1,(now-t0)/ms);fn(ease(t));if(t<1)requestAnimationFrame(step);else res(true);};
+  requestAnimationFrame(step);});}
+const wait=(tok,ms)=>tw(tok,D(ms),()=>{},E.lin);
+
+/* =====================================================================
+   CRTEŽI
+   ===================================================================== */
+function person(par,o){
+  const h=o.h||120,u=h/100,dir=o.dir||1;
+  const g=S("g",{transform:`translate(${o.x} ${o.y}) scale(${dir*u} ${u})`},par);
+  const sit=!!o.sit,hy=sit?-77:-89,sk=o.skin||"skin1";
+  const tTop=sit?-65:-76,tBot=sit?-29:-42;
+  // noge
+  if(sit){
+    S("rect",{x:-9,y:-31,width:32,height:11,rx:5,f:o.pants||"cDenim"},g);
+    S("rect",{x:15,y:-24,width:9,height:22,rx:4,f:o.pants||"cDenim"},g);
+    S("ellipse",{cx:22,cy:-2,rx:7,ry:3.2,f:"shoe"},g);
+  }else if(o.dress){
+    S("rect",{x:-8,y:-34,width:6,height:31,rx:3,f:sk},g);S("rect",{x:2,y:-34,width:6,height:31,rx:3,f:sk},g);
+    S("ellipse",{cx:-6,cy:-2,rx:6,ry:3,f:"shoe"},g);S("ellipse",{cx:6,cy:-2,rx:6,ry:3,f:"shoe"},g);
+  }else{
+    S("rect",{x:-11,y:-46,width:9.5,height:43,rx:4,f:o.pants||"cDenim"},g);S("rect",{x:1.5,y:-46,width:9.5,height:43,rx:4,f:o.pants||"cDenim"},g);
+    S("ellipse",{cx:-6,cy:-2,rx:6.5,ry:3.2,f:"shoe"},g);S("ellipse",{cx:6.5,cy:-2,rx:6.5,ry:3.2,f:"shoe"},g);
+  }
+  // ranac
+  if(o.pack)S("rect",{x:-21,y:tTop+4,width:10,height:26,rx:4,f:"metal"},g);
+  // trup
+  if(o.dress&&!sit)S("path",{d:`M-13 ${tTop+6} Q-13 ${tTop} -7 ${tTop} L7 ${tTop} Q13 ${tTop} 13 ${tTop+6} L19 -30 L-19 -30 Z`,f:o.shirt},g);
+  else S("rect",{x:-13.5,y:tTop,width:27,height:tBot-tTop+4,rx:9,f:o.shirt},g);
+  if(o.vest)S("rect",{x:-9,y:tTop+2,width:18,height:tBot-tTop,rx:6,f:o.vest},g);
+  // ruke
+  const arm=(sx)=>{const ag=S("g",{},g);
+    if(o.arms==="up"){ag.setAttribute("transform",`rotate(${sx*-125} ${sx*12} ${tTop+4})`);}
+    else if(o.arms==="front"){ag.setAttribute("transform",`rotate(${sx*-55} ${sx*12} ${tTop+4})`);}
+    else if(o.arms==="lap"&&sit){ag.setAttribute("transform",`rotate(-50 ${sx*12} ${tTop+4})`);}
+    S("rect",{x:sx>0?11:-18,y:tTop+2,width:7,height:30,rx:3.5,f:o.sleeve||o.shirt},ag);
+    S("circle",{cx:sx>0?14.5:-14.5,cy:tTop+33,r:3.8,f:sk},ag);return ag;};
+  const aL=arm(-1),aR=arm(1);
+  // glava
+  S("rect",{x:-3.2,y:hy+9,width:6.4,height:6,f:sk},g);
+  const hs=o.hs||"short",hr=o.hair||"hair1";
+  if(hs==="long")S("rect",{x:-12.5,y:hy-6,width:25,height:24,rx:9,f:hr},g);
+  if(hs==="pony")S("ellipse",{cx:-12,cy:hy+3,rx:5,ry:9,f:hr},g);
+  S("circle",{cx:0,cy:hy,r:11,f:sk},g);
+  if(hs==="short"||hs==="long"||hs==="pony")S("path",{d:`M-11.6 ${hy+1} Q-12 ${hy-12} 0 ${hy-12.5} Q12 ${hy-12} 11.6 ${hy+1} Q9 ${hy-6} 2 ${hy-6.5} Q-6 ${hy-6} -11.6 ${hy+1}Z`,f:hr},g);
+  if(hs==="curly"){[[-8,-7],[-3,-10],[3,-10],[8,-7],[10,-2],[-10,-2]].forEach(([x,y])=>S("circle",{cx:x,cy:hy+y,r:4.6,f:hr},g));}
+  if(hs==="bun"){S("path",{d:`M-11.4 ${hy} Q-11 ${hy-12} 0 ${hy-12} Q11 ${hy-12} 11.4 ${hy} Q6 ${hy-7} 0 ${hy-7} Q-6 ${hy-7} -11.4 ${hy}Z`,f:hr},g);S("circle",{cx:0,cy:hy-13,r:5.5,f:hr},g);}
+  if(hs==="bald"){S("ellipse",{cx:-10.5,cy:hy,rx:2.6,ry:4.5,f:hr},g);S("ellipse",{cx:10.5,cy:hy,rx:2.6,ry:4.5,f:hr},g);}
+  if(o.cap){S("path",{d:`M-12 ${hy-3} Q-11 ${hy-14} 0 ${hy-14} Q11 ${hy-14} 12 ${hy-3} Z`,f:o.cap},g);S("rect",{x:4,y:hy-5,width:13,height:3.5,rx:1.7,f:o.cap},g);}
+  S("circle",{cx:-4,cy:hy+.5,r:1.35,f:"inks"},g);S("circle",{cx:4,cy:hy+.5,r:1.35,f:"inks"},g);
+  S("path",{d:`M-3.6 ${hy+5} Q0 ${hy+7.8} 3.6 ${hy+5}`,fill:"none",s:"inks","stroke-width":1.3,"stroke-linecap":"round"},g);
+  S("circle",{cx:-6.8,cy:hy+4,r:2.1,f:"cheek",st:"opacity:.45"},g);S("circle",{cx:6.8,cy:hy+4,r:2.1,f:"cheek",st:"opacity:.45"},g);
+  if(o.glasses){S("circle",{cx:-4,cy:hy+.5,r:3.2,fill:"none",s:"inks","stroke-width":1},g);S("circle",{cx:4,cy:hy+.5,r:3.2,fill:"none",s:"inks","stroke-width":1},g);S("path",{d:`M-.8 ${hy+.5}H.8`,s:"inks","stroke-width":1},g);}
+  if(o.mustache)S("path",{d:`M-4.5 ${hy+3.6} Q0 ${hy+1.6} 4.5 ${hy+3.6} Q0 ${hy+5} -4.5 ${hy+3.6}Z`,f:"hair2"},g);
+  // seme na grudima
+  let seed=null;
+  if(o.seed){seed=S("g",{},g);const halo=S("circle",{cx:0,cy:tTop+13,r:16,fill:`url(#${o.seed})`},seed);const core=S("circle",{cx:0,cy:tTop+13,r:3.4,f:"love"},seed);seed.halo=halo;seed.core=core;}
+  return {g,aL,aR,seed,u};
+}
+function dogShape(par,x,y,s,dir){
+  const g=S("g",{transform:`translate(${x} ${y}) scale(${(dir||1)*s} ${s})`},par);
+  const tail=S("path",{d:"M-24 -26 Q-36 -40 -30 -48",fill:"none",s:"dog2","stroke-width":5,"stroke-linecap":"round"},g);
+  S("rect",{x:-22,y:-14,width:7,height:14,rx:3,f:"dog2"},g);S("rect",{x:8,y:-14,width:7,height:14,rx:3,f:"dog2"},g);
+  S("ellipse",{cx:-4,cy:-24,rx:24,ry:13,f:"dog"},g);
+  S("rect",{x:-14,y:-14,width:7,height:14,rx:3,f:"dog"},g);S("rect",{x:14,y:-14,width:7,height:14,rx:3,f:"dog"},g);
+  S("circle",{cx:20,cy:-38,r:11,f:"dog"},g);S("ellipse",{cx:29,cy:-35,rx:7,ry:5,f:"dog"},g);
+  S("circle",{cx:34,cy:-36,r:2.4,f:"inks"},g);
+  const ear=S("ellipse",{cx:14,cy:-40,rx:4.5,ry:9,f:"dog2",transform:"rotate(25 14 -44)"},g);
+  S("circle",{cx:22,cy:-41,r:1.7,f:"inks"},g);
+  return {g,tail,ear};
+}
+function tree(par,x,y,r,trunkH,seed){
+  const g=S("g",{},par);const R=rng(seed||7);
+  S("path",{d:`M${x-r*.09} ${y} L${x-r*.06} ${y-trunkH} L${x+r*.06} ${y-trunkH} L${x+r*.09} ${y}Z`,f:"trunk"},g);
+  const cy=y-trunkH-r*.55;
+  const blobs=[[0,0,1],[-.55,.2,.7],[.55,.22,.72],[-.25,-.42,.68],[.3,-.4,.66],[0,.35,.75]];
+  blobs.forEach(([dx,dy,k],i)=>S("circle",{cx:x+dx*r,cy:cy+dy*r,r:r*k*(.92+R()*.1),f:["leaf","leaf2","leaf3","leaf","leaf3","leaf2"][i]},g));
+  return g;
+}
+function bench(par,x,y,w){const g=S("g",{},par);
+  S("rect",{x:x+6,y:y-34,width:5,height:34,f:"metal"},g);S("rect",{x:x+w-11,y:y-34,width:5,height:34,f:"metal"},g);
+  S("rect",{x,y:y-40,width:w,height:8,rx:3,f:"bench"},g);S("rect",{x,y:y-70,width:w,height:7,rx:3,f:"bench"},g);S("rect",{x,y:y-58,width:w,height:7,rx:3,f:"bench"},g);
+  S("rect",{x:x+8,y:y-70,width:4,height:32,f:"metal"},g);S("rect",{x:x+w-12,y:y-70,width:4,height:32,f:"metal"},g);return g;}
+function pot(par,x,y,s){const g=S("g",{transform:`translate(${x} ${y}) scale(${s})`},par);
+  S("path",{d:"M-16 -26 L16 -26 L12 0 L-12 0Z",f:"pot"},g);S("rect",{x:-18,y:-30,width:36,height:7,rx:2,f:"potrim"},g);return g;}
+/* cvet: 0 = seme, 1 = procvetao */
+function flower(par,x,y,s,potted){
+  const g=S("g",{transform:`translate(${x} ${y}) scale(${s})`},par);
+  if(potted)pot(g,0,0,1);
+  const base=potted?-28:0;
+  S("circle",{class:"beacon",cx:0,cy:base-74,r:(150/s).toFixed(0),fill:"url(#wRose)"},g);
+  const halo=S("circle",{cx:0,cy:base-74,r:70,fill:"url(#wRose)",st:"opacity:0"},g);
+  const stem=S("g",{transform:`translate(0 ${base}) scale(1 0)`},g);
+  S("path",{d:"M0 0 C-4 -26 4 -48 0 -72",fill:"none",s:"deed","stroke-width":6,"stroke-linecap":"round"},stem);
+  S("path",{d:"M0 -30 C-18 -36 -26 -24 -28 -18 C-16 -16 -6 -20 0 -30Z",f:"deed"},stem);
+  S("path",{d:"M0 -44 C18 -52 26 -40 28 -34 C16 -32 6 -36 0 -44Z",f:"deed"},stem);
+  const head=S("g",{transform:`translate(0 ${base-74}) scale(0)`},g);
+  for(let k=0;k<5;k++){const a=k*72-90;S("ellipse",{cx:0,cy:-15,rx:10,ry:15,f:"bloom",transform:`rotate(${a+90})`},head);}
+  S("circle",{r:8.5,f:"love"},head);
+  const f={g,halo,stem,head,base,v:0};return f;
+}
+function setFlower(f,v){f.v=v;f.g.classList.toggle("fl-on",v>=.99);
+  f.stem.setAttribute("transform",`translate(0 ${f.base}) scale(1 ${clamp(v/.5).toFixed(3)})`);
+  const hv=clamp((v-.35)/.65),sc=hv<=0?0:E.back(hv);
+  f.head.setAttribute("transform",`translate(0 ${f.base-74}) scale(${sc.toFixed(3)})`);
+  f.halo.style.opacity=(hv*.9).toFixed(3);}
+function bag(par,x,y,s){const g=S("g",{transform:`translate(${x} ${y}) scale(${s||1})`},par);
+  S("path",{d:"M-7 0 Q0 -10 7 0",fill:"none",s:"ceger","stroke-width":2.5},g);
+  S("circle",{cx:-4,cy:9,r:5,f:"veg1"},g);S("circle",{cx:4,cy:7,r:5,f:"veg2"},g);
+  S("path",{d:"M-10 2 L10 2 L8 22 L-8 22Z",f:"ceger",st:"opacity:.9"},g);
+  S("path",{d:"M-9 8H9M-8.5 14H8.5M-4 2V22M3 2V22",s:"potrim","stroke-width":1,fill:"none",st:"opacity:.5"},g);return g;}
+
+/* =====================================================================
+   SVET
+   ===================================================================== */
+const world=$("#world"),stage=$("#stage"),ovLayer=$("#ov");
+const W={};
+const G=1100;
+function win(p,x,y,w,h,kind,lit){
+  S("rect",{x:x-5,y:y-5,width:w+10,height:h+10,rx:3,f:"frame"},p);
+  S("rect",{x,y,width:w,height:h,f:lit===false?"glassD":"glass"},p);
+  S("path",{d:`M${x+w/2} ${y}V${y+h}M${x} ${y+h*.45}H${x+w}`,s:"frame","stroke-width":4},p);
+  S("rect",{x:x-8,y:y+h+4,width:w+16,height:6,rx:2,f:"frame"},p);
+  if(kind==="curtain"){S("path",{d:`M${x} ${y} Q${x+16} ${y+h*.5} ${x+6} ${y+h} L${x} ${y+h}Z`,f:"curtain"},p);S("path",{d:`M${x+w} ${y} Q${x+w-16} ${y+h*.5} ${x+w-6} ${y+h} L${x+w} ${y+h}Z`,f:"curtain"},p);}
+}
+function buildWorld(){
+  const defs=S("defs",{},world);
+  grad(defs,"linearGradient","wSky",[["0","sky1"],["1","sky2"]],{x1:0,y1:-700,x2:0,y2:1050,gradientUnits:"userSpaceOnUse"});
+  grad(defs,"radialGradient","wLamp",[["0","lamp",.85],["1","lamp",0]]);
+  glowDefs(defs,"w");
+  const L={};["sky","far","mid","bld","yard","chars","front","fx"].forEach(k=>L[k]=S("g",{},world));
+  W.L=L;
+  // nebo
+  S("rect",{x:-6000,y:-9000,width:16000,height:10200,fill:"url(#wSky)"},L.sky);
+  const R=rng(11);
+  const stars=S("g",{st:"opacity:var(--night)"},L.sky);
+  for(let i=0;i<220;i++){S("circle",{cx:-1500+R()*7200,cy:-1800+R()*2650,r:(1+R()*2.6).toFixed(1),f:"starc",st:`opacity:${(.35+R()*.65).toFixed(2)}`},stars);}
+  S("circle",{cx:3520,cy:240,r:70,f:"sun"},L.sky);
+  S("g",{st:"opacity:var(--night)"},L.sky);
+  const moonMarks=S("g",{st:"opacity:calc(var(--night)*.35)"},L.sky);
+  S("circle",{cx:3500,cy:228,r:12,f:"sky2"},moonMarks);S("circle",{cx:3540,cy:262,r:8,f:"sky2"},moonMarks);
+  const clouds=S("g",{st:"opacity:calc(.9 * var(--day) + .25)"},L.sky);
+  [[400,330,1],[1500,210,1.3],[2600,360,.9],[3900,300,1.1]].forEach(([x,y,k])=>{const c=S("g",{transform:`translate(${x} ${y}) scale(${k})`},clouds);
+    [[0,0,48],[45,-18,40],[90,0,44],[45,10,46]].forEach(([dx,dy,r])=>S("circle",{cx:dx,cy:dy,r,f:"cloud"},c));});
+  // daleka brda i grad
+  const hill=(y0,amp,seed,tok,step)=>{const r=rng(seed);let d=`M-2000 1120 L-2000 ${y0} Q${-2000+step/2} ${y0-amp} ${-2000+step} ${y0-r()*amp}`;for(let x=-2000+step*2;x<=6800;x+=step)d+=` T${x} ${(y0-r()*amp).toFixed(0)}`;d+=" L6800 1120Z";S("path",{d,f:tok},L.far);};
+  hill(900,120,3,"hill2",420);
+  const city=S("g",{},L.far);const Rc=rng(5);
+  for(let x=-600;x<6400;x+=0){const w=70+Rc()*110,h=60+Rc()*170;S("rect",{x,y:1000-h,width:w,height:h+120,f:"city"},city);x+=w+20+Rc()*90;}
+  hill(990,70,9,"hill1",360);
+  // reka iza keja
+  S("rect",{x:3630,y:985,width:4000,height:130,f:"water1"},L.far);
+  S("path",{d:"M3630 960 Q3900 940 4200 956 T4800 950 T5600 958 T7600 950 L7600 990 L3630 990Z",f:"far"},L.far);
+  for(let i=0;i<14;i++){const x=3660+i*180,y=1010+(i%3)*28;S("path",{d:`M${x} ${y} q20 -6 40 0 t40 0`,fill:"none",s:"water2","stroke-width":4,"stroke-linecap":"round"},L.far);}
+  // pozadinsko drveće
+  tree(L.mid,1095,1100,70,52,21);tree(L.mid,1985,1100,112,90,22);tree(L.mid,2790,1100,82,70,23);tree(L.mid,3640,1100,92,80,24);tree(L.mid,4330,1100,88,74,25);
+  // ZGRADA
+  const b=L.bld;
+  S("rect",{x:140,y:262,width:720,height:838,f:"wallA"},b);
+  S("rect",{x:822,y:262,width:38,height:838,f:"wallA2"},b);
+  S("rect",{x:128,y:242,width:744,height:24,rx:4,f:"roof"},b);
+  S("rect",{x:690,y:196,width:44,height:50,f:"roof"},b);S("rect",{x:684,y:190,width:56,height:10,f:"wallA2"},b);
+  S("path",{d:"M300 242V168M282 182H318M286 198H314",s:"metal","stroke-width":4,fill:"none"},b);
+  [500,700,900].forEach(y=>S("rect",{x:140,y:y-5,width:720,height:10,f:"wallA2"},b));
+  [200,330,590,720].forEach((x,k)=>{win(b,x,334,80,92,k===1?"curtain":null,k!==2);win(b,x,742,80,92,null,k!==0);});
+  [200,330,720].forEach((x,k)=>win(b,x,944,80,80,null,k===1));
+  pot(b,240,431,.45);
+  [[-10,-1],[0,-5],[10,-1]].forEach(([dx,dy])=>S("ellipse",{cx:240+dx,cy:412+dy,rx:5,ry:9,f:"leaf",transform:`rotate(${dx*3} ${240+dx} ${412+dy})`},b));
+  S("rect",{x:450,y:930,width:100,height:170,f:"wallA2"},b);
+  S("rect",{x:462,y:944,width:76,height:156,rx:4,f:"wood"},b);
+  S("rect",{x:470,y:952,width:60,height:40,rx:3,f:"glass"},b);
+  S("rect",{x:440,y:1088,width:120,height:12,f:"curb"},b);
+  S("rect",{x:485,y:906,width:30,height:20,rx:3,f:"navy"},b);S("text",{x:500,y:921,"text-anchor":"middle","font-size":14,"font-weight":800,f:"awn2",text:"12"},b);
+  // presek stana (2. sprat)
+  S("rect",{x:140,y:496,width:720,height:208,f:"cut"},b);
+  S("rect",{x:156,y:512,width:688,height:176,f:"room2"},b);
+  S("rect",{x:156,y:512,width:220,height:176,f:"room1"},b);
+  S("rect",{x:624,y:512,width:220,height:176,f:"room3"},b);
+  S("rect",{x:376,y:512,width:8,height:176,f:"cut"},b);S("rect",{x:616,y:512,width:8,height:176,f:"cut"},b);
+  S("rect",{x:156,y:680,width:688,height:8,f:"floor"},b);
+  // tvoja soba
+  S("rect",{x:172,y:532,width:54,height:68,rx:3,f:"poster"},b);S("circle",{cx:199,cy:560,r:12,f:"cMama"},b);S("ellipse",{cx:199,cy:560,rx:21,ry:5,fill:"none",s:"cKid","stroke-width":2.5},b);
+  win(b,266,536,62,54,null,true);
+  S("rect",{x:164,y:642,width:92,height:38,rx:3,f:"wood"},b);S("rect",{x:166,y:630,width:88,height:14,rx:5,f:"linen"},b);S("rect",{x:190,y:628,width:66,height:20,rx:5,f:"blanket"},b);S("ellipse",{cx:177,cy:630,rx:11,ry:6,f:"linen"},b);
+  S("rect",{x:290,y:638,width:80,height:7,rx:2,f:"wood"},b);S("rect",{x:295,y:645,width:5,height:35,f:"wood"},b);S("rect",{x:360,y:645,width:5,height:35,f:"wood"},b);
+  S("path",{d:"M352 638 L352 612 L340 604",fill:"none",s:"metal","stroke-width":3},b);S("path",{d:"M332 600 L350 600 L344 590 L338 590Z",f:"metal"},b);
+  S("rect",{x:308,y:627,width:22,height:11,rx:1.5,f:"linen",transform:"rotate(-8 319 632)"},b);S("text",{x:322,y:637,"font-size":10,"font-weight":800,f:"awn1",text:"2",transform:"rotate(-8 319 632)"},b);
+  // dnevna soba
+  win(b,398,536,62,56,"curtain",true);
+  S("rect",{x:538,y:536,width:58,height:42,rx:2,f:"frame"},b);S("rect",{x:543,y:541,width:48,height:32,f:"sky1"},b);S("path",{d:"M543 573 L558 556 L568 566 L578 552 L591 573Z",f:"leaf"},b);
+  S("ellipse",{cx:500,cy:682,rx:92,ry:5,f:"rug"},b);
+  S("rect",{x:390,y:620,width:84,height:36,rx:9,f:"sofa"},b);S("rect",{x:386,y:648,width:92,height:22,rx:7,f:"sofa2"},b);
+  S("rect",{x:384,y:634,width:12,height:36,rx:5,f:"sofa"},b);S("rect",{x:470,y:634,width:12,height:36,rx:5,f:"sofa"},b);
+  S("rect",{x:392,y:670,width:5,height:10,f:"wood"},b);S("rect",{x:467,y:670,width:5,height:10,f:"wood"},b);
+  S("rect",{x:478,y:648,width:24,height:5,rx:2,f:"wood"},b);S("rect",{x:488,y:653,width:4,height:27,f:"wood"},b);
+  S("rect",{x:522,y:640,width:84,height:7,rx:2,f:"wood"},b);S("rect",{x:528,y:647,width:5,height:33,f:"wood"},b);S("rect",{x:595,y:647,width:5,height:33,f:"wood"},b);
+  S("rect",{x:607,y:610,width:6,height:70,rx:2,f:"wood"},b);S("rect",{x:588,y:650,width:25,height:6,rx:2,f:"wood"},b);
+  // kuhinja
+  win(b,640,536,58,56,null,true);
+  S("rect",{x:712,y:520,width:72,height:40,rx:3,f:"cab"},b);S("path",{d:"M748 522V558",s:"cut","stroke-width":2,st:"opacity:.35"},b);
+  S("rect",{x:630,y:636,width:124,height:44,f:"counter"},b);S("rect",{x:626,y:631,width:132,height:7,rx:2,f:"wood"},b);
+  S("rect",{x:648,y:633,width:34,height:5,f:"metal"},b);S("path",{d:"M664 631V618Q664 612 672 612",fill:"none",s:"metal","stroke-width":3},b);
+  S("rect",{x:768,y:560,width:66,height:120,rx:6,f:"fridge"},b);S("path",{d:"M768 604H834M774 574V592M774 616V640",s:"metal","stroke-width":2.5,fill:"none"},b);
+  // balkon
+  S("rect",{x:860,y:680,width:70,height:10,f:"cut"},b);
+  S("rect",{x:866,y:620,width:56,height:14,rx:3,f:"pot"},b);
+  for(let i=0;i<6;i++)S("ellipse",{cx:872+i*10,cy:614,rx:6,ry:10,f:i%2?"leaf":"leaf3"},b);
+  S("rect",{x:860,y:634,width:70,height:4,f:"metal"},b);for(let x=864;x<=928;x+=9)S("rect",{x,y:638,width:2.5,height:42,f:"metal"},b);
+  // klupa ispred zgrade
+  bench(b,900,G,120);
+  // ŠKOLA
+  S("rect",{x:1180,y:600,width:540,height:500,f:"school"},b);S("rect",{x:1690,y:600,width:30,height:500,f:"school2"},b);
+  S("path",{d:"M1162 606 L1450 490 L1738 606Z",f:"tile"},b);
+  S("circle",{cx:1450,cy:560,r:24,f:"trim"},b);S("path",{d:"M1450 560V545M1450 560H1462",s:"inks","stroke-width":3,"stroke-linecap":"round"},b);
+  S("rect",{x:1326,y:616,width:248,height:38,rx:6,f:"trim"},b);S("text",{x:1450,y:643,"text-anchor":"middle","font-size":23,"font-weight":800,"letter-spacing":"2",f:"inks",text:"OSNOVNA ŠKOLA"},b);
+  [1205,1290,1375,1525,1610].forEach((x,k)=>win(b,x,680,70,96,null,k!==4));
+  [1205,1290,1525,1610].forEach((x,k)=>win(b,x,862,70,90,null,k!==1));
+  pot(b,1325,781,.45);
+  [[-9,0],[0,-5],[9,0]].forEach(([dx,dy])=>S("ellipse",{cx:1325+dx,cy:762+dy,rx:5,ry:9,f:"leaf"},b));
+  S("rect",{x:1400,y:940,width:100,height:160,f:"school2"},b);S("rect",{x:1410,y:952,width:38,height:148,f:"wood"},b);S("rect",{x:1452,y:952,width:38,height:148,f:"wood"},b);
+  S("rect",{x:1390,y:1088,width:120,height:12,f:"curb"},b);
+  // dvorište
+  const yard=L.yard;
+  for(let x=1726;x<=2146;x+=17)S("rect",{x,y:1050,width:7,height:50,rx:2,f:"trim"},yard);
+  S("rect",{x:1722,y:1060,width:428,height:5,f:"trim"},yard);S("rect",{x:1722,y:1082,width:428,height:5,f:"trim"},yard);
+  S("rect",{x:2108,y:856,width:8,height:244,f:"metal"},yard);S("rect",{x:2066,y:848,width:72,height:50,rx:3,f:"trim"},yard);
+  S("rect",{x:2088,y:868,width:28,height:20,fill:"none",s:"awn1","stroke-width":3},yard);
+  S("ellipse",{cx:2084,cy:904,rx:17,ry:4,fill:"none",s:"awn1","stroke-width":3.5},yard);
+  S("path",{d:"M2068 905 L2074 930 M2084 908 L2084 932 M2100 905 L2094 930",s:"frame","stroke-width":2,fill:"none"},yard);
+  bench(yard,1744,G,94);
+  // PEKARA
+  S("rect",{x:2180,y:860,width:260,height:240,f:"shop"},b);S("rect",{x:2172,y:846,width:276,height:18,f:"roof"},b);
+  S("rect",{x:2196,y:872,width:228,height:34,rx:6,f:"awn1"},b);S("text",{x:2310,y:898,"text-anchor":"middle","font-size":25,"font-weight":800,"letter-spacing":"4",f:"awn2",text:"PEKARA"},b);
+  for(let i=0;i<8;i++)S("rect",{x:2190+i*20,y:914,width:20,height:22,f:i%2?"awn2":"awn1"},b);
+  for(let i=0;i<8;i++)S("path",{d:`M${2190+i*20} 936 a10 9 0 0 0 20 0Z`,f:i%2?"awn2":"awn1"},b);
+  S("rect",{x:2196,y:948,width:150,height:106,f:"glass"},b);S("rect",{x:2196,y:1010,width:150,height:4,f:"frame"},b);
+  [[2216,1004],[2250,1004],[2284,1004],[2320,1004]].forEach(([x,y])=>S("path",{d:`M${x-13} ${y} Q${x} ${y-20} ${x+13} ${y} Q${x} ${y-9} ${x-13} ${y}Z`,f:"pastry"},b));
+  [[2232,1046],[2280,1046],[2318,1046]].forEach(([x,y])=>S("circle",{cx:x,cy:y-12,r:11,fill:"none",s:"pastry","stroke-width":5},b));
+  S("rect",{x:2200,y:1056,width:142,height:14,rx:3,f:"pot"},b);
+  [2214,2240,2300,2326].forEach(x=>S("ellipse",{cx:x,cy:1050,rx:6,ry:9,f:"leaf"},b));
+  S("rect",{x:2358,y:946,width:68,height:154,f:"wallA2"},b);S("rect",{x:2364,y:952,width:56,height:148,rx:3,f:"wood"},b);S("rect",{x:2371,y:960,width:42,height:52,rx:3,f:"glass"},b);
+  // stajalište
+  S("rect",{x:2494,y:912,width:6,height:188,f:"metal"},b);S("rect",{x:2668,y:912,width:6,height:188,f:"metal"},b);
+  S("rect",{x:2484,y:900,width:200,height:14,rx:4,f:"metal"},b);
+  S("rect",{x:2500,y:916,width:166,height:130,f:"glass",st:"opacity:.45"},b);
+  bench(b,2522,G,100);
+  S("rect",{x:2712,y:880,width:6,height:220,f:"metal"},b);S("rect",{x:2694,y:860,width:42,height:36,rx:5,f:"navy"},b);
+  S("text",{x:2715,y:885,"text-anchor":"middle","font-size":18,"font-weight":800,f:"awn2",text:"12"},b);
+  // PARK
+  const lamp=(x,y)=>{S("rect",{x:x-3,y:y-260,width:6,height:260,f:"metal"},b);S("path",{d:`M${x} ${y-258} Q${x} ${y-282} ${x+22} ${y-282}`,fill:"none",s:"metal","stroke-width":5},b);
+    S("path",{d:`M${x+10} ${y-282} L${x+34} ${y-282} L${x+28} ${y-270} L${x+16} ${y-270}Z`,f:"metal"},b);
+    S("circle",{cx:x+22,cy:y-262,r:70,fill:"url(#wLamp)",st:"opacity:var(--night)"},b);S("circle",{cx:x+22,cy:y-268,r:5,f:"lamp"},b);};
+  lamp(2752,G);lamp(3760,G);lamp(4120,G);
+  // česma
+  S("rect",{x:2814,y:1012,width:32,height:88,rx:4,f:"stone"},b);S("rect",{x:2808,y:1004,width:44,height:12,rx:4,f:"stone"},b);
+  S("path",{d:"M2846 1032 h10",s:"metal","stroke-width":4},b);S("path",{d:"M2856 1034 q8 4 10 24",fill:"none",s:"water1","stroke-width":3},b);
+  S("ellipse",{cx:2862,cy:1076,rx:18,ry:6,f:"stone"},b);
+  // leja
+  S("path",{d:"M2880 1100 Q2885 1086 2905 1084 L3045 1084 Q3065 1086 3070 1100Z",f:"soil"},b);
+  for(let x=2886;x<=3064;x+=14)S("ellipse",{cx:x,cy:1097,rx:7,ry:4,f:"stone"},b);
+  [2905,2938,2972,3006,3040].forEach(x=>{S("ellipse",{cx:x-6,cy:1074,rx:5,ry:11,f:"leaf",transform:`rotate(-20 ${x-6} 1074)`},b);S("ellipse",{cx:x+6,cy:1074,rx:5,ry:11,f:"leaf3",transform:`rotate(20 ${x+6} 1074)`},b);});
+  // hrast
+  const ot=S("g",{},b);
+  S("path",{d:"M3166 1100 Q3180 1020 3184 880 L3218 880 Q3222 1020 3236 1100Z",f:"trunk"},ot);
+  S("path",{d:"M3196 900 Q3160 860 3120 850 M3206 890 Q3250 850 3290 846",fill:"none",s:"trunk","stroke-width":14,"stroke-linecap":"round"},ot);
+  [[3200,720,150,"leaf"],[3090,800,105,"leaf2"],[3310,795,110,"leaf2"],[3140,690,105,"leaf3"],[3270,680,105,"leaf3"],[3205,820,120,"leaf"],[3200,640,95,"leaf3"]].forEach(([x,y,r,c])=>S("circle",{cx:x,cy:y,r,f:c},ot));
+  bench(b,3245,G,112);
+  // igralište
+  const sw=S("g",{},b);
+  S("path",{d:"M3412 1100 L3432 958 L3452 1100 M3548 1100 L3568 958 L3588 1100",fill:"none",s:"metal","stroke-width":7,"stroke-linejoin":"round"},sw);
+  S("rect",{x:3428,y:952,width:146,height:9,rx:4,f:"metal"},sw);
+  S("path",{d:"M3486 960 V1040 M3514 960 V1040",s:"metal","stroke-width":2.5},sw);S("rect",{x:3480,y:1038,width:40,height:6,rx:3,f:"bench"},sw);
+  // kej: ograda
+  S("rect",{x:3636,y:1048,width:4000,height:6,rx:3,f:"metal"},b);
+  for(let x=3640;x<7600;x+=46)S("rect",{x,y:1048,width:5,height:52,f:"metal"},b);
+  // TLO (presek)
+  const gr=L.front;
+  S("rect",{x:-6000,y:1100,width:16000,height:26,f:"side"},gr);
+  S("rect",{x:-6000,y:1126,width:8760,height:72,f:"road"},gr);
+  for(let x=-1500;x<2700;x+=110)S("rect",{x,y:1158,width:56,height:6,rx:3,f:"dash"},gr);
+  S("rect",{x:2760,y:1126,width:7300,height:72,f:"grass"},gr);
+  S("rect",{x:2752,y:1124,width:12,height:76,rx:5,f:"curb"},gr);
+  S("rect",{x:-6000,y:1196,width:16000,height:8,f:"curb"},gr);
+  S("rect",{x:-6000,y:1204,width:16000,height:22,f:"grass2"},gr);
+  S("rect",{x:-6000,y:1226,width:16000,height:300,f:"soil"},gr);
+  S("rect",{x:-6000,y:1526,width:16000,height:800,f:"soil3"},gr);
+  S("rect",{x:-6000,y:2326,width:16000,height:9000,f:"soil4"},gr);
+  const Rs=rng(31);for(let i=0;i<160;i++)S("ellipse",{cx:-1600+Rs()*7400,cy:1250+Rs()*1100,rx:4+Rs()*10,ry:3+Rs()*5,f:Rs()<.5?"soil2":"soil4",st:"opacity:.8"},gr);
+  [[3200,1226,1.4],[1985,1226,1],[1095,1226,.7],[2790,1226,.8],[3640,1226,.9]].forEach(([x,y,k])=>{S("path",{d:`M${x} ${y} q-${30*k} ${60*k} -${90*k} ${110*k} M${x} ${y} q${10*k} ${70*k} ${-10*k} ${150*k} M${x} ${y} q${40*k} ${50*k} ${100*k} ${90*k}`,fill:"none",s:"soil2","stroke-width":7*k,"stroke-linecap":"round"},gr);});
+
+  // LIKOVI (statični)
+  const c=L.chars;
+  W.mama=person(c,{x:730,y:680,h:125,dir:-1,shirt:"cMama",pants:"cDenim",hs:"pony",hair:"hair1",skin:"skin2"});
+  bag(c,712,628,1.1);bag(c,748,628,1.1);
+  W.baka=person(c,{x:432,y:680,h:116,sit:true,shirt:"cBaka",pants:"cBrown",hs:"bun",hair:"hair2",arms:"lap",glasses:true});
+  W.deda=person(c,{x:604,y:680,h:120,sit:true,dir:-1,shirt:"cDeda",pants:"cDark",hs:"bald",hair:"hair2",mustache:true,arms:"lap"});
+  W.deka=person(c,{x:928,y:1094,h:120,sit:true,shirt:"cDeka",pants:"cDark",hs:"bald",hair:"hair2",cap:"cBrown"});
+  W.vera=person(c,{x:984,y:1092,h:114,sit:true,shirt:"cVera",pants:"cBrown",hs:"bun",hair:"hair2",arms:"lap"});
+  W.friend=person(c,{x:1890,y:G,h:96,dir:-1,shirt:"cFriend",pants:"cDenim",hs:"curly",hair:"hair3",skin:"skin3"});
+  W.koms=person(c,{x:2606,y:G,h:120,dir:-1,shirt:"cKoms",pants:"cDark",hs:"bun",hair:"hair1",dress:true});
+  bag(c,2590,1048,1.2);bag(c,2622,1048,1.2);
+  W.newkid=person(c,{x:3330,y:1086,h:92,sit:true,dir:-1,shirt:"cNew",pants:"cDark",hs:"short",hair:"hair4"});
+  W.girl=person(c,{x:3500,y:1038+28*.9,h:90,sit:true,shirt:"cGirl",pants:"cDenim",hs:"pony",hair:"hair3",skin:"skin2"});
+  W.stranger=person(c,{x:4160,y:G,h:112,dir:-1,shirt:"cGirl",pants:"cDark",hs:"long",hair:"hair4",dress:true});
+  // pas i ti
+  W.dog=dogShape(c,3805,G,.95,-1);W.dog.g.style.display="none";
+  W.kidG=S("g",{},c);
+  W.kid=person(W.kidG,{x:0,y:0,h:92,shirt:"cKid",pants:"cDenim",hs:"short",hair:"hair1",pack:true,seed:"wGold"});
+
+  // CVETOVI po stanicama
+  W.fl=[];
+  ST.forEach((st,i)=>{W.fl[i]=(st.blooms||[st.bloom]).map(b=>flower(L.fx,b.x,b.y,b.s,b.pot));});
+  W.leja=[2905,2938,3006,3040].map(x=>flower(L.fx,x,1086,.4,false));
+  // Veliki medved
+  W.ursa=S("g",{st:"opacity:0"},L.fx);
+  const U=URSA();S("path",{d:"M"+U.map(p=>p.x+" "+p.y).join(" L")+` M${U[3].x} ${U[3].y} L${U[0].x} ${U[0].y}`,fill:"none",s:"love","stroke-width":2.5,st:"opacity:.5","stroke-dasharray":"6 8"},W.ursa);
+  W.ursaStars=U.map(p=>{const g=S("g",{transform:`translate(${p.x} ${p.y})`},W.ursa);S("circle",{r:34,fill:"url(#wGold)"},g);S("path",{d:"M0 -13 L3 -3 L13 0 L3 3 L0 13 L-3 3 L-13 0 L-3 -3Z",f:"love-soft"},g);return g;});
+  // putujuće svetlo
+  W.trail=[];for(let i=0;i<7;i++)W.trail.push(S("circle",{r:9-i,f:"love",st:"opacity:0"},L.fx));
+  W.dot=S("g",{st:"opacity:0"},L.fx);S("circle",{r:46,fill:"url(#wGold)"},W.dot);S("circle",{r:11,f:"love"},W.dot);S("circle",{r:5,f:"love-soft"},W.dot);
+  W.dotP={x:0,y:0};
+}
+function URSA(){const P=[[0,0],[0,52],[72,66],[84,22],[144,12],[198,17],[252,48]];return P.map(([x,y])=>({x:2180+x*1.8,y:150+y*1.8}));}
+
+/* =====================================================================
+   STANICE
+   ===================================================================== */
+const PH=["Šta je ljubav","Kako se ljubav pokazuje","Kako se ljubav neguje"];
+const OVER={x:2100,y:780,w:4500,full:true};
+const t=(c,s)=>`<span class="tag ${c}">${s}</span>`;
+const ST=[
+ {ph:0,q:"Šta je ljubav?",title:"Ljubav je osećaj i delo",cam:{x:700,y:610,w:760},hot:{x:730,y:538},kid:{x:648,y:680},bloom:{x:689,y:597,s:.42,pot:true},
+  terms:["ljubav"],
+  text:[`<b class="term">Ljubav</b> je topao osećaj prema nekom i želja da mu bude dobro.`,
+   `${t("ex","primer")}Mama uđe umorna, ruku punih kesa. U tebi se javi toplina. Kad joj pomogneš da ih unese, toplina postane delo.`,
+   `Ljubav je kao bašta. Osećaj je seme, a ti si baštovan.`],
+  cap:"Seme osećaja čeka u tebi. Dodirni kese i pomozi mami."},
+ {ph:0,q:"Šta se desi kad nekog zagrliš?",title:"Zagrljaj i hemijski glasnik",cam:{x:470,y:610,w:760},hot:{x:432,y:560},kid:{x:470,y:680},bloom:{x:490,y:648,s:.36,pot:true},
+  terms:["oksitocin"],
+  text:[`Kad zagrliš nekog kome veruješ, mozak pušta <b class="term">oksitocin</b>. To je hemijski glasnik koji krvlju putuje kroz celo telo.`,
+   `Zbog njega se osećaš bliže i mirnije. Zagrljaj nepoznatog ne deluje isto, jer telo zna kome veruje.`,
+   `${t("simp","pojednostavljeno")}Oksitocin ima i druge poslove u telu.`],
+  cap:"Zagrljaj stigne do mozga, a mozak pusti oksitocin u krv. Pritisni i drži dugme Zagrli."},
+ {ph:0,q:"Zašto je ljubav važna?",title:"Najduže istraživanje o sreći",cam:{x:960,y:1010,w:800},hot:{x:956,y:966},kid:{x:874,y:G},bloom:{x:1042,y:G,s:.6},
+  terms:["odnos"],
+  text:[`Naučnici prate iste ljude već 88 godina, od 1938. To istraživanje je starije od tvojih baka i deka. Počeli su sa 724 mladića, otprilike kao jedna velika škola.`,
+   `Najzdraviji i najsrećniji u starosti bili su oni sa najtoplijim <b class="term">odnosima</b>. Odnos je veza sa nekim koja traje.`,
+   `${t("simp","pojednostavljeno")}Toplina i zdravlje idu zajedno. Ne znamo tačno šta je od čega.`],
+  cap:"Svaka tačka je jedan učesnik, a zlatne su ljudi sa toplim odnosima. Pomeri klizač kroz godine i gledaj kako se tačke gase kad ljudi preminu."},
+ {ph:1,q:"Možeš li da voliš sebe?",title:"Budi sebi dobar drug",cam:{x:285,y:610,w:700},hot:{x:322,y:572},kid:{x:322,y:680},bloom:{x:297,y:595,s:.4,pot:true},
+  terms:["saosećanje prema sebi"],
+  text:[`${t("ex","primer")}Dobiješ dvojku iz kontrolnog. U glavi se javi grub glas: „Ja to nikad neću naučiti.”`,
+   `Tada ti treba <b class="term">saosećanje prema sebi</b>. Reci sebi ono što bi rekao drugu: „Teško je, ali vežbaću.” Svi greše, a greška znači da učiš.`,
+   `Ko je blag prema sebi, lakše je blag i prema drugima.`],
+  cap:"Grube reči venu cvet u tebi. Izaberi šta bi rekao najboljem drugu, pa to reci sebi."},
+ {ph:1,q:"Kakva je ljubav u porodici?",title:"Naklonost raste od svakog dana",cam:{x:540,y:610,w:720},hot:{x:604,y:556},kid:{x:512,y:680},bloom:{x:563,y:640,s:.36,pot:true},
+  terms:["naklonost"],
+  text:[`<b class="term">Naklonost</b> je ljubav prema ljudima sa kojima živiš i koje viđaš svaki dan.`,
+   `Raste od sitnica. Zajednički doručak, šala za stolom, pomoć oko zadatka, „laku noć” pre spavanja.`,
+   `${t("book","Iz knjige „Bašta sljezove boje”")}Kad mu je deda tužan, mali Branko mu se noću uvuče u krevet da ga uteši i ugreje mu leđa.`],
+  cap:"Naklonost se skuplja kao kapi vode u bašti. Dodirni četiri trenutka iz jednog dana."},
+ {ph:1,q:"Kako nastaje prijateljstvo?",title:"Prijatelji gledaju u istu stvar",cam:{x:1880,y:1010,w:860},hot:{x:1890,y:986},kid:{x:1800,y:G},bloom:{x:1956,y:G,s:.6},
+  terms:["prijateljstvo"],
+  text:[`<b class="term">Prijateljstvo</b> često počne uzvikom „Šta, i ti to voliš?!” Tada otkrijete nešto zajedničko.`,
+   `Prijatelji stoje rame uz rame i zajedno gledaju u ono što vole. To može biti lopta, knjiga, crtanje ili plan za subotu.`,
+   `Pitaj nekog iz odeljenja šta voli, pa ga pozovi da to radite zajedno.`],
+  cap:"Dvoje dece još ne zna da imaju nešto zajedničko. Pronađi šta oboje vole."},
+ {ph:1,q:"Možeš li da voliš nekog koga ne znaš?",title:"Ljubav koja ništa ne traži nazad",cam:{x:2570,y:1000,w:860},hot:{x:2606,y:958},kid:{x:2545,y:G},bloom:{x:2462,y:G,s:.6},
+  terms:["nesebična ljubav"],
+  text:[`<b class="term">Nesebična ljubav</b> je dobrota prema svakom čoveku, i kad ga ne poznaješ i kad ti ništa ne vrati.`,
+   `${t("ex","primer")}Pridržiš vrata, ustupiš mesto u autobusu, pomogneš komšinici da ponese cegere.`,
+   `${t("book","Iz bajke „Devojčica i krčag”")}Devojčica nudi vodu kučetu, bolesnoj majci i putniku, iako je i sama žedna. Iz njenog krčaga polete zvezde.`],
+  cap:"Krčag se menja svaki put kad devojčica ponudi vodu drugome. Dodirni kuče, majku i putnika."},
+ {ph:1,q:"Kako se ljubav vidi spolja?",title:"Pet načina da pokažeš ljubav",cam:OVER,hot:{x:2392,y:990},kid:{x:2392,y:G},bloom:{x:2271,y:1058,s:.36},
+  terms:["pet načina"],
+  text:[`Ljubav ne vidiš, ali vidiš dela. Najčešće se pokazuje na <b class="term">pet načina</b>. To su lepe reči, zajedničko vreme, pomoć, mali poklon i zagrljaj.`,
+   `Većini ljudi prija svih pet, kao što bašti treba i sunce, i voda, i zemlja.`,
+   `U tvom kraju već ima svih pet.`],
+  cap:"Svaka latica je jedan način. Pogodi koji način vidiš u svakom primeru."},
+ {ph:2,q:"Kako se ljubav zaliva?",title:"Briga je zalivanje",cam:{x:2950,y:1010,w:820},hot:{x:2972,y:1056},kid:{x:2878,y:G},bloom:{x:2972,y:1088,s:.62},
+  terms:["veština","briga"],
+  text:[`Ljubav je <b class="term">veština</b>. Uči se i vežba, kao vožnja bicikla ili sviranje gitare.`,
+   `Prvi deo te veštine je <b class="term">briga</b>. Ako neko kaže da voli cveće, a zaboravi da ga zaliva, ne verujemo mu.`,
+   `${t("ex","primer")}Pitaš baku kako se oseća, pomogneš bratu oko zadatka i setiš se drugarovog rođendana.`],
+  cap:"Jednu saksiju neko zaliva svaki dan, a drugu je zaboravio. Zalij zaboravljeni cvet tri puta."},
+ {ph:2,q:"Šta znači biti odgovoran?",title:"Odgovornost je odgovor",cam:{x:3800,y:1010,w:860},hot:{x:3808,y:1030},kid:{x:3740,y:G},dog:{x:3808,y:G,d:-1},bloom:{x:3884,y:G,s:.6},
+  terms:["odgovornost"],
+  text:[`Drugi deo veštine je <b class="term">odgovornost</b>. To znači da primetiš šta nekom treba i uradiš to, čak i kad ti ne kaže.`,
+   `${t("ex","primer")}Tvoj pas Žuća ne može da kaže da je žedan. Ti vidiš praznu činiju i napuniš je. Izvedeš ga i kad pada kiša.`,
+   `${t("ex","primer")}Drug je tih i tužan, iako ništa ne kaže. Priđeš mu i pitaš da li je sve u redu.`],
+  cap:"Žuća ne ume da kaže šta mu treba. Pronađi tri znaka i odgovori na njih."},
+ {ph:2,q:"Kako da upoznaš nekog?",title:"Upoznaj, pa ćeš znati",cam:{x:3300,y:1010,w:860},hot:{x:3330,y:986},kid:{x:3268,y:G},dog:{x:3392,y:G,d:-1},bloom:{x:3138,y:G,s:.6},
+  terms:["upoznavanje"],
+  text:[`Treći deo veštine je <b class="term">upoznavanje</b>. Da bi pomogao kako treba, moraš da znaš šta je nekom važno.`,
+   `${t("ex","primer")}Pitaš novog druga šta voli da radi posle škole. Slušaš do kraja i ne prekidaš ga. Sutra se setiš i pitaš: „Kako je bilo na treningu?”`,
+   `Tako drug oseti da ti je stalo do njega.`],
+  cap:"Novi drug sedi sam na klupi. Izaberi šta radiš i gledaj šta saznaješ o njemu."},
+ {ph:2,q:"Kako se voli bez stezanja?",title:"Poštovanje pušta da raste",cam:{x:3500,y:1010,w:860},hot:{x:3500,y:964},kid:{x:3450,y:G},dog:{x:3404,y:G,d:1},bloom:{x:3604,y:G,s:.58},
+  terms:["poštovanje"],
+  text:[`Četvrti deo veštine je <b class="term">poštovanje</b>. Prihvatiš drugog onakvog kakav jeste i pustiš ga da raste na svoj način.`,
+   `${t("ex","primer")}Drug voli drugačiju muziku od tebe, a ti ga ne ismevaš. Drugarica neće zagrljaj, i njeno „ne” je u redu, kao i tvoje.`,
+   `Ljubav nikad ne traži da trpiš bol ili čuvaš tajnu koja te plaši. Tada se obrati odrasloj osobi kojoj veruješ.`],
+  cap:"Drugarica sada ne želi zagrljaj. Izaberi šta radiš i gledaj pupoljak."},
+ {ph:2,q:"Kako postaješ šampion ljubavi?",title:"Dobrota putuje tri koraka dalje",cam:OVER,hot:{x:3450,y:990},kid:{x:3450,y:G},dog:{x:3404,y:G,d:1},
+  blooms:[{x:1325,y:767,s:.45},{x:240,y:417,s:.45},{x:4100,y:G,s:.6}],
+  terms:["šampion ljubavi"],
+  text:[`Kad je neko dobar prema tebi, i ti posle češće činiš dobro drugima. Naučnici su to videli u jednoj igri.`,
+   `Tako dobrota putuje tri koraka dalje, od tebe do druga, pa do njegove sestre, pa do njene drugarice. Jedno dobro delo se na kraju utrostruči, kao da jedna kifla postane tri.`,
+   `<b class="term">Šampion ljubavi</b> svaki dan uradi bar jedno malo dobro delo i tako pokrene lanac. Pozdravi komšiju, pomozi drugu, zagrli baku.`],
+  cap:"Jedno dobro delo stiglo je do troje ljudi, a od njih do devetoro. Dodirni sebe i pusti svetlo."},
+];
+const GLOSS=[
+ ["ljubav",0,"Topao osećaj prema nekom i želja da mu bude dobro. Vidi se po delima."],
+ ["oksitocin",1,"Hemijski glasnik koji mozak pušta kad zagrliš nekog kome veruješ. Pomaže da se osećaš blisko i mirno."],
+ ["odnos",2,"Veza sa nekim koja traje."],
+ ["saosećanje prema sebi",3,"Blagost prema sebi kad pogrešiš ili te boli, kao prema najboljem drugu."],
+ ["naklonost",4,"Ljubav prema ljudima sa kojima živiš i koje viđaš svaki dan."],
+ ["prijateljstvo",5,"Ljubav dvoje ljudi koji zajedno vole nešto treće i stoje rame uz rame."],
+ ["nesebična ljubav",6,"Dobrota prema svakom čoveku, i kad ga ne poznaješ i kad ti ništa ne vrati."],
+ ["pet načina",7,"Lepe reči, zajedničko vreme, pomoć, mali poklon i zagrljaj."],
+ ["veština",8,"Nešto što se uči i vežba. Ljubav je veština."],
+ ["briga",8,"Svakodnevno staranje da ono što voliš živi i raste."],
+ ["odgovornost",9,"Primetiš šta nekom treba i uradiš to, čak i kad ti ne kaže."],
+ ["upoznavanje",10,"Pitaš, slušaš i pamtiš šta je nekom važno."],
+ ["poštovanje",11,"Prihvatiš drugog onakvog kakav jeste i pustiš ga da raste na svoj način."],
+ ["šampion ljubavi",12,"Neko ko svaki dan uradi bar jedno malo dobro delo i tako pokrene lanac dobrote."],
+];
+const TOTAL=15;
+const doneCount=i=>i<=12?i:15;
+
+/* =====================================================================
+   KAMERA
+   ===================================================================== */
+const cam={x:OVER.x,y:OVER.y,w:OVER.w},anc={x:.5,y:.5};
+let SW=1,SH=1,VB={x:0,y:0,w:1,h:1,k:1};
+const isSheet=()=>matchMedia("(max-width:760px), (max-aspect-ratio:4/5)").matches;
+function panelBox(){const p=$("#panel");if(p.hidden)return null;return p.getBoundingClientRect();}
+function camTarget(c,open){
+  let w;const asp=SH/SW;
+  if(c.full){w=c.w;if(open&&!isSheet()){const pb=panelBox();const pw=pb?pb.width+28:SW*.38;w=c.w*SW/Math.max(200,SW-pw);}}
+  else{w=c.w*Math.min(1,Math.max(.56,1.06/asp));}
+  return {x:c.x,y:c.y,w};
+}
+function ancFor(open){
+  if(!open)return{x:.5,y:.5};
+  const pb=panelBox();if(!pb)return{x:.5,y:.5};
+  const sr=stage.getBoundingClientRect();
+  if(isSheet()){const free=pb.top-sr.top;return{x:.5,y:clamp(free/2/SH,.15,.5)};}
+  const free=pb.left-sr.left;return{x:clamp(free/2/SW,.2,.5),y:.5};
+}
+function applyCam(){
+  const w=cam.w,h=w*SH/SW;
+  VB={x:cam.x-anc.x*w,y:cam.y-anc.y*h,w,h,k:SW/w};
+  world.setAttribute("viewBox",`${VB.x.toFixed(1)} ${VB.y.toFixed(1)} ${w.toFixed(1)} ${h.toFixed(1)}`);
+  stage.classList.toggle("far",w>2300);
+  placeOv();AU.zoneFromCam();
+}
+async function camTo(tok,c,ms,open){
+  const T=camTarget(c,open),a1=ancFor(open),c0={x:cam.x,y:cam.y,w:cam.w},a0={x:anc.x,y:anc.y};
+  const dist=Math.hypot(T.x-c0.x,T.y-c0.y),wm=Math.max(c0.w,T.w);
+  const bump=dist>wm*.8?Math.min(1.3,dist/wm*.45):0;
+  await tw(tok,D(ms),e=>{cam.x=lerp(c0.x,T.x,e);cam.y=lerp(c0.y,T.y,e);
+    cam.w=Math.exp(lerp(Math.log(c0.w),Math.log(T.w),e))*(1+bump*Math.sin(Math.PI*e));
+    anc.x=lerp(a0.x,a1.x,e);anc.y=lerp(a0.y,a1.y,e);applyCam();});
+}
+function camSet(c,open){const T=camTarget(c,open);cam.x=T.x;cam.y=T.y;cam.w=T.w;const a=ancFor(open);anc.x=a.x;anc.y=a.y;applyCam();}
+
+/* preklopi (dugme, natpisi) */
+const OV=[];
+function addOv(el,x,y){ovLayer.appendChild(el);const o={el,x,y};OV.push(o);return o;}
+function placeOv(){for(const o of OV){if(o.el.hidden)continue;const x=(o.x-VB.x)*VB.k,y=(o.y-VB.y)*VB.k;o.el.style.transform=`translate(${x.toFixed(1)}px,${y.toFixed(1)}px)`;}declutter();}
+function declutter(){const hv=typeof hotOv!=="undefined"&&hotOv&&!hotOv.el.hidden;const pr=hv?hotOv.el.querySelector(".hin").getBoundingClientRect():null;
+  for(const o of OV){const l=o.el.lab;if(!l||!l.classList.contains("place"))continue;let hit=false;
+    if(pr){const r=l.getBoundingClientRect();hit=!(r.right<pr.left-6||r.left>pr.right+6||r.bottom<pr.top-6||r.top>pr.bottom+6);}l.classList.toggle("hid",hit);}}
+function mkLabel(txt,cls){const d=document.createElement("div");d.className="ovi";const s=document.createElement("div");s.className="wl "+cls;s.textContent=txt;d.appendChild(s);d.lab=s;return d;}
+
+/* =====================================================================
+   ZVUK (Web Audio, bez fajlova)
+   ===================================================================== */
+const PENTA=[130.81,146.83,164.81,196,220,261.63,293.66,329.63,392];
+const CHORDS=[[130.81,196,329.63,493.88],[174.61,261.63,329.63,440],[196,246.94,293.66,329.63],[130.81,261.63,293.66,392]];
+const LV={pad:.010,box:.017,meter:.005,home:.021,street:.015,river:.023,bird:.0035};
+function noiseBuf(ctx,type){const n=ctx.sampleRate*3,b=ctx.createBuffer(1,n,ctx.sampleRate),d=b.getChannelData(0);let last=0,b0=0,b1=0,b2=0;const R=rng(type==="brown"?3:4);
+  for(let i=0;i<n;i++){const w=R()*2-1;if(type==="brown"){last=(last+.02*w)/1.02;d[i]=last*3.2;}else{b0=.99765*b0+w*.099;b1=.963*b1+w*.2965;b2=.57*b2+w*1.0526;d[i]=(b0+b1+b2+w*.1848)*.16;}}return b;}
+function buildGraph(ctx,out){
+  const comp=ctx.createDynamicsCompressor();comp.threshold.value=-18;comp.knee.value=10;comp.ratio.value=3;comp.attack.value=.01;comp.release.value=.3;
+  const master=ctx.createGain();master.connect(comp);comp.connect(out);
+  const bed=ctx.createGain();bed.connect(master);const fx=ctx.createGain();fx.gain.value=.9;const fxlp=ctx.createBiquadFilter();fxlp.type="lowpass";fxlp.frequency.value=3200;fxlp.Q.value=.5;fx.connect(fxlp);fxlp.connect(master);
+  const music=ctx.createGain();music.connect(bed);const amb=ctx.createGain();amb.connect(bed);
+  // ambijent
+  const loop=(buf,type,f,q,lfoHz,lfoDepth)=>{const s=ctx.createBufferSource();s.buffer=buf;s.loop=true;const fl=ctx.createBiquadFilter();fl.type=type;fl.frequency.value=f;fl.Q.value=q;const g=ctx.createGain();g.gain.value=0;const tr=ctx.createGain();tr.gain.value=1;
+    s.connect(fl);fl.connect(tr);tr.connect(g);g.connect(amb);s.start();
+    if(lfoHz){const o=ctx.createOscillator();o.frequency.value=lfoHz;const og=ctx.createGain();og.gain.value=lfoDepth;o.connect(og);og.connect(tr.gain);o.start();}return g;};
+  const br=noiseBuf(ctx,"brown"),pk=noiseBuf(ctx,"pink");
+  const layers={home:loop(br,"lowpass",230,.7,0,0),street:loop(br,"lowpass",520,.6,.07,.35),river:loop(pk,"bandpass",760,.7,.11,.3)};
+  // muzika: tiha podloga
+  const pad={g:ctx.createGain(),v:[]};pad.g.gain.value=0;const lp=ctx.createBiquadFilter();lp.type="lowpass";lp.frequency.value=1000;pad.g.connect(lp);lp.connect(music);
+  const lfo=ctx.createOscillator();lfo.frequency.value=.05;const lg=ctx.createGain();lg.gain.value=280;lfo.connect(lg);lg.connect(lp.frequency);lfo.start();
+  for(let k=0;k<4;k++){const o1=ctx.createOscillator(),o2=ctx.createOscillator(),g=ctx.createGain();o1.type="triangle";o2.type="sine";o2.detune.value=6;g.gain.value=.25;
+    o1.frequency.value=CHORDS[0][k];o2.frequency.value=CHORDS[0][k];o1.connect(g);o2.connect(g);g.connect(pad.g);o1.start();o2.start();pad.v.push([o1,o2]);}
+  // ton merača
+  const mo=ctx.createOscillator();mo.type="sine";mo.frequency.value=PENTA[0];const mg=ctx.createGain();mg.gain.value=0;const mf=ctx.createBiquadFilter();mf.type="lowpass";mf.frequency.value=600;
+  mo.connect(mf);mf.connect(mg);mg.connect(music);mo.start();
+  return {ctx,comp,master,bed,fx,music,amb,layers,pad,mo,mg};
+}
+function bell(g,f,t,gain,dur,type){const ctx=g.ctx,o=ctx.createOscillator(),o2=ctx.createOscillator(),e=ctx.createGain(),e2=ctx.createGain();
+  o.type=type||"sine";o.frequency.value=f;o2.type="sine";o2.frequency.value=f*2.01;e2.gain.value=.1;
+  e.gain.setValueAtTime(0,t);e.gain.linearRampToValueAtTime(gain,t+.018);e.gain.exponentialRampToValueAtTime(.0001,t+dur);
+  o.connect(e);o2.connect(e2);e2.connect(e);e.connect(g.fx);o.start(t);o2.start(t);o.stop(t+dur+.05);o2.stop(t+dur+.05);}
+function swish(g,t,dur,gain){const ctx=g.ctx,s=ctx.createBufferSource();s.buffer=g._pk||(g._pk=noiseBuf(ctx,"pink"));const f=ctx.createBiquadFilter();f.type="bandpass";f.Q.value=2.2;
+  f.frequency.setValueAtTime(500,t);f.frequency.exponentialRampToValueAtTime(1600,t+dur*.6);f.frequency.exponentialRampToValueAtTime(900,t+dur);
+  const e=ctx.createGain();e.gain.setValueAtTime(0,t);e.gain.linearRampToValueAtTime(gain,t+dur*.3);e.gain.linearRampToValueAtTime(0,t+dur);
+  s.connect(f);f.connect(e);e.connect(g.fx);s.start(t);s.stop(t+dur+.05);}
+function birdSoft(g,t){const ctx=g.ctx,k=1+Math.floor(Math.random()*2),base=1500+Math.random()*450,lp=ctx.createBiquadFilter();lp.type="lowpass";lp.frequency.value=2400;lp.connect(g.amb);
+  for(let i=0;i<k;i++){const tt=t+i*.22,o=ctx.createOscillator(),e=ctx.createGain();o.type="sine";o.frequency.setValueAtTime(base,tt);o.frequency.exponentialRampToValueAtTime(base*1.16,tt+.12);
+    e.gain.setValueAtTime(0,tt);e.gain.linearRampToValueAtTime(LV.bird,tt+.035);e.gain.exponentialRampToValueAtTime(.0001,tt+.24);o.connect(e);e.connect(lp);o.start(tt);o.stop(tt+.26);}}
+const FX={
+  hot:(g,t)=>bell(g,783.99,t,.045,1.1),
+  open:(g,t)=>{bell(g,659.25,t,.016,.3);},
+  ok:(g,t)=>{bell(g,659.25,t,.05,1.2);bell(g,880,t+.13,.05,1.4);},
+  no:(g,t)=>{const ctx=g.ctx,o=ctx.createOscillator(),e=ctx.createGain();o.type="sine";o.frequency.setValueAtTime(330,t);o.frequency.exponentialRampToValueAtTime(247,t+.35);
+    e.gain.setValueAtTime(0,t);e.gain.linearRampToValueAtTime(.04,t+.02);e.gain.exponentialRampToValueAtTime(.0001,t+.5);o.connect(e);e.connect(g.fx);o.start(t);o.stop(t+.55);},
+  tap:(g,t,n)=>bell(g,[392,440,523.25,587.33,659.25,783.99][(n||0)%6],t,.04,.9),
+  bloom:(g,t)=>{[392,523.25,659.25,783.99].forEach((f,k)=>bell(g,f,t+k*.1,.045,1.6));},
+  stars:(g,t)=>{[392,440,523.25,587.33,659.25,783.99,880].forEach((f,k)=>bell(g,f,t+k*.14,.035,1.4));},
+  fly:(g,t,dur)=>swish(g,t,Math.max(.5,dur||1),.022),
+  done:(g,t)=>bell(g,587.33,t,.03,1.2),
+  fin:(g,t)=>{[261.63,329.63,392,523.25,659.25,783.99].forEach((f,k)=>bell(g,f,t+k*.16,.04,2.2));},
+};
+const AU={ctx:null,g:null,on:true,zone:"",phase:-1,duck:false,meterN:0,timer:null,
+  init(){if(this.ctx){if(this.ctx.state==="suspended")this.ctx.resume();return;}
+    const C=window.AudioContext||window.webkitAudioContext;if(!C)return;
+    try{this.ctx=new C();}catch(e){return;}
+    this.g=buildGraph(this.ctx,this.ctx.destination);this.g.master.gain.value=this.on?1:0;
+    const n=this.ctx.currentTime;this.g.pad.g.gain.setTargetAtTime(LV.pad,n,1.5);this.g.mg.gain.setTargetAtTime(LV.meter,n,2);
+    this.setPhase(Math.max(0,this.phase),true);this.setMeter(this.meterN,true);const z=this.zone;this.zone="";this.setZone(z||"over");this.setDuck(this.duck);
+    this.timer=setInterval(()=>this.tick(),900);
+    document.addEventListener("visibilitychange",()=>{if(!this.ctx)return;if(document.hidden)this.ctx.suspend();else if(this.on)this.ctx.resume();});},
+  fx(name,a){if(!this.ctx||!this.on)return;try{FX[name](this.g,this.ctx.currentTime+.02,a);}catch(e){}},
+  setOn(v){this.on=v;try{localStorage.setItem("bl-zvuk",v?"1":"0");}catch(e){}if(this.ctx){if(v)this.ctx.resume();this.g.master.gain.setTargetAtTime(v?1:0,this.ctx.currentTime,.05);}},
+  setPhase(p,force){if(p===this.phase&&!force)return;this.phase=p;if(!this.ctx)return;const n=this.ctx.currentTime;this.g.pad.v.forEach((v,k)=>{v[0].frequency.setTargetAtTime(CHORDS[p][k],n,1.4);v[1].frequency.setTargetAtTime(CHORDS[p][k],n,1.4);});},
+  setMeter(nv,quiet){this.meterN=nv;if(!this.ctx)return;const f=PENTA[Math.round(nv*(PENTA.length-1)/TOTAL)],n=this.ctx.currentTime;this.g.mo.frequency.setTargetAtTime(f,n,.4);
+    if(!quiet){this.g.mg.gain.cancelScheduledValues(n);this.g.mg.gain.setTargetAtTime(LV.meter*2.2,n,.08);this.g.mg.gain.setTargetAtTime(LV.meter,n+.5,.8);}},
+  setDuck(d){this.duck=d;if(!this.ctx)return;this.g.bed.gain.setTargetAtTime(d?.4:1,this.ctx.currentTime,.35);},
+  setZone(z){if(z===this.zone)return;this.zone=z;if(!this.ctx)return;const m={home:{home:1,street:0,river:0},street:{home:0,street:1,river:0},park:{home:0,street:.25,river:1},over:{home:0,street:.45,river:.35}}[z];
+    const n=this.ctx.currentTime;for(const k in m)this.g.layers[k].gain.setTargetAtTime(m[k]*LV[k],n,1.2);},
+  zoneFromCam(){const z=VB.w>2300?"over":(cam.x<900&&cam.y<880?"home":(cam.x<2760?"street":"park"));this.setZone(z);},
+  tick(){if(!this.ctx||!this.on||document.hidden)return;const g=this.g,ctx=this.ctx,n=ctx.currentTime;
+    if(Math.random()<.22){const f=[523.25,587.33,659.25,783.99,880][Math.floor(Math.random()*5)]*(Math.random()<.3?.5:1);
+      const o=ctx.createOscillator(),e=ctx.createGain();o.type="sine";o.frequency.value=f;e.gain.setValueAtTime(0,n);e.gain.linearRampToValueAtTime(LV.box,n+.01);e.gain.exponentialRampToValueAtTime(.0001,n+2.6);o.connect(e);e.connect(g.music);o.start(n);o.stop(n+2.7);}
+    // ptice: retko, nisko i meko, samo danju
+    const night=getComputedStyle(document.documentElement).getPropertyValue("--night").trim()==="1";
+    if(!night&&(this.zone==="park"||this.zone==="street")&&!this.duck&&Math.random()<(this.zone==="park"?.14:.05))birdSoft(g,n+.05);
+  },
+};
+try{AU.on=localStorage.getItem("bl-zvuk")!=="0";}catch(e){}
+/* provera jačine offline renderom (koristi se pri testiranju) */
+window.__auTest=async function(zone,only){
+  const sr=44100,sec=12,oc=new OfflineAudioContext(2,sr*sec,sr),g=buildGraph(oc,oc.destination);
+  const m={home:{home:1,street:0,river:0},street:{home:0,street:1,river:0},park:{home:0,street:.25,river:1},over:{home:0,street:.45,river:.35}}[zone||"park"];
+  const on=k=>!only||only===k;
+  for(const k in m)g.layers[k].gain.setValueAtTime(on("amb")?m[k]*LV[k]:0,0);
+  g.pad.g.gain.setValueAtTime(on("pad")?LV.pad:0,0);g.mg.gain.setValueAtTime(on("meter")?LV.meter:0,0);
+  if(on("box"))[1.2,3.1].forEach(tt=>{const o=oc.createOscillator(),e=oc.createGain();o.frequency.value=659.25;e.gain.setValueAtTime(0,tt);e.gain.linearRampToValueAtTime(LV.box,tt+.01);e.gain.exponentialRampToValueAtTime(.0001,tt+2.6);o.connect(e);e.connect(g.music);o.start(tt);o.stop(tt+2.7);});
+  if(on("fx")){FX.bloom(g,5);FX.ok(g,7);FX.stars(g,8.2);FX.fly(g,10.3,1.2);}
+  const buf=await oc.startRendering(),d=buf.getChannelData(0);
+  const seg=(a,b)=>{let pk=0,ss=0;for(let i=Math.floor(a*sr);i<Math.floor(b*sr);i++){const v=Math.abs(d[i]);if(v>pk)pk=v;ss+=d[i]*d[i];}const rms=Math.sqrt(ss/((b-a)*sr));return{peak:+(20*Math.log10(pk||1e-9)).toFixed(1),rms:+(20*Math.log10(rms||1e-9)).toFixed(1)};};
+  return {bed:seg(.5,4.9),fx:seg(5,12),all:seg(0,12)};
+};
+
+/* =====================================================================
+   SVET: stanje, svetlo, cvetanje
+   ===================================================================== */
+function kidPlace(p){W.kidG.setAttribute("transform",`translate(${p.x} ${p.y})`);W.kidPos={x:p.x,y:p.y};}
+function kidChest(){return{x:W.kidPos.x,y:W.kidPos.y-56};}
+function dogPlace(d){if(!d){W.dog.g.style.display="none";return;}W.dog.g.style.display="";W.dog.g.setAttribute("transform",`translate(${d.x} ${d.y}) scale(${(d.d||-1)*.95} .95)`);}
+function setSeedGlow(n){const k=.25+.75*n/TOTAL;W.kid.seed.halo.style.opacity=k.toFixed(2);}
+function setWorld(i){
+  for(let j=0;j<ST.length;j++)W.fl[j].forEach(f=>setFlower(f,j<i?1:0));
+  W.leja.forEach(f=>setFlower(f,i>8?1:0));
+  W.ursa.style.opacity=i>6?1:0;
+  const k=Math.min(i,12),st=ST[k];kidPlace(st.kid);W.kidG.style.opacity=1;
+  dogPlace(i>=9?(st.dog||ST[12].dog):null);
+  const n=doneCount(i);setMeter(n,false);setSeedGlow(n);
+  dotHide();OV.forEach(o=>{if(o.el.lab&&!o.el.lab.classList.contains("place"))o.el.lab.classList.remove("on");});
+  renderGloss(i);
+}
+function dotAt(x,y){W.dotP={x,y};W.dot.setAttribute("transform",`translate(${x.toFixed(1)} ${y.toFixed(1)})`);
+  const tr=W.trail;W._hist=W._hist||[];W._hist.unshift({x,y});if(W._hist.length>40)W._hist.pop();
+  tr.forEach((c,i)=>{const h=W._hist[Math.min(W._hist.length-1,(i+1)*4)];c.setAttribute("cx",h.x.toFixed(1));c.setAttribute("cy",h.y.toFixed(1));});}
+function trailOn(v){W.trail.forEach((c,i)=>c.style.opacity=v?(.5-i*.06).toFixed(2):0);if(!v)W._hist=[];}
+function dotHide(){W.dot.style.opacity=0;trailOn(false);}
+async function dotShow(tok,p){dotAt(p.x,p.y);W._hist=[];await tw(tok,D(380),e=>{W.dot.style.opacity=e;W.dot.setAttribute("transform",`translate(${p.x} ${p.y}) scale(${.3+.7*e})`);},E.out);}
+async function dotFade(tok){trailOn(false);await tw(tok,D(380),e=>{W.dot.style.opacity=1-e;});}
+const qb=(a,m,b,t)=>(1-t)*(1-t)*a+2*(1-t)*t*m+t*t*b;
+async function dotFly(tok,a,b,o){o=o||{};
+  const d=Math.hypot(b.x-a.x,b.y-a.y),ms=o.ms||Math.min(2800,800+d*.6);
+  const mx=(a.x+b.x)/2,my=Math.min(a.y,b.y)-Math.min(420,d*.33);
+  const c0={x:cam.x,y:cam.y,w:cam.w},a0={x:anc.x,y:anc.y};
+  const T=o.camEnd?camTarget(o.camEnd,false):null;const w1=o.follow?(o.w||cam.w):(T?T.w:cam.w);
+  const bump=o.follow?Math.min(1.1,d/Math.max(c0.w,w1)*.4):0;
+  AU.fx("fly",ms/1000);trailOn(true);W.dot.style.opacity=1;
+  await tw(tok,D(ms),e=>{const x=qb(a.x,mx,b.x,e),y=qb(a.y,my,b.y,e);dotAt(x,y);
+    if(o.follow){const s=E.io(clamp(e/.25));cam.x=lerp(c0.x,x,s);cam.y=lerp(c0.y,y,s);cam.w=Math.exp(lerp(Math.log(c0.w),Math.log(w1),e))*(1+bump*Math.sin(Math.PI*e));anc.x=lerp(a0.x,.5,e);anc.y=lerp(a0.y,.5,e);applyCam();}
+    else if(T){cam.x=lerp(c0.x,T.x,e);cam.y=lerp(c0.y,T.y,e);cam.w=Math.exp(lerp(Math.log(c0.w),Math.log(T.w),e));anc.x=lerp(a0.x,.5,e);anc.y=lerp(a0.y,.5,e);applyCam();}
+  },E.io);
+  if(tok.dead)return;dotAt(b.x,b.y);trailOn(false);
+}
+function flowerTop(f){const tr=f.g.getAttribute("transform").match(/translate\(([-\d.]+) ([-\d.]+)\) scale\(([-\d.]+)\)/);const x=+tr[1],y=+tr[2],s=+tr[3];return{x,y:y+(f.base-74)*s};}
+async function bloom(tok,f){AU.fx("bloom");await tw(tok,D(1300),e=>setFlower(f,e),E.lin);setFlower(f,1);}
+function setMeter(n,anim){const m=$("#meter");m.querySelector(".mnum").textContent=n;
+  m.querySelectorAll(".pip").forEach((p,i)=>p.classList.toggle("on",i<n));
+  m.setAttribute("aria-label",`Cvetovi u kraju: ${n} od ${TOTAL}`);
+  if(anim){m.classList.remove("bump");void m.offsetWidth;m.classList.add("bump");AU.setMeter(n);}else AU.setMeter(n,true);
+  setSeedGlow(n);}
+
+/* =====================================================================
+   POGLEDI IZBLIZA
+   ===================================================================== */
+const cuSvg=$("#cuSvg"),cuTry=$("#cuTry");
+function cuReset(){cuSvg.innerHTML="";cuTry.innerHTML="";const d=S("defs",{},cuSvg);glowDefs(d,"c");cuSvg.setAttribute("aria-label","");}
+function makeApi(tok){
+  const A={svg:cuSvg,tok};
+  A.show=async fn=>{state.showRunning=true;await fn();state.showRunning=false;tok.skip=false;};
+  const reveal=()=>{const ps=panel.querySelector(".pscroll");requestAnimationFrame(()=>ps.scrollTo({top:ps.scrollHeight,behavior:RM?"auto":"smooth"}));};A.reveal=reveal;
+  A.fb=txt=>{let p=cuTry.querySelector(".fb");if(!p){p=document.createElement("p");p.className="fb";p.setAttribute("aria-live","polite");cuTry.appendChild(p);}p.textContent=txt||"";};
+  A.ring=(el,pad)=>{const b=el.getBBox();const r=S("rect",{class:"tapring",x:b.x-(pad||6),y:b.y-(pad||6),width:b.width+2*(pad||6),height:b.height+2*(pad||6),rx:10},el);return r;};
+  A.tap=(el,label,pad)=>new Promise(res=>{el.classList.add("tap");el.setAttribute("tabindex","0");el.setAttribute("role","button");el.setAttribute("aria-label",label);
+    const ring=A.ring(el,pad);
+    const h=e=>{if(e.type==="keydown"&&e.key!=="Enter"&&e.key!==" ")return;e.preventDefault();e.stopPropagation();
+      el.removeEventListener("click",h);el.removeEventListener("keydown",h);el.classList.remove("tap");el.removeAttribute("tabindex");el.removeAttribute("role");ring.remove();res(true);};
+    el.addEventListener("click",h);el.addEventListener("keydown",h);});
+  A.tapAll=async(list,onTap)=>{let n=0;await Promise.all(list.map(([el,lab],k)=>A.tap(el,lab).then(()=>tok.dead?null:onTap(k,n++))));};
+  A.choices=(items,onPick)=>new Promise(res=>{const box=document.createElement("div");box.className="cutry";cuTry.appendChild(box);
+    reveal();items.forEach(it=>{const b=document.createElement("button");b.type="button";b.className="choice";b.textContent=it.t;box.appendChild(b);
+      b.addEventListener("click",()=>{if(b.disabled)return;onPick&&onPick(it);A.fb(it.fb);
+        if(it.ok){AU.fx("ok");b.classList.add("ok");box.querySelectorAll("button").forEach(x=>x.disabled=true);res(it);}else{AU.fx("no");b.classList.add("no");}});});});
+  A.button=label=>new Promise(res=>{let b=cuTry.querySelector("button.act");if(!b){b=document.createElement("button");b.type="button";b.className="act";cuTry.prepend(b);}
+    b.textContent=label;b.disabled=false;reveal();const h=()=>{b.removeEventListener("click",h);res(b);};b.addEventListener("click",h);});
+  A.hold=(label,ms,onP)=>new Promise(res=>{const b=document.createElement("button");b.type="button";b.className="hold";b.innerHTML=`<i class="fill"></i><span>${label}</span>`;cuTry.prepend(b);reveal();
+    let p=0,dn=false,last=0,raf=0,fin=false;
+    const loop=now=>{const dt=last?now-last:16;last=now;p=clamp(p+(dn?dt/ms:-dt/ms*1.5));b.style.setProperty("--p",p);onP(E.io(p));
+      if(p>=1&&!fin){fin=true;b.disabled=true;res(true);return;}if(!tok.dead&&(dn||p>0))raf=requestAnimationFrame(loop);else{raf=0;last=0;}};
+    const start=e=>{e.preventDefault();if(fin)return;dn=true;if(!raf){last=0;raf=requestAnimationFrame(loop);}};const stop=()=>{dn=false;};
+    b.addEventListener("pointerdown",start);b.addEventListener("pointerup",stop);b.addEventListener("pointerleave",stop);b.addEventListener("pointercancel",stop);
+    b.addEventListener("keydown",e=>{if(e.key===" "||e.key==="Enter"){e.stopPropagation();if(!e.repeat)start(e);}});b.addEventListener("keyup",e=>{if(e.key===" "||e.key==="Enter")stop();});
+    b.addEventListener("contextmenu",e=>e.preventDefault());});
+  A.slider=(label,min,max,val,onI,doneAt)=>new Promise(res=>{const w=document.createElement("label");w.className="slider";w.innerHTML=`<span>${label}</span><input id="cuRange" type="range" min="${min}" max="${max}" step="1" value="${val}">`;cuTry.prepend(w);reveal();
+    const inp=w.querySelector("input");let done=false;inp.addEventListener("input",()=>{const v=+inp.value;onI(v);if(!done&&v>=doneAt){done=true;res(v);}});});
+  A.quiz=async(items,opts,onOk)=>{for(const it of items){if(tok.dead)return;cuTry.innerHTML="";const v=document.createElement("p");v.className="vign";v.textContent=it.v;cuTry.appendChild(v);
+      const row=document.createElement("div");row.className="row";cuTry.appendChild(row);reveal();
+      await new Promise(res=>{opts.forEach(o=>{const b=document.createElement("button");b.type="button";b.className="chip";b.textContent=o.t;row.appendChild(b);
+        b.addEventListener("click",()=>{if(o.k===it.k){AU.fx("ok");row.querySelectorAll("button").forEach(x=>x.disabled=true);onOk(it.k);A.fb(it.ok||"Tačno.");setTimeout(res,D(700));}else{AU.fx("no");b.classList.add("no");A.fb("Pogledaj ponovo šta se dešava u primeru.");}});});
+        A.fb("");});}};
+  A.done=()=>{state.tryDone=true;btnNext.disabled=false;setNextGlow(true);AU.fx("done");};
+  return A;
+}
+function txt(p,x,y,s,tok,opts){const e=S("text",Object.assign({x,y,"font-size":opts&&opts.size||14,"text-anchor":opts&&opts.anchor||"middle",f:tok,text:s},opts&&opts.attrs||{}),p);return e;}
+function innerCircle(p,cx,cy,r,id){const g=S("g",{},p);const d=S("defs",{},g);const cp=S("clipPath",{id},d);S("circle",{cx,cy,r},cp);
+  const c=S("g",{"clip-path":`url(#${id})`},g);S("circle",{cx,cy,r,fill:"url(#cInner)"},c);const R=rng(cx|0);
+  for(let i=0;i<26;i++)S("circle",{cx:cx-r+R()*2*r,cy:cy-r+R()*r*1.3,r:(.6+R()*1.3).toFixed(1),f:"starc",st:`opacity:${(.3+R()*.6).toFixed(2)}`},c);
+  S("path",{d:`M${cx-r} ${cy+r*.62} Q${cx} ${cy+r*.36} ${cx+r} ${cy+r*.62} L${cx+r} ${cy+r} L${cx-r} ${cy+r}Z`,f:"isoil"},c);
+  S("circle",{cx,cy,r,fill:"none",s:"love","stroke-width":2,st:"opacity:.55"},g);return c;}
+function sprout(p,x,y){const g=S("g",{transform:`translate(${x} ${y})`},p);const stem=S("g",{transform:"scale(1 0)"},g);
+  S("path",{d:"M0 0 C-3 -18 3 -34 0 -52",fill:"none",s:"deed","stroke-width":4.5,"stroke-linecap":"round"},stem);
+  const l1=S("path",{d:"M0 -20 C-13 -25 -19 -16 -20 -12 C-11 -10 -4 -13 0 -20Z",f:"deed"},stem);const l2=S("path",{d:"M0 -32 C13 -38 19 -29 20 -25 C11 -23 4 -26 0 -32Z",f:"deed"},stem);
+  const head=S("g",{transform:"translate(0 -54) scale(0)"},g);const halo=S("circle",{cx:0,cy:-54,r:34,fill:"url(#cRose)",st:"opacity:0"},g);g.insertBefore(halo,stem);
+  for(let k=0;k<5;k++)S("ellipse",{cx:0,cy:-9,rx:6.5,ry:9.5,f:"bloom",transform:`rotate(${k*72})`},head);S("circle",{r:5.5,f:"love"},head);
+  const set=v=>{stem.setAttribute("transform",`scale(1 ${clamp(v/.55).toFixed(3)})`);const hv=clamp((v-.45)/.55);head.setAttribute("transform",`translate(0 -54) scale(${hv<=0?0:E.back(hv).toFixed(3)})`);halo.style.opacity=hv;};
+  return {g,set,head,halo,stem,l1,l2};}
+function drop(p,x,y,tok){return S("path",{d:`M${x} ${y-7} Q${x+6} ${y+1} ${x} ${y+5} Q${x-6} ${y+1} ${x} ${y-7}Z`,f:tok},p);}
+async function fall(tok,el,dx,dy,ms){await tw(tok,D(ms||600),e=>{el.setAttribute("transform",`translate(${dx*e} ${dy*e})`);el.style.opacity=e>.85?(1-e)/.15:1;},E.inn||E.io);}
+
+const CU=[
+/* 1 osećaj i delo */ async(tok,A)=>{const s=A.svg;
+  const mama=person(s,{x:62,y:248,h:150,dir:1,shirt:"cMama",pants:"cDenim",hs:"pony",hair:"hair1",skin:"skin2"});
+  const bagA=bag(s,41,175,1.3);const bagB=S("g",{},s);bag(bagB,84,175,1.3);
+  const kid=person(s,{x:150,y:248,h:108,dir:-1,shirt:"cKid",pants:"cDenim",hs:"short",hair:"hair1",seed:"cGold"});
+  S("path",{d:"M154 191 L232 150",s:"love","stroke-width":2,"stroke-dasharray":"4 5",fill:"none"},s);
+  const ic=innerCircle(s,298,122,92,"cuc1");
+  const seedHalo=S("circle",{cx:298,cy:180,r:30,fill:"url(#cGold)"},ic);S("circle",{cx:298,cy:180,r:7,f:"love"},ic);
+  const lab1=txt(s,346,206,"osećaj","love",{size:15});lab1.style.opacity=0;
+  const sp=sprout(ic,298,180);sp.set(0);
+  const lab2=txt(s,250,128,"delo","deed",{size:15});lab2.style.opacity=0;const lab3=txt(s,298,62,"veza raste","bloom",{size:15});lab3.style.opacity=0;
+  await A.show(async()=>{await tw(tok,D(700),e=>{lab1.style.opacity=e;});for(let k=0;k<2;k++){await tw(tok,D(600),e=>seedHalo.setAttribute("r",30+12*Math.sin(Math.PI*e)));}});
+  await A.tap(bagB,"Pomozi mami da unese kese",6);AU.fx("tap",0);s.appendChild(bagB);
+  await tw(tok,D(700),e=>bagB.setAttribute("transform",`translate(${74*e} ${-6*Math.sin(Math.PI*e)})`));
+  lab2.style.opacity=1;
+  for(let k=0;k<3;k++){const dd=drop(ic,290+k*8,96,"deed");await fall(tok,dd,0,78,420);dd.remove();}
+  await tw(tok,D(1500),e=>sp.set(e),E.lin);sp.set(1);lab3.style.opacity=1;AU.fx("bloom");A.done();},
+/* 2 oksitocin */ async(tok,A)=>{const s=A.svg;
+  const hug=S("g",{},s);const kid=person(hug,{x:52,y:248,h:100,dir:1,shirt:"cKid",pants:"cDenim",hs:"short",hair:"hair1",arms:"front"});
+  const baka=person(hug,{x:150,y:248,h:136,dir:-1,shirt:"cBaka",pants:"cBrown",hs:"bun",hair:"hair2",glasses:true,arms:"front"});
+  S("path",{d:"M246 252 L246 196 Q246 156 286 150 L310 150 Q350 156 350 196 L350 252Z",f:"cufig",s:"line","stroke-width":2},s);
+  S("rect",{x:286,y:122,width:24,height:30,f:"cufig"},s);
+  S("circle",{cx:298,cy:84,r:46,f:"cufig",s:"line","stroke-width":2},s);
+  S("path",{d:"M262 80 Q262 50 296 48 Q334 48 334 80 Q334 104 312 106 Q298 112 284 106 Q262 102 262 80Z",f:"brain"},s);
+  S("path",{d:"M272 74 Q284 64 296 72 Q308 62 322 74 M276 90 Q292 84 306 92",fill:"none",s:"line","stroke-width":2},s);
+  const glandG=S("circle",{cx:298,cy:100,r:22,fill:"url(#cVio)",st:"opacity:.15"},s);S("circle",{cx:298,cy:100,r:5,f:"violet"},s);
+  const path=S("path",{d:"M298 104 C298 130 296 150 300 170 C304 190 286 208 292 236",fill:"none",s:"line","stroke-width":5,"stroke-linecap":"round",st:"opacity:.6"},s);
+  const wave=S("path",{d:"",fill:"none",s:"ink-soft","stroke-width":2.5,"stroke-linecap":"round","stroke-linejoin":"round"},s);
+  const setWave=c=>{let d="M256 200";for(let i=1;i<=12;i++){const x=256+i*7,amp=(1-c)*11+c*3;d+=` L${x} ${200+(i%2?-amp:amp)*(c<1?1:Math.sin(i))}`;}wave.setAttribute("d",d);};setWave(0);
+  txt(s,372,40,"mozak","ink-soft",{size:13,anchor:"end"});const lv=txt(s,392,150,"oksitocin","violet",{size:14,anchor:"end"});lv.style.opacity=0;
+  const lm=txt(s,342,226,"mirno","ink-soft",{size:13,anchor:"end"});lm.style.opacity=0;
+  hug.setAttribute("transform","translate(-14 0)");baka.g.setAttribute("transform","translate(166 248) scale(-1.36 1.36)");
+  await A.show(async()=>{await tw(tok,D(900),e=>glandG.style.opacity=.15+.25*Math.sin(Math.PI*e));});
+  const dots=[];for(let i=0;i<10;i++)dots.push(S("circle",{r:4,f:"violet",st:"opacity:0"},s));
+  const L=path.getTotalLength();
+  await A.hold("Zagrli",1600,p=>{kid.g.setAttribute("transform",`translate(${52+p*36} 248)`);baka.g.setAttribute("transform",`translate(${166-p*30} 248) scale(-1.36 1.36)`);glandG.style.opacity=.15+.6*p;});
+  AU.fx("ok");lv.style.opacity=1;
+  await tw(tok,D(2200),e=>{dots.forEach((d,i)=>{const k=clamp(e*1.6-i*.07);d.style.opacity=k>0&&k<1?1:0;const pt=path.getPointAtLength(L*k);d.setAttribute("cx",pt.x);d.setAttribute("cy",pt.y);});setWave(clamp(e*1.3-.2));lm.style.opacity=clamp(e*2-1);},E.lin);
+  setWave(1);lm.style.opacity=1;A.done();},
+/* 3 Harvard */ async(tok,A)=>{const s=A.svg;const R=rng(1938);
+  const yr=txt(s,22,30,"1938","ink",{size:26,anchor:"start",attrs:{st:"font-family:var(--font-d)"}});
+  txt(s,382,24,"ilustracija","ink-soft",{size:12,anchor:"end",attrs:{st:"font-style:italic;font-weight:600"}});
+  const lines=S("g",{st:"opacity:0"},s),dg=S("g",{st:"opacity:0"},s);
+  const cols=28,rows=26,dots=[];
+  for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){if(dots.length>=724)break;dots.push({x:26+c*12.9,y:46+r*7.2,cn:false,end:0});}
+  const idx=(r,c)=>r*cols+c;
+  for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){const i=idx(r,c);if(i>=724)continue;
+    if(c<cols-1&&idx(r,c+1)<724&&R()<.32){dots[i].cn=dots[idx(r,c+1)].cn=true;const l=S("line",{x1:dots[i].x,y1:dots[i].y,x2:dots[idx(r,c+1)].x,y2:dots[i].y,s:"love","stroke-width":1.4},lines);l.a=i;l.b=idx(r,c+1);}
+    if(r<rows-1&&idx(r+1,c)<724&&R()<.22){dots[i].cn=dots[idx(r+1,c)].cn=true;const l=S("line",{x1:dots[i].x,y1:dots[i].y,x2:dots[i].x,y2:dots[idx(r+1,c)].y,s:"love","stroke-width":1.4},lines);l.a=i;l.b=idx(r+1,c);}}
+  const gauss=()=>(R()+R()+R()+R()-2)*1.7;
+  dots.forEach(d=>{d.end=Math.round(clamp(1993+gauss()*8+(d.cn?8:0),1955,2024));d.el=S("circle",{cx:d.x,cy:d.y,r:2.5,class:d.cn?"al":"au"},dg);});
+  const cnt=S("text",{x:200,y:252,"text-anchor":"middle","font-size":13,f:"ink"},s);S("tspan",{text:"Još su živi:  "},cnt);
+  const tA=S("tspan",{f:"love",text:""},cnt);S("tspan",{text:"   "},cnt);const tB=S("tspan",{f:"ink",text:""},cnt);
+  const nA=dots.filter(d=>d.cn).length,nB=dots.length-nA;
+  const LL=[...lines.children];
+  const upd=y=>{yr.textContent=y;let a=0,b=0;dots.forEach(d=>{const al=y<d.end;if(al){if(d.cn)a++;else b++;}d.el.setAttribute("class",al?(d.cn?"al":"au"):"dd");d.el.setAttribute("r",al?2.6:1.3);});
+    LL.forEach(l=>{l.style.opacity=(y<dots[l.a].end&&y<dots[l.b].end)?.85:.06;});
+    tA.textContent=`● topli odnosi ${Math.round(100*a/nA)} %`;tB.textContent=`● ostali ${Math.round(100*b/nB)} %`;};
+  upd(1938);
+  await A.show(async()=>{await tw(tok,D(700),e=>dg.style.opacity=e);await tw(tok,D(700),e=>lines.style.opacity=e);});
+  await A.slider("Godina",1938,2026,1938,upd,2026);AU.fx("ok");A.done();},
+/* 4 saosećanje prema sebi */ async(tok,A)=>{const s=A.svg;
+  const kid=person(s,{x:96,y:258,h:120,dir:1,shirt:"cKid",pants:"cDenim",hs:"short",hair:"hair1"});
+  S("rect",{x:30,y:196,width:150,height:9,rx:3,f:"wood"},s);S("rect",{x:40,y:205,width:8,height:55,f:"wood"},s);S("rect",{x:162,y:205,width:8,height:55,f:"wood"},s);
+  S("rect",{x:116,y:178,width:40,height:20,rx:2,f:"linen",transform:"rotate(-6 136 188)"},s);txt(s,140,195,"2","awn1",{size:16});
+  const bub=S("g",{},s);S("rect",{x:8,y:10,width:196,height:72,rx:16,f:"paper",s:"line","stroke-width":2},bub);S("circle",{cx:86,cy:92,r:6,f:"paper",s:"line","stroke-width":2},bub);S("circle",{cx:94,cy:106,r:3.5,f:"paper",s:"line","stroke-width":2},bub);
+  const bt=S("text",{x:106,y:40,"text-anchor":"middle","font-size":14,f:"ink"},bub);
+  const setB=(a,b)=>{bt.innerHTML="";S("tspan",{x:106,dy:0,text:a},bt);S("tspan",{x:106,dy:20,text:b},bt);};setB("„Ja to nikad","neću naučiti.”");bub.style.opacity=0;
+  const ic=innerCircle(s,300,126,88,"cuc4");const sp=sprout(ic,300,206);sp.set(1);sp.g.setAttribute("transform","translate(300 206) scale(1.35)");
+  const droop=v=>{sp.head.setAttribute("transform",`translate(${-14*v} ${-54+12*v}) rotate(${70*v}) scale(${1-.25*v})`);sp.halo.style.opacity=1-v;sp.head.style.opacity=1-.45*v;};
+  await A.show(async()=>{await tw(tok,D(500),e=>bub.style.opacity=e);await tw(tok,D(1200),e=>droop(e));AU.fx("no");});
+  let dv=1;
+  await A.choices([
+    {t:"„Ja to nikad neću naučiti.”",fb:"To je grub glas. Cvet vene još više."},
+    {t:"„Ovo je teško. Svima se desi. Vežbaću korak po korak.”",ok:true,fb:"Tako bi rekao najboljem drugu. Cvet se diže."},
+    {t:"„Briga me, ionako je glupo.”",fb:"Tako samo sakriješ muku. Cvet ostaje pognut."}],
+    it=>{if(it.ok)return;tw(tok,D(300),e=>{droop(1+.08*Math.sin(Math.PI*e*3));});});
+  setB("„Ovo je teško. Svima se desi.","Vežbaću korak po korak.”");
+  await tw(tok,D(1200),e=>droop(dv*(1-e)),E.out);droop(0);A.done();},
+/* 5 naklonost */ async(tok,A)=>{const s=A.svg;
+  pot(s,200,252,1.1);const sp=sprout(s,200,220);sp.g.setAttribute("transform","translate(200 220) scale(1.3)");sp.set(.12);
+  const icons=[];
+  const mk=(x,y,label,draw)=>{const g=S("g",{},s);S("circle",{cx:x,cy:y,r:26,f:"paper",s:"line","stroke-width":2},g);draw(g,x,y);txt(g,x,y+44,label,"ink",{size:13});icons.push([g,label,x,y]);};
+  mk(64,96,"doručak",(g,x,y)=>{S("path",{d:`M${x-12} ${y-6} H${x+8} V${y+6} Q${x+8} ${y+12} ${x+2} ${y+12} H${x-6} Q${x-12} ${y+12} ${x-12} ${y+6}Z`,f:"cMama"},g);S("path",{d:`M${x+8} ${y-2} q8 0 8 6 q0 6 -8 6`,fill:"none",s:"cMama","stroke-width":3},g);S("path",{d:`M${x-6} ${y-12} q3 -4 0 -8 M${x} ${y-12} q3 -4 0 -8`,fill:"none",s:"ink-soft","stroke-width":2},g);});
+  mk(150,48,"šala",(g,x,y)=>{S("circle",{cx:x,cy:y,r:13,f:"love-soft"},g);S("path",{d:`M${x-7} ${y+2} Q${x} ${y+11} ${x+7} ${y+2}Z`,f:"inks"},g);S("circle",{cx:x-5,cy:y-4,r:1.8,f:"inks"},g);S("circle",{cx:x+5,cy:y-4,r:1.8,f:"inks"},g);});
+  mk(250,48,"zadatak",(g,x,y)=>{S("rect",{x:x-12,y:y-14,width:24,height:28,rx:2,f:"linen",s:"line","stroke-width":1.5},g);S("path",{d:`M${x-7} ${y-6}H${x+7}M${x-7} ${y}H${x+7}M${x-7} ${y+6}H${x+3}`,s:"ink-soft","stroke-width":2},g);});
+  mk(336,96,"laku noć",(g,x,y)=>{S("path",{d:`M${x+4} ${y-14} A14 14 0 1 0 ${x+10} ${y+8} A11 11 0 1 1 ${x+4} ${y-14}Z`,f:"navy"},g);});
+  const halo=S("circle",{cx:200,cy:150,r:60,fill:"url(#cRose)",st:"opacity:0"},s);
+  await A.show(async()=>{await wait(tok,300);});
+  let n=0;
+  await A.tapAll(icons.map(i=>[i[0],"Trenutak: "+i[1]]),async k=>{const [g,,x,y]=icons[k];AU.fx("tap",n);n++;g.style.opacity=.55;
+    const dd=drop(s,x,y,"deed");await tw(tok,D(650),e=>{dd.setAttribute("transform",`translate(${(200-x)*e} ${(176-y)*e-50*Math.sin(Math.PI*e)})`);});dd.remove();
+    sp.set(.12+.22*Math.min(n,3));if(n===4){sp.set(1);halo.style.opacity=.9;}});
+  await tw(tok,D(900),e=>sp.set(.78+.22*e));sp.set(1);halo.style.opacity=.9;AU.fx("bloom");A.done();},
+/* 6 prijateljstvo */ async(tok,A)=>{const s=A.svg;
+  const ka=person(s,{x:70,y:252,h:110,dir:1,shirt:"cKid",pants:"cDenim",hs:"short",hair:"hair1"});
+  const kb=person(s,{x:330,y:252,h:110,dir:-1,shirt:"cFriend",pants:"cDenim",hs:"curly",hair:"hair3",skin:"skin3"});
+  const bubble=(x)=>{const g=S("g",{},s);S("rect",{x:x-68,y:14,width:136,height:64,rx:18,f:"paper",s:"line","stroke-width":2},g);S("circle",{cx:x,cy:88,r:6,f:"paper",s:"line","stroke-width":2},g);S("circle",{cx:x+(x<200?2:-2),cy:102,r:3.5,f:"paper",s:"line","stroke-width":2},g);return g;};
+  const bA=bubble(70),bB=bubble(330);
+  const ICON={
+    knjiga:(g,x,y)=>{S("path",{d:`M${x} ${y-10} L${x-14} ${y-13} L${x-14} ${y+9} L${x} ${y+12} L${x+14} ${y+9} L${x+14} ${y-13}Z`,f:"cMama"},g);S("path",{d:`M${x} ${y-10}V${y+12}`,s:"paper","stroke-width":2},g);},
+    bicikl:(g,x,y)=>{S("circle",{cx:x-9,cy:y+5,r:7,fill:"none",s:"inks","stroke-width":2.5},g);S("circle",{cx:x+9,cy:y+5,r:7,fill:"none",s:"inks","stroke-width":2.5},g);S("path",{d:`M${x-9} ${y+5} L${x-2} ${y-6} L${x+9} ${y+5} M${x-2} ${y-6} H${x+5}`,fill:"none",s:"awn1","stroke-width":2.5},g);},
+    olovka:(g,x,y)=>{S("path",{d:`M${x-12} ${y+12} L${x-9} ${y+3} L${x+6} ${y-12} L${x+12} ${y-6} L${x-3} ${y+9}Z`,f:"veg1"},g);S("path",{d:`M${x-12} ${y+12} L${x-9} ${y+3} L${x-3} ${y+9}Z`,f:"inks"},g);},
+    lopta:(g,x,y)=>{S("circle",{cx:x,cy:y,r:12,f:"linen",s:"inks","stroke-width":1.5},g);S("path",{d:`M${x} ${y-6} l5 4 -2 6 h-6 l-2 -6z`,f:"inks"},g);},
+    macka:(g,x,y)=>{S("path",{d:`M${x-11} ${y+10} L${x-11} ${y-6} L${x-7} ${y-14} L${x-3} ${y-8} H${x+3} L${x+7} ${y-14} L${x+11} ${y-6} L${x+11} ${y+10}Z`,f:"hair1"},g);S("circle",{cx:x-4,cy:y,r:1.6,f:"love-soft"},g);S("circle",{cx:x+4,cy:y,r:1.6,f:"love-soft"},g);},
+  };
+  const items=[];
+  [["knjiga",36],["bicikl",70],["olovka",104]].forEach(([k,x])=>{const g=S("g",{},bA);S("rect",{x:x-16,y:30,width:32,height:32,fill:"transparent"},g);ICON[k](g,x,46);items.push([g,k,"tvoj oblačić"]);});
+  [["lopta",296],["olovka",330],["macka",364]].forEach(([k,x])=>{const g=S("g",{},bB);S("rect",{x:x-16,y:30,width:32,height:32,fill:"transparent"},g);ICON[k](g,x,46);items.push([g,k,"drugarov oblačić"]);});
+  const names={knjiga:"knjiga",bicikl:"bicikl",olovka:"crtanje",lopta:"lopta",macka:"mačka"};
+  await A.show(async()=>{await wait(tok,400);});
+  await new Promise(res=>{let done=false;items.forEach(([g,k,where])=>{A.tap(g,names[k]+", "+where,3).then(()=>{if(done||tok.dead)return;
+      if(k==="olovka"){done=true;AU.fx("ok");A.fb("Oboje vole da crtaju!");items.forEach(it=>{it[0].querySelectorAll(".tapring").forEach(r=>r.remove());it[0].classList.remove("tap");it[0].removeAttribute("tabindex");});res();}
+      else{AU.fx("no");A.fb("To voli samo jedno od njih. Traži dalje.");g.style.opacity=.4;}});});});
+  const yA=txt(s,70,128,"I ti?!","bloom",{size:18}),yB=txt(s,330,128,"I ti?!","bloom",{size:18});
+  await wait(tok,700);
+  const easel=S("g",{st:"opacity:0"},s);S("path",{d:"M300 252 L318 150 L336 252 M318 150 L318 250",fill:"none",s:"wood","stroke-width":5},easel);S("rect",{x:286,y:140,width:64,height:56,rx:3,f:"linen",s:"line","stroke-width":2},easel);
+  S("path",{d:"M296 186 Q306 160 318 176 Q330 154 340 186",fill:"none",s:"cMama","stroke-width":4},easel);S("circle",{cx:334,cy:156,r:7,f:"love-soft"},easel);
+  const thr=S("path",{d:"M150 150 Q175 128 200 150",fill:"none",s:"love","stroke-width":3,st:"opacity:0","stroke-linecap":"round"},s);
+  await tw(tok,D(1400),e=>{ka.g.setAttribute("transform",`translate(${70+80*e} 252) scale(1.1 1.1)`);kb.g.setAttribute("transform",`translate(${330-130*e} 252) scale(${e<.5?-1.1:1.1} 1.1)`);
+    bA.style.opacity=bB.style.opacity=1-e;yA.style.opacity=yB.style.opacity=1-e;easel.style.opacity=e;});
+  thr.style.opacity=1;AU.fx("bloom");A.done();},
+/* 7 krčag */ async(tok,A)=>{const s=A.svg;
+  S("rect",{x:0,y:0,width:400,height:86,fill:"url(#cInner)",rx:14},s);const R=rng(7);for(let i=0;i<30;i++)S("circle",{cx:R()*400,cy:4+R()*78,r:(.5+R()*1.2).toFixed(1),f:"starc",st:"opacity:.6"},s);
+  S("rect",{x:0,y:236,width:400,height:24,f:"grass2"},s);
+  const dog=dogShape(s,56,240,.85,1);
+  const put=person(s,{x:138,y:248,h:128,dir:1,shirt:"cBrown",pants:"cDark",hs:"bald",hair:"hair2",mustache:true});S("path",{d:"M160 248 L170 128",s:"wood","stroke-width":4},s);
+  S("rect",{x:300,y:204,width:90,height:16,rx:4,f:"wood"},s);S("rect",{x:300,y:186,width:90,height:20,rx:6,f:"linen"},s);
+  const maj=person(s,{x:346,y:218,h:110,sit:true,dir:-1,shirt:"cVera",pants:"cBrown",hs:"long",hair:"hair1"});
+  const jug=S("g",{transform:"translate(232 196)"},s);const body=S("path",{d:"M-18 -24 Q-26 -2 -18 18 Q0 28 18 18 Q26 -2 18 -24 Q12 -34 8 -40 L-8 -40 Q-12 -34 -18 -24Z",f:"wood"},jug);
+  S("path",{d:"M18 -18 q14 4 10 18 q-3 8 -12 8",fill:"none",s:"potrim","stroke-width":4},jug);S("rect",{x:-10,y:-46,width:20,height:7,rx:3,f:"potrim"},jug);
+  S("rect",{x:212,y:216,width:40,height:20,rx:4,f:"trunk"},s);
+  const lab=txt(s,232,106,"drveni krčag","ink-soft",{size:13});
+  const U=[[0,0],[0,52],[72,66],[84,22],[144,12],[198,17],[252,48]].map(([x,y])=>({x:110+x*.72,y:20+y*.72}));
+  const ul=S("path",{d:`M${U.map(p=>p.x+" "+p.y).join(" L")} M${U[3].x} ${U[3].y} L${U[0].x} ${U[0].y}`,fill:"none",s:"love","stroke-width":1.5,"stroke-dasharray":"3 4",st:"opacity:0"},s);
+  const gems=U.map(()=>{const g=S("g",{st:"opacity:0"},s);S("circle",{r:12,fill:"url(#cGold)"},g);S("path",{d:"M0 -6 L5 0 L0 6 L-5 0Z",f:"love-soft"},g);return g;});
+  const water=async(tx,ty)=>{const dd=drop(s,232,150,"water1");await tw(tok,D(700),e=>{dd.setAttribute("transform",`translate(${(tx-232)*e} ${(ty-150)*e-60*Math.sin(Math.PI*e)})`);});dd.remove();};
+  await A.show(async()=>{await wait(tok,300);});
+  await A.tap(dog.g,"Daj vodu kučetu",4);await water(70,206);body.style.fill="var(--silver)";lab.textContent="srebrni krčag";AU.fx("tap",1);
+  await A.tap(maj.g,"Ponudi vodu majci",4);await water(330,160);body.style.fill="var(--love)";lab.textContent="zlatni krčag";AU.fx("tap",3);
+  await A.tap(put.g,"Daj vodu putniku",4);await water(150,150);lab.textContent="sedam zvezda Velikog medveda";AU.fx("stars");
+  await tw(tok,D(2200),e=>{gems.forEach((g,i)=>{const k=clamp(e*1.6-i*.09);const x=lerp(232,U[i].x,E.out(k)),y=lerp(160,U[i].y,E.out(k));g.style.opacity=k>0?1:0;g.setAttribute("transform",`translate(${x} ${y})`);});ul.style.opacity=clamp(e*2-1)*.8;},E.lin);
+  ul.style.opacity=.8;A.done();},
+/* 8 pet načina */ async(tok,A)=>{const s=A.svg;
+  const cx=200,cy=128,ways=[["reči",-90],["vreme",-18],["pomoć",54],["poklon",126],["zagrljaj",198]],pet={};
+  const halo=S("circle",{cx,cy,r:120,fill:"url(#cRose)",st:"opacity:0"},s);
+  ways.forEach(([n,a])=>{const r=a*Math.PI/180,x=cx+Math.cos(r)*58,y=cy+Math.sin(r)*58;const g=S("g",{},s);
+    const e=S("ellipse",{cx:x,cy:y,rx:30,ry:42,transform:`rotate(${a+90} ${x} ${y})`,f:"paper2",s:"line","stroke-width":2.5},g);
+    const lx=cx+Math.cos(r)*112,ly=cy+Math.sin(r)*104+5;txt(g,lx,ly,n,"ink",{size:15});pet[n]=e;});
+  S("circle",{cx,cy,r:24,f:"love"},s);
+  const ic=(n,f)=>{const a=ways.find(w=>w[0]===n)[1]*Math.PI/180;f(cx+Math.cos(a)*58,cy+Math.sin(a)*58);};
+  ic("reči",(x,y)=>{S("path",{d:`M${x-11} ${y-9} H${x+11} V${y+5} H${x-2} L${x-8} ${y+11} V${y+5} H${x-11}Z`,f:"ink-soft"},s);});
+  ic("vreme",(x,y)=>{S("circle",{cx:x,cy:y,r:11,fill:"none",s:"ink-soft","stroke-width":3},s);S("path",{d:`M${x} ${y-6}V${y}H${x+5}`,fill:"none",s:"ink-soft","stroke-width":2.5},s);});
+  ic("pomoć",(x,y)=>{bag(s,x,y-12,.9);});
+  ic("poklon",(x,y)=>{S("path",{d:`M${x-12} ${y+4} Q${x} ${y-14} ${x+12} ${y+4} Q${x} ${y-4} ${x-12} ${y+4}Z`,f:"pastry"},s);});
+  ic("zagrljaj",(x,y)=>{S("circle",{cx:x-6,cy:y-5,r:5,f:"ink-soft"},s);S("circle",{cx:x+6,cy:y-5,r:5,f:"ink-soft"},s);S("path",{d:`M${x-13} ${y+12} Q${x-6} ${y} ${x} ${y+6} Q${x+6} ${y} ${x+13} ${y+12}Z`,f:"ink-soft"},s);});
+  const light=n=>{pet[n].style.fill="var(--bloom)";pet[n].style.opacity=.85;pet[n].style.stroke="var(--bloom)";};
+  await A.show(async()=>{await wait(tok,400);light("pomoć");AU.fx("tap",0);await wait(tok,500);light("zagrljaj");AU.fx("tap",2);await wait(tok,300);});
+  A.fb("Pomoć i zagrljaj već si video kod kuće.");
+  await A.quiz([{v:"„Sa drugom igraš basket dok ne padne mrak.”",k:"vreme",ok:"Tačno, to je zajedničko vreme."},{v:"„Kupiš drugarici kiflu u pekari.”",k:"poklon",ok:"Tačno, to je mali poklon."},{v:"„Kažeš bratu da mu je crtež super.”",k:"reči",ok:"Tačno, to su lepe reči."}],
+    ways.map(w=>({t:w[0][0].toUpperCase()+w[0].slice(1),k:w[0]})),k=>light(k));
+  halo.style.opacity=.9;AU.fx("bloom");A.done();},
+/* 9 briga */ async(tok,A)=>{const s=A.svg;
+  const days=["P","U","S","Č","P","S","N"],dEl=[];
+  days.forEach((d,i)=>{const g=S("g",{},s);const r=S("rect",{x:66+i*40,y:12,width:30,height:30,rx:8,f:"paper2",s:"line","stroke-width":2},g);txt(g,81+i*40,33,d,"ink-soft",{size:14});dEl.push(r);});
+  pot(s,110,250,1.1);pot(s,290,250,1.1);
+  const fa=sprout(s,110,218),fb=sprout(s,290,218);fa.g.setAttribute("transform","translate(110 218) scale(1.4)");fb.g.setAttribute("transform","translate(290 218) scale(1.4)");fa.set(.75);fb.set(.75);
+  txt(s,110,92,"zalivan svaki dan","ink-soft",{size:12});txt(s,290,92,"zaboravljen","ink-soft",{size:12});
+  const wilt=v=>{fb.head.setAttribute("transform",`translate(${-10*v} ${-54+16*v}) rotate(${75*v}) scale(${1-.3*v})`);fb.head.querySelectorAll("ellipse").forEach(e=>e.style.fill=v>.5?"var(--wilt)":"var(--bloom)");fb.l1.style.fill=fb.l2.style.fill=v>.6?"var(--wilt)":"var(--deed)";};
+  const can=S("g",{transform:"translate(352 150)"},s);S("path",{d:"M-14 -10 H10 V14 H-14Z",f:"metal"},can);S("path",{d:"M10 -6 L26 -16",s:"metal","stroke-width":4},can);S("path",{d:"M-14 -6 q-10 6 0 14",fill:"none",s:"metal","stroke-width":3},can);can.style.opacity=0;
+  await A.show(async()=>{for(let i=0;i<7;i++){dEl[i].style.fill="var(--signal-soft)";const dd=drop(s,110,104,"water1");await fall(tok,dd,0,64,380);dd.remove();
+      fa.set(.75+.25*(i+1)/7);wilt((i+1)/7);await wait(tok,120);}fa.halo.style.opacity=.9;});
+  wilt(1);fa.set(1);can.style.opacity=1;
+  let n=0;await new Promise(res=>{const go=()=>{A.tap(can,`Zalij zaboravljeni cvet, ${3-n} put${3-n===1?"":"a"}`,6).then(async()=>{if(tok.dead)return;n++;AU.fx("tap",n);
+      await tw(tok,D(300),e=>can.setAttribute("transform",`translate(352 150) rotate(${-30*Math.sin(Math.PI*e)})`));
+      const dd=drop(s,318,120,"water1");await fall(tok,dd,-24,60,380);dd.remove();wilt(1-n/3);if(n<3)go();else res();});};go();});
+  wilt(0);fb.set(1);fb.halo.style.opacity=.9;AU.fx("bloom");A.done();},
+/* 10 odgovornost */ async(tok,A)=>{const s=A.svg;
+  S("rect",{x:0,y:236,width:400,height:24,f:"floor"},s);
+  S("rect",{x:316,y:60,width:70,height:176,rx:3,f:"wood"},s);S("circle",{cx:328,cy:150,r:3,f:"metal"},s);
+  const kid=person(s,{x:52,y:246,h:116,dir:1,shirt:"cKid",pants:"cDenim",hs:"short",hair:"hair1"});
+  const dog=dogShape(s,196,240,1.15,1);
+  const setMood=m=>{dog.tail.setAttribute("d",m>=3?"M-24 -26 Q-40 -30 -44 -44":m>=1?"M-24 -26 Q-38 -36 -34 -46":"M-24 -26 Q-32 -16 -36 -8");dog.ear.setAttribute("transform",`rotate(${25-12*m} 14 -44)`);};setMood(0);
+  const bowl=S("g",{},s);S("path",{d:"M110 236 L114 222 H146 L150 236Z",f:"awn1"},bowl);const wat=S("rect",{x:116,y:222,width:28,height:4,f:"water1",st:"opacity:0"},bowl);
+  const leash=S("g",{},s);S("path",{d:"M328 150 q-6 26 4 44 q10 18 -6 30",fill:"none",s:"awn1","stroke-width":4,"stroke-linecap":"round"},leash);
+  const ball=S("g",{},s);S("circle",{cx:268,cy:226,r:10,f:"veg2"},ball);S("path",{d:"M259 222 Q268 228 277 222",fill:"none",s:"linen","stroke-width":2},ball);
+  txt(s,130,256,"činija","ink-soft",{size:12});txt(s,352,256,"povodac","ink-soft",{size:12});txt(s,268,256,"loptica","ink-soft",{size:12});
+  const thr=S("path",{d:"M70 170 Q130 130 200 190",fill:"none",s:"love","stroke-width":3,st:"opacity:0","stroke-linecap":"round"},s);
+  await A.show(async()=>{await wait(tok,500);});let m=0;
+  await A.tapAll([[bowl,"Prazna činija"],[leash,"Povodac na vratima"],[ball,"Loptica"]],async k=>{m++;AU.fx("tap",m);setMood(m);
+    if(k===0)await tw(tok,D(600),e=>{wat.style.opacity=1;wat.setAttribute("y",236-14*e);wat.setAttribute("height",14*e);});
+    if(k===1){const nl=S("path",{d:"M70 196 Q140 236 219 205",fill:"none",s:"awn1","stroke-width":4,"stroke-linecap":"round",st:"opacity:0"},s);await tw(tok,D(600),e=>{leash.style.opacity=1-e;nl.style.opacity=e;});}
+    if(k===2)await tw(tok,D(700),e=>ball.setAttribute("transform",`translate(${-40*e} ${-40*Math.sin(Math.PI*e)})`));
+    if(m===3){thr.style.opacity=1;}});
+  AU.fx("bloom");
+  await tw(tok,D(1200),e=>dog.tail.setAttribute("transform",`rotate(${14*Math.sin(e*Math.PI*6)} -24 -26)`),E.lin);A.done();},
+/* 11 upoznavanje */ async(tok,A)=>{const s=A.svg;
+  S("rect",{x:0,y:236,width:400,height:24,f:"grass"},s);
+  bench(s,236,250,128);
+  const ti=person(s,{x:96,y:250,h:106,dir:1,shirt:"cKid",pants:"cDenim",hs:"short",hair:"hair1"});
+  const nk=person(s,{x:316,y:238,h:100,sit:true,dir:-1,shirt:"cNew",pants:"cDark",hs:"short",hair:"hair4"});
+  S("circle",{cx:300,cy:146,r:3,f:"paper",s:"line","stroke-width":1.5},s);S("circle",{cx:296,cy:132,r:4.5,f:"paper",s:"line","stroke-width":1.5},s);
+  const ICON=[
+    (g,x,y)=>{S("circle",{cx:x,cy:y,r:11,f:"linen",s:"inks","stroke-width":1.5},g);S("path",{d:`M${x} ${y-5} l5 4 -2 6 h-6 l-2 -6z`,f:"inks"},g);},
+    (g,x,y)=>{S("rect",{x:x-10,y:y-12,width:20,height:24,rx:2,f:"linen",s:"line","stroke-width":1.5},g);S("text",{x,y:y+5,"text-anchor":"middle","font-size":12,f:"awn1",text:"2+3"},g);},
+    (g,x,y)=>{S("circle",{cx:x,cy:y,r:12,f:"love-soft"},g);S("path",{d:`M${x-6} ${y+2} Q${x} ${y+9} ${x+6} ${y+2}`,fill:"none",s:"inks","stroke-width":2,"stroke-linecap":"round"},g);S("circle",{cx:x-4,cy:y-3,r:1.6,f:"inks"},g);S("circle",{cx:x+4,cy:y-3,r:1.6,f:"inks"},g);},
+  ];
+  const LAB=[["voli","fudbal"],["brine ga","kontrolni"],["zna da","ti je stalo"]];
+  const cards=[176,270,362].map((x,k)=>{const g=S("g",{},s);const c=S("circle",{cx:x,cy:46,r:24,f:"paper2",s:"line","stroke-width":2},g);
+    const q=txt(g,x,53,"?","ink-soft",{size:20});const inner=S("g",{st:"opacity:0"},g);ICON[k](inner,x,46);
+    const l=S("text",{x,y:88,"text-anchor":"middle","font-size":12,f:"ink"},g);S("tspan",{x,dy:0,text:LAB[k][0]},l);S("tspan",{x,dy:14,text:LAB[k][1]},l);l.style.opacity=0;return{c,q,inner,l};});
+  const thr=S("path",{d:"M112 160 Q205 120 292 168",fill:"none",s:"love","stroke-width":3,st:"opacity:0","stroke-linecap":"round"},s);
+  await A.show(async()=>{await wait(tok,400);});
+  const rounds=[
+    [{t:"Pitaš ga: „Šta voliš da radiš posle škole?”",ok:true,fb:"Kaže da trenira fudbal utorkom i četvrtkom."},{t:"Pričaš mu samo o sebi.",fb:"Tako o njemu ništa ne saznaš."}],
+    [{t:"Gledaš u telefon dok priča.",fb:"Primetio je da ne slušaš i ućutao je."},{t:"Slušaš do kraja i ne prekidaš ga.",ok:true,fb:"Ispričao ti je da ga brine kontrolni iz matematike."}],
+    [{t:"Sutra ga pitaš: „Kako je bilo na treningu?”",ok:true,fb:"Nasmejao se. Vidi da si zapamtio."},{t:"Do sutra zaboraviš šta ti je rekao.",fb:"Šteta, sve što si saznao je nestalo."}],
+  ];
+  for(let k=0;k<3;k++){if(tok.dead)return;cuTry.innerHTML="";
+    await A.choices(rounds[k]);if(tok.dead)return;
+    const cd=cards[k];cd.q.style.opacity=0;cd.c.style.fill="var(--paper)";cd.c.style.stroke="var(--love)";
+    await tw(tok,D(500),e=>{cd.inner.style.opacity=e;cd.l.style.opacity=e;});cd.inner.style.opacity=1;cd.l.style.opacity=1;
+    if(k<2)await tw(tok,1500,()=>{},E.lin);}
+  thr.style.opacity=1;AU.fx("bloom");A.done();},
+/* 12 poštovanje */ async(tok,A)=>{const s=A.svg;
+  S("rect",{x:0,y:236,width:400,height:24,f:"grass"},s);
+  person(s,{x:92,y:250,h:106,dir:1,shirt:"cKid",pants:"cDenim",hs:"short",hair:"hair1"});
+  person(s,{x:236,y:250,h:102,dir:-1,shirt:"cGirl",pants:"cDenim",hs:"pony",hair:"hair3",skin:"skin2"});
+  const bub=S("g",{},s);S("rect",{x:110,y:40,width:118,height:44,rx:14,f:"paper",s:"line","stroke-width":2},bub);S("path",{d:"M200 84 L212 100 L214 84Z",f:"paper",s:"line","stroke-width":2,"stroke-linejoin":"round"},bub);
+  const bt=S("text",{x:169,y:58,"text-anchor":"middle","font-size":12.5,f:"ink"},bub);S("tspan",{x:169,dy:0,text:"Sad ne bih da"},bt);S("tspan",{x:169,dy:16,text:"se grlim."},bt);
+  const ic=innerCircle(s,322,92,62,"cuc12");
+  S("path",{d:"M322 150 C318 132 326 116 322 100",fill:"none",s:"deed","stroke-width":4.5,"stroke-linecap":"round"},ic);
+  S("path",{d:"M322 132 C308 128 302 138 300 142 C312 144 318 140 322 132Z",f:"deed"},ic);
+  const bud=S("g",{transform:"translate(322 96)"},ic);const halo=S("circle",{r:44,fill:"url(#cRose)",st:"opacity:0"},bud);
+  const pets=[];for(let k=0;k<5;k++)pets.push(S("ellipse",{cx:0,cy:-10,rx:6.5,ry:12,f:"bloom",transform:`rotate(${(k-2)*12})`},bud));
+  const cen=S("circle",{r:5,f:"love",st:"opacity:0"},bud);
+  const open=v=>{pets.forEach((p,k)=>p.setAttribute("transform",`rotate(${(k-2)*(12+60*v)}) translate(0 ${-4*v})`));cen.style.opacity=v;halo.style.opacity=v*.9;};
+  const reset=()=>pets.forEach((p,k)=>{p.style.fill="var(--bloom)";p.setAttribute("transform",`rotate(${(k-2)*12})`);});
+  await A.show(async()=>{await tw(tok,D(1400),e=>bud.setAttribute("transform",`translate(322 96) rotate(${4*Math.sin(e*Math.PI*2)})`),E.lin);});
+  await A.choices([
+    {t:"Zagrliš je svejedno.",fb:"Pupoljak se stegao. Zagrljaj na silu nije ljubav."},
+    {t:"Kažeš: „Važi, nema problema.”",ok:true,fb:"Pupoljak se otvara. Poštovao si njeno „ne”."},
+    {t:"Uvrediš se i odeš.",fb:"Pupoljak je klonuo. Njeno „ne” nije bilo protiv tebe."}],
+    async it=>{if(it.ok)return;pets.forEach((p,k)=>{p.style.fill="var(--wilt)";p.setAttribute("transform",`rotate(${(k-2)*6}) scale(.75 .7)`);});
+      await wait(tok,1000);reset();});
+  reset();await tw(tok,D(1800),e=>open(e),E.out);open(1);AU.fx("bloom");A.done();},
+/* 13 lanac */ async(tok,A)=>{const s=A.svg;
+  const edges=S("g",{},s),nodes=S("g",{},s);const N0={x:52,y:150};
+  const L1=[76,150,224].map(y=>({x:150,y})),L2=[];L1.forEach(p=>[-23,0,23].forEach(d=>L2.push({x:262,y:p.y+d})));
+  const L3=[];L2.forEach(p=>[-7,7].forEach(d=>L3.push({x:350,y:p.y+d})));
+  const line=(a,b,o)=>S("line",{x1:a.x,y1:a.y,x2:b.x,y2:b.y,s:"line","stroke-width":2,st:`opacity:${o||1}`},edges);
+  L1.forEach(p=>line(N0,p));L1.forEach((p,i)=>L2.slice(i*3,i*3+3).forEach(q=>line(p,q)));L2.forEach((p,i)=>L3.slice(i*2,i*2+2).forEach(q=>line(p,q,.4)));
+  const circ=(p,r)=>S("circle",{cx:p.x,cy:p.y,r,f:"paper2",s:"line","stroke-width":2},nodes);
+  const ti=S("g",{},nodes);const tiC=S("circle",{cx:N0.x,cy:N0.y,r:18,f:"cKid"},ti);txt(ti,N0.x,N0.y+5,"ti","paper",{size:14});
+  const c1=L1.map(p=>circ(p,12)),c2=L2.map(p=>circ(p,8)),c3=L3.map(p=>S("circle",{cx:p.x,cy:p.y,r:4,f:"line"},nodes));
+  const lab=[[150,"1. korak","troje"],[262,"2. korak","devetoro"],[350,"3. korak","dalje"]].map(([x,a,b])=>{const e=S("text",{x,y:16,"text-anchor":"middle","font-size":12,f:"ink"},s);S("tspan",{x,dy:0,text:a},e);S("tspan",{x,dy:14,text:b,f:"love"},e);e.style.opacity=0;return e;});
+  await A.show(async()=>{await wait(tok,300);});
+  await A.tap(ti,"Ti: pokloni dobrotu",4);
+  const pulse=async(from,tos,cs,ms)=>{const ps=tos.map(()=>S("circle",{r:6,f:"love"},s));await tw(tok,D(ms),e=>{ps.forEach((p,i)=>{const f=from.length?from[Math.floor(i/(tos.length/from.length))]:from;p.setAttribute("cx",lerp(f.x,tos[i].x,e));p.setAttribute("cy",lerp(f.y,tos[i].y,e));});});ps.forEach(p=>p.remove());cs.forEach(c=>{c.style.fill="var(--love)";c.style.stroke="var(--love)";});};
+  AU.fx("tap",0);await pulse([N0],L1,c1,700);lab[0].style.opacity=1;AU.fx("tap",2);
+  await pulse(L1,L2,c2,700);lab[1].style.opacity=1;AU.fx("tap",4);
+  await pulse(L2,L3,c3,700);lab[2].style.opacity=1;AU.fx("bloom");A.done();},
+];
+
+/* =====================================================================
+   POSLEDICE NA SCENI
+   ===================================================================== */
+async function stdCons(tok,i,extra){
+  const st=ST[i];const from=kidChest();
+  await dotShow(tok,from);
+  const f=W.fl[i][0];await dotFly(tok,from,flowerTop(f),{follow:true,w:camTarget(st.cam,false).w});
+  if(tok.dead)return;await bloom(tok,f);setMeter(doneCount(i+1),true);
+  if(extra)await extra(tok);
+  await toNext(tok,i);
+}
+async function toNext(tok,i){
+  if(tok.dead)return;
+  const nx=ST[i+1];const from={...W.dotP};
+  const far=!!nx.cam.full,wasFar=!!ST[i].cam.full;
+  tw(tok,D(400),e=>W.kidG.style.opacity=1-e);
+  await dotFly(tok,from,nx.hot,far?{camEnd:nx.cam}:{follow:true,w:camTarget(nx.cam,false).w});
+  if(tok.dead)return;
+  kidPlace(nx.kid);dogPlace(i+1>=9?nx.dog:null);
+  await Promise.all([camTo(tok,nx.cam,700,false),dotFade(tok),tw(tok,D(400),e=>W.kidG.style.opacity=e)]);
+  if(tok.dead)return;W.kidG.style.opacity=1;
+  enterHot(i+1);
+}
+const CONS={
+  6:async(tok)=>{ // zvezde iz krčaga
+    await camTo(tok,{x:2420,y:620,w:1500},900,false);
+    const U=URSA(),from=W.dotP;AU.fx("stars");W.ursa.style.opacity=1;
+    await tw(tok,D(2200),e=>{W.ursaStars.forEach((g,k)=>{const q=clamp(e*1.5-k*.07);g.setAttribute("transform",`translate(${lerp(from.x,U[k].x,E.out(q))} ${lerp(from.y,U[k].y,E.out(q))}) scale(${.3+.7*q})`);g.style.opacity=q>0?1:0;});},E.lin);
+    W.ursaStars.forEach((g,k)=>{g.setAttribute("transform",`translate(${U[k].x} ${U[k].y})`);g.style.opacity=1;});
+    await wait(tok,500);},
+};
+async function cons8(tok){ // pet varnica u kraju
+  const SP=W.sparks;for(let k=0;k<SP.length;k++){if(tok.dead)return;SP[k].el.lab.classList.add("on");AU.fx("tap",k);await wait(tok,550);}
+  await wait(tok,500);
+  const from=kidChest();await dotShow(tok,from);const f=W.fl[7][0];await dotFly(tok,from,flowerTop(f),{ms:900});await bloom(tok,f);setMeter(doneCount(8),true);
+  await wait(tok,600);SP.forEach(s=>s.el.lab.classList.remove("on"));await toNext(tok,7);
+}
+async function cons13(tok){
+  const hops=[{x:1890,y:990},flowerTop(W.fl[12][0]),{x:240,y:388},flowerTop(W.fl[12][1]),{x:4160,y:1000},flowerTop(W.fl[12][2])];
+  let p=kidChest();await dotShow(tok,p);
+  for(let s=0;s<3;s++){if(tok.dead)return;
+    await dotFly(tok,p,hops[s*2],{ms:1400});await wait(tok,200);await dotFly(tok,hops[s*2],hops[s*2+1],{ms:700});
+    await bloom(tok,W.fl[12][s]);setMeter(13+s,true);W.steps[s].el.lab.classList.add("on");p=hops[s*2+1];}
+  await wait(tok,800);if(tok.dead)return;await finale(tok);
+}
+
+/* =====================================================================
+   TOK PRIČE
+   ===================================================================== */
+const state={mode:"intro",i:-1,tok:null,showRunning:false};
+function newTok(){if(state.tok)state.tok.dead=true;state.tok={dead:false,skip:false};state.showRunning=false;btnNext.disabled=false;return state.tok;}
+const panel=$("#panel"),pTitle=$("#pTitle"),pText=$("#pText"),pCu=$("#pCu"),pStep=$("#pStep"),pQ=$("#pQ"),btnNext=$("#btnNext");
+function setNextGlow(v){btnNext.classList.toggle("ready",!!v);}
+function panelOpen(kind){panel.hidden=false;AU.setDuck(true);AU.fx("open");}
+function panelClose(){if(!panel.hidden){panel.hidden=true;AU.setDuck(false);}}
+let hotOv,markOv;
+function showHot(i){const st=ST[i];hotOv.x=st.hot.x;hotOv.y=st.hot.y;hotOv.el.querySelector(".pill").textContent=st.q;hotOv.el.setAttribute("aria-label",`Stanica ${i+1}: ${st.q}`);hotOv.el.hidden=false;placeOv();AU.fx("hot");}
+function hideHot(){hotOv.el.hidden=true;}
+function showMark(i){if(i==null){markOv.el.hidden=true;return;}markOv.x=ST[i].hot.x;markOv.y=ST[i].hot.y;markOv.el.hidden=false;placeOv();}
+function enterHot(i){state.mode="hot";state.i=i;showMark(null);showHot(i);AU.setPhase(ST[i].ph);renderBar();}
+function stepLabel(i){return `${i+1}. stanica od 13 · ${PH[ST[i].ph]}`;}
+
+function openIntro(){
+  const tok=newTok();state.mode="intro";state.i=-1;hideHot();showMark(null);setWorld(0);
+  pStep.textContent="Pregled";pQ.hidden=true;pCu.hidden=true;pText.hidden=false;
+  pTitle.textContent="Bašta ljubavi";
+  pText.innerHTML=`<p>Ovo je tvoj kraj, sa zgradom u kojoj živiš, školom, pekarom i parkom uz reku. Kroz njega ćemo pratiti kako ljubav raste.</p>
+  <ol class="phases"><li>Šta je ljubav</li><li>Kako se pokazuje na sve strane</li><li>Kako se neguje</li></ol>
+  <p>Merač gore levo broji cvetove u tvom kraju.</p>`;
+  btnNext.textContent="Kreni";setNextGlow(true);panelOpen();
+  camSet(OVER,true);renderBar();
+}
+async function startJourney(){
+  const tok=newTok();state.mode="moving";panelClose();setNextGlow(false);btnNext.textContent="Dalje";
+  await camTo(tok,ST[0].cam,1600,false);if(tok.dead)return;enterHot(0);
+}
+async function openText(i){
+  const tok=newTok();state.mode="text";state.i=i;hideHot();const st=ST[i];
+  pStep.textContent=stepLabel(i);pQ.textContent=st.q;pQ.hidden=false;pTitle.textContent=st.title;
+  pText.innerHTML=st.text.map(p=>`<p>${p}</p>`).join("");pText.hidden=false;pCu.hidden=true;btnNext.textContent="Dalje";setNextGlow(false);
+  panelOpen();panel.querySelector(".pscroll").scrollTop=0;pTitle.focus({preventScroll:true});
+  renderGloss(i+1);
+  await camTo(tok,st.cam,550,true);
+}
+async function openClose(i){
+  const tok=newTok();state.mode="close";state.i=i;const st=ST[i];
+  pText.hidden=true;pQ.hidden=true;pCu.hidden=false;$("#cuCap").textContent=st.cap;setNextGlow(false);btnNext.textContent="Dalje";
+  panel.querySelector(".pscroll").scrollTop=0;cuReset();cuSvg.setAttribute("aria-label","Pogled izbliza: "+st.title);
+  camTo(newSub(tok),st.cam,400,true);
+  state.tryDone=false;btnNext.disabled=true;
+  const A=makeApi(tok);state.api=A;
+  try{await CU[i](tok,A);}catch(e){if(!tok.dead){console.error(e);state.tryDone=true;btnNext.disabled=false;}}
+}
+function newSub(tok){return tok;}
+async function runCons(i){
+  const tok=newTok();state.mode="cons";state.i=i;panelClose();showMark(null);setNextGlow(false);
+  await camTo(tok,ST[i].cam,500,false);
+  try{
+    if(i===7)await cons8(tok);
+    else if(i===12)await cons13(tok);
+    else await stdCons(tok,i,CONS[i]);
+  }catch(e){if(!tok.dead)console.error(e);}
+}
+async function finale(tokIn){
+  const tok=tokIn||newTok();state.mode="finale";state.i=13;hideHot();showMark(null);renderBar();AU.setPhase(3);
+  await camTo(tok,OVER,1300,false);
+  if(tok.dead)return;
+  AU.fx("fin");
+  let p=kidChest();dotAt(p.x,p.y);W._hist=[];W.dot.style.opacity=1;
+  for(let k=0;k<13;k++){if(tok.dead)return;const q=ST[k].hot;await dotFly(tok,p,q,{ms:420});const fs=W.fl[k];fs.forEach(f=>{f.halo.style.opacity=1;});AU.fx("tap",k);p=q;}
+  await dotFly(tok,p,kidChest(),{ms:700});await dotFade(tok);
+  if(tok.dead)return;
+  pStep.textContent="Rasplet";pQ.hidden=true;pCu.hidden=true;pText.hidden=false;pTitle.textContent="Tvoja bašta ljubavi";
+  pText.innerHTML=`<p>Ljubav počinje kao seme osećaja i raste od onoga što radiš. Kad brineš, odgovaraš, upoznaješ i poštuješ, tvoja bašta cveta i širi se po celom kraju.</p>`;
+  btnNext.textContent="Pogledaj ponovo";setNextGlow(true);panelOpen();pTitle.focus({preventScroll:true});renderGloss(13);
+  await camTo(tok,OVER,700,true);
+}
+async function goTo(i){
+  const tok=newTok();panelClose();hideHot();showMark(null);setNextGlow(false);btnNext.textContent="Dalje";
+  if(i>=13){setWorld(13);state.mode="finale";await finale(tok);return;}
+  state.mode="moving";state.i=i;setWorld(i);renderBar();
+  await camTo(tok,ST[i].cam,800,false);if(tok.dead)return;enterHot(i);
+}
+function next(){
+  AU.init();
+  switch(state.mode){
+    case"intro":startJourney();break;
+    case"hot":openText(state.i);break;
+    case"text":openClose(state.i);break;
+    case"close":if(state.showRunning&&state.tok)state.tok.skip=true;else if(!state.tryDone){if(state.api){state.api.reveal();state.api.fb("Prvo uradi zadatak, pa idemo dalje.");}}else runCons(state.i);break;
+    case"moving":case"cons":if(state.tok)state.tok.skip=true;break;
+    case"finale":if(!panel.hidden&&btnNext.textContent==="Pogledaj ponovo"){}else if(state.tok)state.tok.skip=true;break;
+  }
+}
+function prev(){
+  AU.init();
+  switch(state.mode){
+    case"text":{const tk=newTok();panelClose();state.mode="hot";showMark(null);showHot(state.i);camTo(tk,ST[state.i].cam,450,false);break;}
+    case"close":openText(state.i);break;
+    case"hot":case"moving":if(state.i>0)goTo(state.i-1);else openIntro();break;
+    case"cons":goTo(state.i);break;
+    case"finale":goTo(12);break;
+  }
+}
+
+/* traka sa tačkama */
+function buildBar(){
+  const dots=$("#dots");dots.innerHTML="";
+  PH.forEach((p,ph)=>{const g=document.createElement("div");g.className="phase";g.innerHTML=`<span class="pn">${ph+1}. ${["Šta je ljubav","Kako se pokazuje","Kako se neguje"][ph]}</span>`;
+    ST.forEach((st,i)=>{if(st.ph!==ph)return;const b=document.createElement("button");b.type="button";b.className="dot";b.dataset.i=i;b.setAttribute("aria-label",`${i+1}. ${st.q}`);b.title=`${i+1}. ${st.q}`;b.innerHTML="<i></i>";b.addEventListener("click",()=>{AU.init();goTo(i);});g.appendChild(b);});
+    if(ph===2){const b=document.createElement("button");b.type="button";b.className="dot fin";b.dataset.i=13;b.setAttribute("aria-label","Rasplet");b.title="Rasplet";b.innerHTML="<i></i>";b.addEventListener("click",()=>{AU.init();goTo(13);});g.appendChild(b);}
+    dots.appendChild(g);});
+}
+function renderBar(){const cur=state.mode==="intro"?-1:state.i;document.querySelectorAll("#dots .dot").forEach(b=>{const i=+b.dataset.i;b.classList.toggle("done",i<cur);b.classList.toggle("cur",i===cur);if(i===cur)b.setAttribute("aria-current","step");else b.removeAttribute("aria-current");});}
+function renderGloss(reached){const dl=$("#gloss");dl.innerHTML=GLOSS.map(([term,st,def])=>`<dt class="${st>=reached?"later":""}">${term}<small>${st+1}. stanica</small></dt><dd class="${st>=reached?"later":""}">${def}</dd>`).join("");}
+
+/* ---------- pokretanje ---------- */
+function shortLabels(){if(W.places)W.places[2].el.lab.textContent=isSheet()?"Pekara":"Pekara i stajalište";}
+function measure(){const r=stage.getBoundingClientRect();SW=Math.max(1,r.width);SH=Math.max(1,r.height);}
+function init(){
+  measure();buildWorld();
+  const pips=$("#meter .pips");for(let k=0;k<TOTAL;k++){const p=document.createElement("i");p.className="pip";pips.appendChild(p);}
+  // dugme na mestu radnje
+  const hb=document.createElement("button");hb.type="button";hb.className="ovi hot";hb.hidden=true;hb.innerHTML=`<span class="hin"><span class="pill"></span><span class="ring"></span></span>`;
+  hb.addEventListener("click",e=>{e.stopPropagation();if(state.mode==="hot")next();});hotOv=addOv(hb,0,0);
+  const mk=document.createElement("div");mk.className="ovi";mk.hidden=true;mk.innerHTML=`<div class="mark"></div>`;markOv=addOv(mk,0,0);
+  W.places=[["Tvoj stan",500,214],["Škola",1450,452],["Pekara i stajalište",2440,690],["Park uz reku",3330,520]].map(([s,x,y])=>addOv(mkLabel(s,"place"),x,y));
+  shortLabels();
+  W.sparks=[["lepe reči",250,300],["zagrljaj",480,420],["pomoć",760,300],["zajedničko vreme",1845,950],["poklon",2306,930]].map(([s,x,y])=>addOv(mkLabel(s,"spark"),x,y));
+  W.steps=[["1. korak",1325,1290],["2. korak",400,1290],["3. korak",3880,1290]].map(([s,x,y])=>addOv(mkLabel(s,"step"),x,y));
+  buildBar();renderGloss(0);
+  btnNext.addEventListener("click",()=>{if(state.mode==="finale"&&btnNext.textContent==="Pogledaj ponovo"){AU.init();openIntro();return;}next();});
+  $("#btnRestart").addEventListener("click",()=>{AU.init();openIntro();});
+  const bs=$("#btnSound");bs.setAttribute("aria-pressed",AU.on?"true":"false");
+  bs.addEventListener("click",()=>{AU.init();AU.setOn(!AU.on);bs.setAttribute("aria-pressed",AU.on?"true":"false");});
+  const bf=$("#btnFull");const app=$("#app");
+  if(!(document.fullscreenEnabled||document.webkitFullscreenEnabled))bf.hidden=true;
+  bf.addEventListener("click",()=>{try{if(document.fullscreenElement){document.exitFullscreen();}else{const r=(app.requestFullscreen||app.webkitRequestFullscreen).call(app);if(r&&r.catch)r.catch(()=>{});}}catch(e){}});
+  document.addEventListener("keydown",e=>{
+    const tg=e.target,tag=tg&&tg.tagName;
+    if(tag==="INPUT"&&(e.key.startsWith("Arrow")||e.key==="PageUp"||e.key==="PageDown"))return;
+    const onCtl=tg&&(tag==="BUTTON"||tag==="SUMMARY"||tag==="A"||(tg.getAttribute&&tg.getAttribute("role")==="button"));
+    if(["ArrowRight","PageDown"].includes(e.key)||((e.key===" "||e.key==="Enter")&&!onCtl)){e.preventDefault();next();}
+    else if(["ArrowLeft","PageUp"].includes(e.key)){e.preventDefault();prev();}
+    else if(e.key==="Escape"&&(state.mode==="text"||state.mode==="close")){e.preventDefault();prev();if(state.mode==="text")prev();}
+  });
+  let rz=0;window.addEventListener("resize",()=>{cancelAnimationFrame(rz);rz=requestAnimationFrame(()=>{measure();shortLabels();
+    const open=!panel.hidden,c=state.mode==="intro"||state.mode==="finale"?OVER:(state.i>=0&&state.i<13?ST[state.i].cam:OVER);
+    if(state.mode!=="cons"&&state.mode!=="moving")camSet(c,open);else applyCam();});});
+  stage.addEventListener("scroll",()=>{stage.scrollLeft=0;stage.scrollTop=0;});
+  const kick=()=>AU.init();
+  ["pointerdown","keydown","touchstart"].forEach(ev=>document.addEventListener(ev,kick,{capture:true,passive:true}));
+  try{if(navigator.getAutoplayPolicy&&navigator.getAutoplayPolicy("audiocontext")==="allowed")AU.init();}catch(e){}
+  openIntro();
+  window.__bl={get audio(){return AU.ctx?AU.ctx.state:"none"},get mode(){return state.mode},get i(){return state.i},get show(){return state.showRunning}};
+}
+init();
+})();
+</script>
+
+</body>
+</html>
