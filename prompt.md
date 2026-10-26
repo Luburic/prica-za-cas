@@ -14,7 +14,7 @@ Napravi interaktivnu obrazovnu priču: jednu samostalnu HTML stranicu, objavljen
 ## Način rada
 
 1. Proveri činjenice u izvorima; ništa iz sećanja.
-2. Pošalji kratak plan i odmah nastavi: priča u jednoj rečenici, lanac pojmova, analogija, scene, stanice sa pitanjima, rasplet.
+2. Pošalji kratak plan i odmah nastavi: priča u jednoj rečenici, lanac pojmova (koliko stanica i zašto baš toliko), analogija, scene, stanice sa pitanjima, rasplet.
 3. Pre predaje prođi celu priču u pregledaču (računar, telefon, tamna tema, konzola bez grešaka). Zatim pročitaj sav tekst kao celinu: lanac bez rupa, pojam pre upotrebe, jezik po meri publike, tačne činjenice.
 4. Kod ispravki menjaj samo traženo i objavi na isti link.
 
@@ -35,7 +35,8 @@ Primeni principe multimedijalnog učenja (Majer) i teoriju kognitivnog optereće
 
 ## Priča
 
-- Lanac od X pojmova. Svaka stanica je pojam i jedno pitanje na dugmetu (npr. „Šta je munja?”) ili poziv (npr. „Otvori svoj laptop”). Najviše jedan do dva nova pojma po stanici.
+- Lanac pojmova. Svaka stanica je pojam i jedno pitanje na dugmetu (npr. „Šta je munja?”) ili poziv (npr. „Otvori svoj laptop”). Najviše jedan do dva nova pojma po stanici.
+- Broj stanica odredi sam prema dužini, publici i smernicama, okvirno jedna stanica na jedan ili dva minuta priče. Uzmi tek toliko stanica da lanac bude bez rupa, a da svaka stigne da se ispriča. Ako smernice navode pojmove ili broj stanica, prati smernice.
 - Jedna analogija nosi celu priču.
 - Stvaran proizvod ili mesto koje publika zna, po mogućstvu lokalno.
 - Svet pamti napredak: objašnjeno ostaje uključeno i označeno.
