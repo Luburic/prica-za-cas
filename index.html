@@ -3,6 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8Y3HP680VT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-8Y3HP680VT');
+</script>
 <title>Priča za čas</title>
 <link rel="icon" type="image/svg+xml" href="logo/znak.svg">
 <meta name="description" content="Obrazovni alat koji nastavnike uči da uz veštačku inteligenciju prave interaktivne obrazovne vizuale za čas.">
@@ -73,7 +81,10 @@ code,kbd{font-family:var(--mono);font-size:.86em}
 .nav{margin-left:auto;display:flex;gap:4px}
 .nav a{color:var(--muted);text-decoration:none;font-weight:600;font-size:16px;padding:8px 12px;border-radius:999px}
 .nav a:hover{color:var(--ink);background:var(--surface-2)}
+.nav a.nav-cta{color:var(--link)}
 @media (max-width:640px){.nav a.hide-sm{display:none}.brand > span:last-child{display:none}.nav a{padding:8px 10px}}
+@media (max-width:420px){.nav{gap:0}.nav a{padding:8px 7px;font-size:15px}}
+@media (max-width:350px){.nav a.hide-xs{display:none}}
 
 /* uvod */
 .hero{padding:72px 0 56px}
@@ -220,6 +231,19 @@ ol.plain li,ul.plain li{margin:.4em 0}
 .checklist li{position:relative;padding-left:30px;font-size:17px}
 .checklist li::before{content:"";position:absolute;left:0;top:4px;width:18px;height:18px;border-radius:5px;border:2px solid var(--muted)}
 
+/* šta dalje */
+.next-box{background:var(--accent);color:#2A211A;border-radius:22px;padding:44px 48px;display:grid;grid-template-columns:1fr auto;gap:24px 48px;align-items:center}
+.next-box h2{font-size:clamp(30px,4vw,40px);margin-bottom:12px}
+.next-box p{margin:0;font-size:19px;max-width:34em;color:rgba(42,33,26,.82)}
+.next-box .act{text-align:center}
+.next-box .btn{background:#2A211A;color:#FBF6EC;font-size:18px;padding:16px 30px}
+.next-box .btn:hover{filter:none;background:#000}
+.next-box .btn:focus-visible{outline-color:#2A211A}
+.next-box .fine{font-size:15px;margin-top:10px;color:rgba(42,33,26,.75)}
+@media (max-width:640px){.next-box{grid-template-columns:1fr;padding:30px 24px}}
+.next-hint{font-size:15px;padding:10px 14px;margin:0;border-top:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.next-hint a{font-weight:700}
+
 footer{border-top:1px solid var(--line);padding:36px 0 48px;color:var(--muted);font-size:15px}
 footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 footer .author{margin-bottom:14px}
@@ -240,7 +264,8 @@ footer .author p{margin:0;color:var(--ink);font-size:16px}
     <nav class="nav" aria-label="Glavna navigacija">
       <a href="#o-sajtu" class="hide-sm">O alatu</a>
       <a href="#primeri">Primeri</a>
-      <a href="#proces">Kako se pravi</a>
+      <a href="#proces" class="hide-xs">Kako se pravi</a>
+      <a href="#ukljuci-se" class="nav-cta" data-signup-from="nav">Uključi se</a>
     </nav>
   </div>
 </header>
@@ -437,6 +462,7 @@ footer .author p{margin:0;color:var(--ink);font-size:16px}
               </div>
               <pre id="promptOut" aria-live="off"></pre>
               <div class="status" id="status" role="status"></div>
+              <p class="next-hint" id="nextHint" hidden>Zanima te šta dalje? <a href="#ukljuci-se" data-signup-from="copy_hint">Uključi se →</a></p>
             </div>
           </div>
           <p class="legend"><span class="l-empty">treba popuniti</span><span class="l-filled">popunjeno</span></p>
@@ -570,6 +596,22 @@ Ostalo ne menjaj.</pre>
         </div>
       </li>
     </ol>
+  </div>
+</section>
+
+<!-- 4. ŠTA DALJE -->
+<section class="sec" id="ukljuci-se" aria-labelledby="dalje-h">
+  <div class="wrap">
+    <div class="next-box">
+      <div>
+        <h2 id="dalje-h">Šta dalje?</h2>
+        <p>Istražujemo kako veštačka inteligencija može da olakša rad nastavnicima. Prijavi se da nam kažeš šta ti treba i prvi isprobaš ono što napravimo.</p>
+      </div>
+      <div class="act">
+        <a class="btn" id="signupBtn" href="https://forms.gle/99KtRzEo4PJJ7Cwp9" target="_blank" rel="noopener">Prijavi se</a>
+        <p class="fine">Otvara se kratak Google formular.</p>
+      </div>
+    </div>
   </div>
 </section>
 </main>
@@ -731,14 +773,39 @@ Spolja samo fontovi sa Google Fonts (sa rezervnim fontom) i biblioteke sa dozvol
   }
   document.getElementById('copyBtn').addEventListener('click', function(){
     copy(filledText, missing.length ? 'Kopirano. Pazi: ' + missing.length + ' ' + (missing.length===1?'polje nije popunjeno.':'polja nisu popunjena.') : 'Prompt je kopiran.');
+    track('copy_prompt', {all_filled: missing.length === 0, missing_count: missing.length});
+    document.getElementById('nextHint').hidden = false;
   });
   document.getElementById('clearBtn').addEventListener('click', function(){
     Object.keys(inputs).forEach(function(k){ inputs[k].value = k==='jezik' ? 'srpski, latinica, ekavica' : ''; });
     render(); save();
   });
   document.querySelectorAll('[data-copy]').forEach(function(b){
-    b.addEventListener('click', function(){ copy(document.getElementById(b.dataset.copy).textContent, 'Šablon je kopiran.'); });
+    b.addEventListener('click', function(){
+      copy(document.getElementById(b.dataset.copy).textContent, 'Šablon je kopiran.');
+      track('copy_template', {template: b.dataset.copy});
+    });
   });
+
+  // Merenje (Google Analytics)
+  function track(name, params){ try{ if(window.gtag) gtag('event', name, params || {}); }catch(e){} }
+  document.querySelector('a[href="prompt.md"]').addEventListener('click', function(){ track('download_prompt'); });
+  document.querySelectorAll('.card').forEach(function(card){
+    var title = card.querySelector('h3').textContent.trim();
+    card.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){ track('open_example', {example: title, via: a.classList.contains('thumb') ? 'image' : 'title'}); });
+    });
+  });
+  document.querySelectorAll('[data-signup-from]').forEach(function(a){
+    a.addEventListener('click', function(){ track('go_to_signup', {from: a.dataset.signupFrom}); });
+  });
+  document.getElementById('signupBtn').addEventListener('click', function(){ track('signup_click'); });
+  if('IntersectionObserver' in window){
+    var seen = new IntersectionObserver(function(entries){
+      if(entries.some(function(e){return e.isIntersecting;})){ track('view_signup'); seen.disconnect(); }
+    }, {threshold: 0.5});
+    seen.observe(document.querySelector('#ukljuci-se .next-box'));
+  }
   render();
 })();
 </script>
