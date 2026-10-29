@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Šta će nam nastavnici</title>
+<title>Zašto nam trebaju nastavnici</title>
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}[hidden]{display:none!important}</style>
 
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -231,6 +231,7 @@ button{font-family:inherit}
 #panel.pres .pr{display:grid;gap:6px;padding-top:4px}
 .pr-n{font:800 clamp(42px,5.4vw,66px)/1.02 var(--font-display);color:var(--ui-fg);font-variant-numeric:lining-nums;letter-spacing:-.01em}
 .pr-nl{font-size:19px;font-weight:700;color:var(--ui-muted);margin-bottom:14px}
+.pr-n + .pr-k{margin-top:8px}
 .pr-k{list-style:none;margin:0;padding:0;display:grid;gap:10px}
 .pr-k li{display:flex;gap:10px;align-items:flex-start;font-size:21px;font-weight:800;line-height:1.3}
 .pr-k li::before{content:"";flex:0 0 auto;width:12px;height:12px;border-radius:50%;background:var(--gold-2);margin-top:.42em}
@@ -297,7 +298,7 @@ button{font-family:inherit}
     <button id="hotspot" class="hotspot" type="button" hidden><span class="hs-dot" aria-hidden="true"></span><span id="hsLabel">Pitanje</span></button>
     <aside id="panel" role="dialog" aria-modal="false" aria-labelledby="pTitle" inert>
       <div class="p-scroll">
-        <h2 id="pTitle" tabindex="-1">Šta će nam nastavnici?</h2>
+        <h2 id="pTitle" tabindex="-1">Zašto nam trebaju nastavnici?</h2>
         <div class="p-text" id="pText"></div>
         <div class="p-close" id="pClose" hidden>
           <svg id="closeSvg" viewBox="0 0 400 250" role="img" aria-labelledby="pCap"></svg>
@@ -309,7 +310,7 @@ button{font-family:inherit}
     </aside>
     <section id="final" role="dialog" aria-modal="true" aria-labelledby="fTitle" hidden>
       <div class="f-card">
-        <h2 id="fTitle" tabindex="-1">Šta će nam nastavnici?</h2>
+        <h2 id="fTitle" tabindex="-1">Zašto nam trebaju nastavnici?</h2>
         <div class="f-cols">
           <div class="f-col"><h3>Šta nam daju</h3><ul id="fGive"></ul></div>
           <div class="f-col"><h3>Kako da brinemo o njima</h3><ul id="fCare"></ul></div>
@@ -452,11 +453,15 @@ function plural(n) { const a = n % 10, b = n % 100; if (a === 1 && b !== 11) ret
 
 /* ============ tok koji se može prekinuti ============ */
 const STOP = Symbol('stop');
+/* brzina prelaza između stanica (animacija i muzika zajedno); 1.3 = 30% brže */
+const TEMPO = 1.3;
 class Runner {
-  constructor() { this.dead = false; this.fast = RM.matches; this.w = new Set(); this.t0 = performance.now(); this.done = false; }
+  constructor(k) { this.dead = false; this.fast = RM.matches; this.w = new Set(); this.t0 = performance.now(); this.done = false; this.k = k || 1; }
   finish() { this.fast = true; for (const w of [...this.w]) w.skip(); }
   kill() { this.dead = true; for (const w of [...this.w]) w.kill(); }
-  wait(ms) {
+  wait(ms) { return this._wait(ms * this.k); }
+  until(ms) { return this._wait(this.t0 + ms * this.k - performance.now()); }
+  _wait(ms) {
     if (this.dead) return Promise.reject(STOP);
     if (this.fast || ms <= 0) return Promise.resolve();
     return new Promise((res, rej) => {
@@ -466,9 +471,8 @@ class Runner {
       this.w.add(w);
     });
   }
-  until(ms) { return this.wait(this.t0 + ms - performance.now()); }
   tween(ms, fn, ez) {
-    ez = ez || ease;
+    ez = ez || ease; ms *= this.k;
     if (this.dead) return Promise.reject(STOP);
     if (this.fast || ms <= 0) { fn(1); return Promise.resolve(); }
     return new Promise((res, rej) => {
@@ -664,8 +668,6 @@ function school() {
   R_(g, 8, -24, 100, 8, 'walk'); R_(g, 0, -16, 116, 9, 'walk');
   for (let i = 0; i < 3; i++) win(g, 132 + i * 86, -180, 66, 112);
   classroom(g);
-  REF.schoolDim = R_(g, -392, -406, 784, 406, 'ink', 0, 'opacity:0');
-  REF.schoolRing = el('rect', { x: -414, y: -514, width: 828, height: 524, rx: 30, 'vector-effect': 'non-scaling-stroke', style: 'fill:none;stroke:var(--coral);stroke-width:4;opacity:0' }, g);
 }
 function health() {
   const g = at(L.bld, 2080);
@@ -829,14 +831,14 @@ function growth() {
     for (let y = -850; y < -20; y += 48) for (let x = -112; x < 112; x += 42) R_(g, x, y, 30, 34, 'window', 2); R_(g, -125, -900, 250, 24, 'ink', 4); R_(g, -60, -942, 120, 40, 'ink', 6);
     T_(g, 0, -914, 'IT CENTAR', 22, 'white', { w: 800, ls: 2 });
   });
-  growB(2330, 460, 480, 'Inženjerka', g => {
+  growB(2330, 460, 480, 'Inženjer', g => {
     R_(g, 140, -660, 46, 200, 'metal'); E_(g, 172, -700, 60, 34, 'cloud'); E_(g, 220, -742, 46, 26, 'cloud', 'opacity:.8');
     R_(g, -230, -400, 460, 400, 'wall-house-2');
     P_(g, 'M-230 -400 L-230 -480 L-115 -400 L-115 -480 L0 -400 L0 -480 L115 -400 L115 -480 L230 -400 Z', 'roof-2');
     for (let i = 0; i < 5; i++) win(g, -206 + i * 88, -330, 66, 90);
     R_(g, -60, -150, 120, 150, 'wood-2', 6); T_(g, 0, -366, 'FABRIKA', 26, 'ink', { w: 800, ls: 3 });
   });
-  growB(3040, 420, 560, 'Nova srednja škola', g => {
+  growB(3040, 420, 560, 'Nastavnica', g => {
     R_(g, -210, -560, 420, 560, 'wall-school-2'); el('polygon', { points: '-230,-560 230,-560 196,-624 -196,-624', style: fl('roof-2') }, g);
     for (let r = 0; r < 4; r++) for (let c = 0; c < 5; c++) win(g, -190 + c * 78, -520 + r * 118, 56, 84);
     R_(g, -150, -600, 300, 30, 'wall-school', 4); T_(g, 0, -578, 'SREDNJA ŠKOLA', 22, 'ink', { w: 800, ls: 2 });
@@ -907,7 +909,6 @@ const LB = {
   anaC: { t: 'Ana', c: 'sh2', a: () => Wp(1000, -152, -98), zmin: .75, show: s => !s.intro && s.year < 2046 },
   mira: { t: 'Učiteljica Mira', c: 'gold-2', a: () => Wp(1000, -214, -150), zmin: .75, show: s => !s.intro && s.year < 2046 },
   skills: { t: 'Čitanje, računanje, razumevanje', c: 'gold-2', a: () => Wp(1000, -200, -214), zmin: .1, show: s => s.L.has('skills') && !s.climax },
-  closed: { t: 'Mart 2020: škola zatvorena', c: 'coral', a: () => Wp(1000, 0, -560), zmin: .1, show: s => s.closed },
   net: { t: 'Mreža zaštite', c: 'teal', a: () => Wp(2080, 0, -414), zmin: .1, show: s => s.L.has('net') && !s.climax },
   parents: { t: 'Roditelji mogu da rade', c: 'teal', a: () => Wp(2880, 0, -276), zmin: .1, show: s => s.L.has('parents') && !s.climax },
   k1000: { t: '≈ 1.000 đaka jednog nastavnika', c: 'gold-2', a: () => Wp(880, 0, 104), zmin: .1, show: s => s.L.has('k1000') && !s.climax },
@@ -1016,7 +1017,7 @@ async function travel(Rn, dot, fn, ms, o) {
 
 /* ============ stanje sveta ============ */
 let state;
-function fresh() { return { year: 2026, intro: true, L: new Set(), lines: new Set(), glow: false, squint: false, glasses: false, townsLit: false, shortage: false, newTeacher: false, finale: false, grown: false, climax: false, closed: false }; }
+function fresh() { return { year: 2026, intro: true, L: new Set(), lines: new Set(), glow: false, squint: false, glasses: false, townsLit: false, shortage: false, newTeacher: false, finale: false, grown: false, climax: false }; }
 function op(g, v) { g.setAttribute('opacity', v.toFixed(3)); g.style.display = v <= .002 ? 'none' : ''; }
 function setEra(e) {
   const a = 1 - e;
@@ -1036,7 +1037,6 @@ function render() {
   for (const id in LN) setLine(id, s.lines.has(id) && !(s.finale && /^(c[1-9]|s[1-9]|teach)$/.test(id)) ? 1 : 0);
   lineWidth(s.climax ? .7 : 1);
   TOWNS.forEach(t => { op(t.glow, s.townsLit ? .9 : 0); op(t.ring, t === T1 && s.shortage && !s.newTeacher ? 1 : 0); });
-  REF.schoolDim.style.opacity = s.closed ? .5 : 0; REF.schoolRing.style.opacity = s.closed ? 1 : 0;
   GROW.forEach(b => b.set(s.grown ? 1 : 0)); op(REF.townGlow, s.grown ? .5 : 0); op(REF.crowd, s.grown ? 1 : 0);
   if (s.grown) root.style.setProperty('--window', 'var(--window-lit)'); else root.style.removeProperty('--window');
   refreshLabels();
@@ -1079,11 +1079,15 @@ const CLOSE = {
     const letters = ['M', 'A', 'M', 'A'].map((ch, i) => { const t = T_(s, 46 + i * 34, 82, ch, 38, 'chalk', { w: 800 }); t.setAttribute('opacity', 0); return t; });
     const sum = T_(s, 98, 122, '2 + 3 = 5', 27, 'chalk', { w: 700 }); sum.setAttribute('opacity', 0);
     const box = hidden(s);
-    R_(box, 214, 16, 174, 102, 'white', 12, 'stroke:var(--teal);stroke-width:3');
-    P_(box, 'M215.5 30 a12.5 12.5 0 0 1 12.5 -12.5 h147 a12.5 12.5 0 0 1 12.5 12.5 v14 h-172 z', 'teal');
-    T_(box, 226, 37, 'SIRUP ZA KAŠALJ', 14, 'white', { a: 'start', w: 800, ls: 1 });
-    T_(box, 226, 76, '2 puta dnevno', 22, 'ink', { a: 'start', w: 800 });
-    T_(box, 226, 102, 'posle jela', 19, 'ink', { a: 'start', w: 600 });
+    // knjiga: Mali princ
+    R_(box, 238, 20, 140, 100, 'white', 6, 'stroke:var(--cu-line);stroke-width:1.5');
+    R_(box, 232, 15, 140, 104, 'sh5', 6);
+    R_(box, 232, 15, 12, 104, 'ink', 3, 'opacity:.35');
+    T_(box, 308, 41, 'MALI PRINC', 15, 'chalk', { w: 800, ls: 1 });
+    [[262, 58, 1.8], [352, 56, 2.2], [344, 96, 1.5], [266, 92, 1.6], [290, 52, 1.2]].forEach(([x, y, r]) => C_(box, x, y, r, 'gold-2'));
+    C_(box, 308, 82, 13, 'gold-2');
+    R_(box, 304, 60, 8, 11, 'chalk', 3); C_(box, 308, 56, 4, 'chalk');
+    T_(box, 308, 111, 'Antoan de Sent Egziperi', 9.5, 'chalk', { w: 700 });
     const rc = hidden(s);
     P_(rc, 'M222 132 h162 v104 l-9 6 -9 -6 -9 6 -9 -6 -9 6 -9 -6 -9 6 -9 -6 -9 6 -9 -6 -9 6 -9 -6 -9 6 -9 -6 -9 6 -9 -6 -9 6 -9 -6 z', 'white', 'stroke:var(--cu-line);stroke-width:1.5');
     T_(rc, 234, 156, 'Hleb', 17, 'ink', { a: 'start', w: 600 }); T_(rc, 372, 156, '80', 17, 'ink', { a: 'end', w: 600 });
@@ -1225,7 +1229,7 @@ const CLOSE = {
 
 /* ============ posledice na sceni ============ */
 function rollYear(Rn, y0, y1, ms, n0, n1, e0, e1) {
-  Sound.tone(n0, n1, ms / 1000);
+  Sound.tone(n0, n1, ms * Rn.k / 1000);
   return Rn.tween(ms, k => { setMeter(Math.round(lerp(y0, y1, k))); if (e0 !== e1) setEra(lerp(e0, e1, k)); }, t => t);
 }
 function bubbles(Rn, ms) {
@@ -1283,11 +1287,7 @@ const CONS = {
   },
   async 3(Rn) {
     Sound.play('s3'); const T = Sound.secs('s3') * 1000;
-    state.closed = true; refreshLabels();
-    await Rn.tween(850, k => { REF.schoolDim.style.opacity = .5 * k; REF.schoolRing.style.opacity = k; });
-    await Rn.until(2700);
-    state.closed = false; refreshLabels();
-    await Rn.tween(700, k => { REF.schoolDim.style.opacity = .5 * (1 - k); REF.schoolRing.style.opacity = 1 - k; });
+    await Rn.wait(600);
     const d1 = mkDot('teal'), d2 = mkDot('teal'); const a = Wp(1000, 58, -196);
     putDot(d1, a); putDot(d2, a);
     await Promise.all([travel(Rn, d1, qcurve(a, Wp(1640, 50, -150), 260), 1800, { line: 'mama' }), travel(Rn, d2, qcurve(a, Wp(2926, 0, -86), 560), 2250, { line: 'tata' })]);
@@ -1384,26 +1384,26 @@ const CONS = {
 /* ============ stanice (podaci) ============ */
 const PH_NAMES = ['Uvod', 'U školi', 'U školi', 'U gradu', 'U gradu', 'U gradu', 'U državi', 'U državi', 'Kraj'];
 const ST = [
-  { eyebrow: 'Uvod', title: 'Šta će nam nastavnici?', btn: 'Dalje', focus: CAM.intro,
-    text: ['Ovo je jedan običan grad. Ima školu, pekaru, dom zdravlja i autobusku stanicu. Proći ćemo tri mesta: školu, grad i državu.', 'Upoznaj Anu. Danas kreće u prvi razred. Njena učiteljica je Mira. Pratićemo njih dve kroz godine i videti dokle stiže ono što Mira radi.', 'Kad kažemo <strong>nastavnici</strong>, mislimo na sve koji uče decu u osnovnoj i srednjoj školi, od učiteljice u prvom razredu do profesora pred maturu.'],
-    pres: { n: '3 mesta', nl: 'škola, grad, država', k: ['Ana, 7 godina, prvi razred', 'Mira, njena učiteljica'] },
+  { eyebrow: 'Uvod', title: 'Zašto nam trebaju nastavnici?', btn: 'Dalje', focus: CAM.intro,
+    text: ['Ovo je jedan običan grad. Ima školu, pekaru, dom zdravlja i autobusku stanicu. Proći ćemo tri nivoa: školu, grad i državu.', 'Upoznaj Anu. Ima sedam godina i danas kreće u prvi razred. Njena učiteljica je Mira. Pratićemo njih dve kroz godine i videti dokle stiže ono što Mira radi.', 'Kad kažemo <strong>nastavnici</strong>, mislimo na sve koji uče decu u osnovnoj i srednjoj školi, od učiteljice u prvom razredu do profesora pred maturu.'],
+    pres: { n: '3 nivoa', nl: 'škola, grad, država', k: ['Ana, 7 godina, prvi razred', 'Mira, njena učiteljica'] },
     done: s => { s.intro = false; } },
-  { q: 'Šta učiteljica daje Ani?', title: 'Slova, brojevi i razumevanje', focus: CAM.class, hs: () => Wp(1000, -300, -196),
-    text: ['Ovo je učiteljica Mira. U njenom odeljenju je dvadesetoro dece. Toliko u proseku ima jedno odeljenje u Srbiji. Mira ih uči obično četiri godine zaredom.', 'Ona ih uči da čitaju, pišu, računaju i razumeju šta su pročitali. To su <strong>osnovne veštine</strong>. Na njima stoji sve što se posle uči, od hemije do zanata.', 'Gde ih ti koristiš? Kad čitaš uputstvo za lek, proveravaš račun u prodavnici ili tražiš polazak na redu vožnje. Svaki put koristiš nešto što te je neko naučio.'],
-    pres: { n: '20 dece', nl: 'u prosečnom odeljenju', k: ['Čitanje · računanje · razumevanje', 'Osnovne veštine za ceo život'] },
-    cap: 'Slova sa table postaju uputstvo za lek. Brojevi postaju račun koji umeš sam da proveriš.', capP: 'Tabla → lek i račun',
+  { q: 'Šta učiteljica daje Ani?', title: 'Šta učiteljica daje Ani?', focus: CAM.class, hs: () => Wp(1000, -300, -196),
+    text: ['Ovo je učiteljica Mira. U njenom odeljenju je dvadesetoro dece. Toliko u proseku ima jedno odeljenje u Srbiji. Mira ih uči obično četiri godine zaredom.', 'Ona ih uči da čitaju, pišu, računaju i razumeju šta su pročitali. To su <strong>osnovne veštine</strong>. Na njima stoji sve što se posle uči, od hemije do zanata.', 'Gde ih ti koristiš? Kad čitaš omiljenu knjigu, proveravaš račun u prodavnici ili tražiš polazak na redu vožnje. Svaki put koristiš nešto što te je neko naučio.'],
+    pres: { k: ['Čitanje · računanje · razumevanje', 'Veštine za ceo život'] },
+    cap: 'Slova sa table postaju omiljena knjiga. Brojevi postaju račun koji umeš sam da proveriš.', capP: 'Tabla → knjiga i račun',
     done: s => { s.L.add('skills'); s.glow = true; s.squint = true; } },
-  { q: 'Zašto Ana žmirka?', title: 'Učiteljica vidi dete svaki dan', focus: CAM.class, hs: () => Wp(1000, -152, -108),
-    text: ['Ana žmirka dok gleda u tablu. Mira to primeti, jer je viđa pet dana u nedelji i zna kako Ana inače gleda.', 'Mira javlja roditeljima. Oni vode Anu kod lekara. Ana dobija naočare i ponovo lepo vidi tablu.', 'Kad je problem ozbiljniji, na primer nasilje ili zanemarivanje, škola po pravilniku obaveštava roditelje i druge službe. To su centar za socijalni rad, zdravstvena služba i policija. Svi zajedno čine <strong>mrežu zaštite</strong>. Mira ne radi sama.'],
-    pres: { n: '5 dana', nl: 'u nedelji Mira vidi Anu', k: ['Primeti → javi → pomoć stiže', 'Mreža zaštite'] },
+  { q: 'Zašto Ana žmirka?', title: 'Učiteljica vidi celo dete', focus: CAM.class, hs: () => Wp(1000, -152, -108),
+    text: ['Ana žmirka dok gleda u tablu. Mira to primeti, jer je viđa pet dana u nedelji i zna kako Ana inače gleda. Mira ne prati samo ocene, ona vidi celo dete.', 'Mira javlja roditeljima. Oni vode Anu kod lekara. Ana dobija naočare i ponovo lepo vidi tablu.', 'Kad je problem ozbiljniji, na primer nasilje ili zanemarivanje, škola po pravilniku obaveštava roditelje i druge službe. To su centar za socijalni rad, zdravstvena služba i policija. Svi zajedno čine <strong>mrežu zaštite</strong>. Mira ne radi sama.'],
+    pres: { n: '5 dana u nedelji', k: ['Primeti → javi → pomoć stiže', 'Mreža zaštite'] },
     cap: 'Mira primeti i javi. Ostalo rade roditelji, lekar i druge službe, svako svoj deo.', capP: 'Mira primeti · drugi pomažu',
     done: s => { s.squint = false; s.glasses = true; s.lines.add('net'); s.L.add('net'); } },
   { q: 'Gde su Anini roditelji ujutru?', title: 'Dok deca uče, roditelji rade', focus: CAM.street, hs: () => Wp(1000, 58, -560),
-    text: ['Anina mama radi u pekari. Tata vozi autobus. Mogu mirno da rade jer znaju da je Ana na sigurnom, u školi.', 'To smo svi videli 16. marta 2020. Zbog korone su škole zatvorene. Počela je <strong>nastava na daljinu</strong>, preko televizije i interneta. Mlađa deca su bila kod kuće i neko je morao da bude uz njih.', 'Država je preporučila da jedan roditelj deteta do 12 godina ostane kod kuće. Tih dana je oko trećine poziva Zaštitniku građana bilo od majki kojima poslodavac to nije dozvolio.'],
-    pres: { n: '16. 3. 2020.', nl: 'škole zatvorene zbog korone', k: ['Škola radi → roditelji rade', 'Škola zatvorena → roditelji kod kuće'] },
+    text: ['Anina mama radi u pekari. Tata vozi autobus. Mogu mirno da rade jer znaju da je Ana na sigurnom, u školi.', 'To smo svi videli 16. marta 2020. Zbog pandemije korone škole su zatvorene. Počela je <strong>nastava na daljinu</strong>, preko televizije i interneta. Mlađa deca su bila kod kuće i neko je morao da bude uz njih.', 'Država je preporučila da jedan roditelj deteta do 12 godina ostane kod kuće. Tih dana je oko trećine poziva Zaštitniku građana bilo od majki kojima poslodavac to nije dozvolio.'],
+    pres: { k: ['Škola radi → roditelji rade', 'Škola zatvorena (pandemija) → roditelji kod kuće'] },
     cap: 'Školski dan je i radni dan roditelja. Kad škola stane, roditeljima je teško da rade.', capP: 'Škola stane · posao stane',
     done: s => { s.lines.add('mama'); s.lines.add('tata'); s.L.add('parents'); } },
-  { q: 'Gde je Ana za 20 godina?', title: 'Jedan nastavnik, hiljadu ljudi', focus: CAM.s4, hs: () => Wp(1000, 0, -520),
+  { q: 'Koliko dece vidi nastavnik?', title: 'Jedan nastavnik, hiljadu ljudi', focus: CAM.s4, hs: () => Wp(1000, 0, -520),
     text: ['Premotaj 20 godina. Ana je lekarka u domu zdravlja. Jovana je apotekarka, Marko električar, Mila pekarka. Sve su ih učili učitelji, pa nastavnici predmeta u osnovnoj i srednjoj školi.', 'Nastavnik matematike drži 20 časova nedeljno, po četiri u svakom odeljenju. To je pet odeljenja, oko 100 đaka. Za <strong>radni vek</strong> od 40 godina skupi se oko 1.000 ljudi.', 'U osnovnim školama radi 52.906 nastavnika. Kroz njihove ruke prođe skoro svako dete u Srbiji.'],
     pres: { n: '1.000 đaka', nl: 'jednog nastavnika predmeta za radni vek', k: ['52.906 nastavnika u osnovnim školama', 'Skoro svako dete prođe kroz njihove ruke'] },
     cap: 'Pet odeljenja po 20 đaka, i tako 40 godina. Isti đak ostaje do četiri godine, pa se skupi oko 1.000 različitih ljudi.', capP: '5 odeljenja × 20 đaka × 40 godina', tag: 'Procena',
@@ -1428,14 +1428,14 @@ const ST = [
 ];
 const FINAL = {
   solo: {
-    give: [['gold-2', '<b>Pismenost iz raznih oblasti.</b> Čitanje, računanje i razumevanje, od uputstva za lek do računa u prodavnici.'], ['gold-2', '<b>Prve stepenice za sve poslove u gradu.</b> Lekarka, pekarka, električar i programerka krenuli su iz školske klupe.'], ['teal', '<b>Prva pomoć detetu.</b> Nastavnik prvi primeti kad nešto nije u redu i pozove pomoć.'], ['teal', '<b>Čuvar dok roditelji rade.</b> Školski dan je i radni dan roditelja.'], ['gold-2', '<b>Utisak za ceo život.</b> Dobar nastavnik ostavlja trag koji traje decenijama.']],
+    give: [['gold-2', '<b>Pismenost iz raznih oblasti.</b> Čitanje, računanje i razumevanje, od omiljene knjige do računa u prodavnici.'], ['gold-2', '<b>Prve stepenice za sve poslove.</b> Lekarka, pekarka, električar i programerka krenuli su iz školske klupe.'], ['teal', '<b>Prva pomoć detetu.</b> Nastavnik prvi primeti kad nešto nije u redu i pozove pomoć.'], ['teal', '<b>Čuvar dok roditelji rade.</b> Školski dan je i radni dan roditelja.'], ['gold-2', '<b>Utisak za ceo život.</b> Dobar nastavnik ostavlja trag koji traje decenijama.']],
     care: [['blue', '<b>Država:</b> plata dostojna posla, bezbednost u školi, stručna podrška i vreme za usavršavanje.'], ['teal', '<b>Roditelji:</b> saradnja sa nastavnikom i poštovanje pred detetom.'], ['gold-2', '<b>Svi mi:</b> poštovanje i zahvalnost. Govorimo o nastavnicima s poštovanjem i kažemo im hvala.'], ['coral', '<b>Na vreme:</b> novog nastavnika nema bez pet godina fakulteta.']],
-    end: 'Nastavnika je malo, a njihov rad nosi ceo grad. Kad o njima brinemo kao o celim ljudima, grad raste sa njima.',
+    end: 'Nastavnika je malo, a njihov rad nosi celu zemlju. Kad o njima brinemo kao o celim ljudima, zemlja raste sa njima.',
   },
   pres: {
-    give: [['gold-2', 'Pismenost iz raznih oblasti'], ['gold-2', 'Prve stepenice za sve poslove u gradu'], ['teal', 'Prva pomoć detetu'], ['teal', 'Čuvar dok roditelji rade'], ['gold-2', 'Utisak za ceo život']],
+    give: [['gold-2', 'Pismenost iz raznih oblasti'], ['gold-2', 'Prve stepenice za sve poslove'], ['teal', 'Prva pomoć detetu'], ['teal', 'Čuvar dok roditelji rade'], ['gold-2', 'Utisak za ceo život']],
     care: [['blue', '<b>Država</b> · plata, bezbednost, podrška, vreme'], ['teal', '<b>Roditelji</b> · saradnja, poštovanje pred detetom'], ['gold-2', '<b>Svi mi</b> · poštovanje, zahvalnost'], ['coral', '<b>Na vreme</b> · 5 godina za novog nastavnika']],
-    end: 'Brinemo o nastavnicima · grad raste sa njima',
+    end: 'Brinemo o nastavnicima · zemlja raste sa njima',
   },
 };
 function buildState(i) { const s = fresh(); state = s; for (let k = 0; k < i; k++) ST[k].done(s); return s; }
@@ -1452,7 +1452,7 @@ function eyebrow(i) { return i === 0 ? 'Uvod' : i === 8 ? 'Kraj' : `${PH_NAMES[i
 let MODE = 'solo';
 try { const m = localStorage.getItem('nastavnici-nacin'); if (m === 'pres' || m === 'solo') MODE = m; } catch (e) { }
 function textHTML(s) {
-  if (MODE === 'pres' && s.pres) return `<div class="pr"><div class="pr-n">${s.pres.n}</div><div class="pr-nl">${s.pres.nl}</div><ul class="pr-k">${s.pres.k.map(k => `<li>${k}</li>`).join('')}</ul></div>`;
+  if (MODE === 'pres' && s.pres) return `<div class="pr">${s.pres.n ? `<div class="pr-n">${s.pres.n}</div>` : ''}${s.pres.nl ? `<div class="pr-nl">${s.pres.nl}</div>` : ''}<ul class="pr-k">${s.pres.k.map(k => `<li>${k}</li>`).join('')}</ul></div>`;
   return s.text.map(t => `<p>${t}</p>`).join('');
 }
 function fillText(i) {
@@ -1477,7 +1477,7 @@ function closeFinal() {
   fin.classList.remove('open'); fin.hidden = true;
   pos = { i: 8, stage: 'finalView' }; updateDots(); Sound.duck(false);
   camGo(CAM.grow, false, 1000);
-  hsLabel.textContent = 'Šta će nam nastavnici?'; hotspot.setAttribute('aria-label', 'Šta će nam nastavnici?'); hotspot.hidden = false; hsAnchor = () => Wp(1900, 0, -1300); hsDy = 0;
+  hsLabel.textContent = 'Zašto nam trebaju nastavnici?'; hotspot.setAttribute('aria-label', 'Zašto nam trebaju nastavnici?'); hotspot.hidden = false; hsAnchor = () => Wp(1900, 0, -1300); hsDy = 0;
   hsW = hotspot.offsetWidth; hsH = hotspot.offsetHeight; placeOverlays(); focusStage();
 }
 function hideFinal() { fin.classList.remove('open'); fin.hidden = true; }
@@ -1526,7 +1526,7 @@ function openClose(i) {
 }
 function startCons(i) {
   killRun(); killCam(); pos = { i, stage: 'cons' }; if (i !== 0) closePanel(); Sound.duck(false); updateDots();
-  const r = run = new Runner();
+  const r = run = new Runner(1 / TEMPO);
   (async () => {
     if (i !== 0) await camTween(r, fitCam(ST[i].focus(), false), 450);
     await CONS[i](r);
@@ -1690,6 +1690,7 @@ Sound = (() => {
         [26, 'F#5', 4, .56], [26, 'D5', 4, .32], [26, 'A4', 4, .26]],
       bell: [[26, 'D6', .045], [28, 'A6', .03]] },
   };
+  for (const n in PH) PH[n].bpm *= TEMPO;
   const secs = n => PH[n].beats * 60 / PH[n].bpm;
 
   function impulse(ctx, sec, decay) {
